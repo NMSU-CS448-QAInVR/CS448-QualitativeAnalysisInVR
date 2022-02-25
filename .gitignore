@@ -1,5 +1,7 @@
 # Open XR package setting
 Assets/XR/Settings/Open\ XR\ Package\ Settings.asset
+Assets/XR/Settings/OpenXR Package Settings.asset
+Assets/XR/Settings/OpenXR Package Settings.asset.meta
 # XR interaction
 Assets/XR-Interaction/
 Assets/XR-Interaction.meta
