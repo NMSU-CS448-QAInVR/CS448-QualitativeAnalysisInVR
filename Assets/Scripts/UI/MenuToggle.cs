@@ -9,6 +9,8 @@ public class MenuToggle : MonoBehaviour
     public InputActionReference toggleReferences;
     [SerializeField]
     GameObject menu;
+    [SerializeField]
+    GameObject background;
 
     // Start is called before the first frame update
     void Awake()
@@ -25,6 +27,7 @@ public class MenuToggle : MonoBehaviour
     private void Toggle(InputAction.CallbackContext context) {
         //Debug.LogError("Toggled");
         menu.SetActive(!menu.activeSelf);
+        background.SetActive(!background.activeSelf);
     } // end Toggle
 
 }
