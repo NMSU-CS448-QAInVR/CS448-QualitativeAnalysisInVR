@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -232,6 +232,7 @@ GameObject:
   - component: {fileID: 38063228}
   - component: {fileID: 38063227}
   - component: {fileID: 38063226}
+  - component: {fileID: 38063230}
   m_Layer: 0
   m_Name: RightHand Controller
   m_TagString: Untagged
@@ -847,6 +848,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toggleReferences: {fileID: -7980884713035439107, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   menu: {fileID: 2044611312}
+--- !u!1 &195824603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38063224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a89d0d72e8341974ea8a7d7e0813d22c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggleLaserActionReference: {fileID: -7899580075840497388, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!1 &195824603
 GameObject:
   m_ObjectHideFlags: 0
@@ -1712,6 +1726,7 @@ GameObject:
   - component: {fileID: 686484906}
   - component: {fileID: 686484905}
   - component: {fileID: 686484904}
+  - component: {fileID: 686484908}
   m_Layer: 0
   m_Name: LeftHand Controller
   m_TagString: Untagged
@@ -2206,6 +2221,19 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 7779212132400271959, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   m_ButtonPressPoint: 0.5
+--- !u!114 &686484908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686484902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a89d0d72e8341974ea8a7d7e0813d22c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggleLaserActionReference: {fileID: 7471281354546991640, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
