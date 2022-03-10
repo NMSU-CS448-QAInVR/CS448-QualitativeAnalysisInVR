@@ -36,11 +36,13 @@ public class MenuController : MonoBehaviour
       } // end if
 
       Show(InitialMenu);
+      current = InitialMenu;
    } // end Awake
 
    public void GoToMenu(GameObject des) {
       Hide(current);
       Show(des);
+      current = des;
    } // end SwapMenu
 
    public void SetCategoryType(CategoryType type) {

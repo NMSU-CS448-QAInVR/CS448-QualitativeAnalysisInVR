@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ColorType : MonoBehaviour
 {
-    private Renderer myRenderer;
+    private Image myImage;
     void Awake() {
-        myRenderer = this.GetComponent<Renderer>();
-        if (myRenderer)
-            Debug.LogError("Cannot find renderer for color type");
+        myImage = this.gameObject.GetComponent<Image>();
+        if (myImage == null)
+            Debug.LogError("Cannot find image for color type");
     }
 
     public Color GetValue() {
-        return myRenderer.material.GetColor("_Color");
+        return myImage.color;
     } // end Getvalue
 }

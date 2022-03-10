@@ -754,7 +754,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 1.648, z: 1.895}
   m_LocalScale: {x: 0.75, y: 1, z: 1}
   m_Children:
-  - {fileID: 914177484}
   - {fileID: 2044611313}
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -2942,8 +2941,8 @@ Transform:
   m_LocalPosition: {x: -0.088, y: 0, z: 0}
   m_LocalScale: {x: 2.2068553, y: 1.0525, z: 0.002}
   m_Children: []
-  m_Father: {fileID: 168346122}
-  m_RootOrder: 0
+  m_Father: {fileID: 2044611313}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &914177485
 BoxCollider:
@@ -4306,7 +4305,6 @@ GameObject:
   - component: {fileID: 1517980934}
   - component: {fileID: 1517980933}
   - component: {fileID: 1517980932}
-  - component: {fileID: 1517980936}
   m_Layer: 5
   m_Name: MainMenuCanvas
   m_TagString: Untagged
@@ -4417,21 +4415,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &1517980936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1517980930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34e6b3b31c0de4233b524284c45ab372, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CardPrefab: {fileID: 0}
-  CardColor: {r: 0, g: 0, b: 0, a: 0}
-  CategoryColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1928393074
 GameObject:
   m_ObjectHideFlags: 0
@@ -4623,8 +4606,9 @@ Transform:
   - {fileID: 2114302435}
   - {fileID: 214875183}
   - {fileID: 807428729}
+  - {fileID: 914177484}
   m_Father: {fileID: 168346122}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2044611314
 MonoBehaviour:
@@ -4644,7 +4628,7 @@ MonoBehaviour:
   CategoryColorMenu: {fileID: 214875182}
   CategoryTypeMenu: {fileID: 807428728}
   CardPrefab: {fileID: 5079874600087058494, guid: a75c8762f398742379886d881d777f10, type: 3}
-  BoardPrefab: {fileID: 0}
+  BoardPrefab: {fileID: 5079874600087058494, guid: a75c8762f398742379886d881d777f10, type: 3}
   InitialMenu: {fileID: 1517980930}
 --- !u!1 &2095687369
 GameObject:
