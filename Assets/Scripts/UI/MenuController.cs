@@ -11,6 +11,7 @@ public class MenuController : MonoBehaviour
    public GameObject CategoryTypeMenu;
    public GameObject CardPrefab;
    public GameObject BoardPrefab;
+   public GameObject InitialMenu;
 
    private Renderer CardPrefabRenderer;
    private Renderer BoardPrefabRenderer;
@@ -30,6 +31,11 @@ public class MenuController : MonoBehaviour
       if (BoardPrefabRenderer == null) {
          Debug.LogError("Cannot find renderer of board prefab");
       } // end if
+      if (InitialMenu == null) {
+         Debug.LogError("Initial Menu is not set");
+      } // end if
+
+      Show(InitialMenu);
    } // end Awake
 
    public void GoToMenu(GameObject des) {

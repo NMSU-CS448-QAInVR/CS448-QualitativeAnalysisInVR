@@ -2588,7 +2588,6 @@ GameObject:
   - component: {fileID: 807428733}
   - component: {fileID: 807428732}
   - component: {fileID: 807428731}
-  - component: {fileID: 807428730}
   m_Layer: 5
   m_Name: CategoryTypeMenuCanvas
   m_TagString: Untagged
@@ -2617,21 +2616,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.081, y: 0}
   m_SizeDelta: {x: 1102, y: 537}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &807428730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 807428728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34e6b3b31c0de4233b524284c45ab372, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CardPrefab: {fileID: 0}
-  CardColor: {r: 0, g: 0, b: 0, a: 0}
-  CategoryColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &807428731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4329,7 +4313,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1517980931
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4622,7 +4606,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2044611313
 Transform:
   m_ObjectHideFlags: 0
@@ -4659,8 +4643,9 @@ MonoBehaviour:
   CreateCardMenu: {fileID: 2114302434}
   CategoryColorMenu: {fileID: 214875182}
   CategoryTypeMenu: {fileID: 807428728}
-  CardPrefab: {fileID: 0}
+  CardPrefab: {fileID: 5079874600087058494, guid: a75c8762f398742379886d881d777f10, type: 3}
   BoardPrefab: {fileID: 0}
+  InitialMenu: {fileID: 1517980930}
 --- !u!1 &2095687369
 GameObject:
   m_ObjectHideFlags: 0
