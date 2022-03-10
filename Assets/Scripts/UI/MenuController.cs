@@ -13,15 +13,25 @@ public class MenuController : MonoBehaviour
    public GameObject BoardPrefab;
    public GameObject InitialMenu;
 
+   [Range(1, 10)]
+   public int max_sessions = 1;
+
+
    private Renderer CardPrefabRenderer;
    private Renderer BoardPrefabRenderer;
    
-   private GameObject current;
+   private List<UISession> sessions;
+
+   private int currentSessionID;
+   
+   private UISession currentSession;
+   
 
    private CategoryTypeEnum categoryType;
 
    void Awake() {
-      current = this.gameObject;
+      sessions = new List<UISession>();
+
       CardPrefabRenderer = CardPrefab.GetComponent<Renderer>();
       if (CardPrefabRenderer == null) {
          Debug.LogError("Cannot find renderer of card prefab");
@@ -36,14 +46,37 @@ public class MenuController : MonoBehaviour
       } // end if
 
       Show(InitialMenu);
-      current = InitialMenu;
+      currentSession = new UISession(InitialMenu);
+      sessions.Add(currentSession);
    } // end Awake
 
    public void GoToMenu(GameObject des) {
-      Hide(current);
-      Show(des);
-      current = des;
+      if (des == null) {
+         Debug.LogError("The next menu is null");
+         return;
+      } // end if
+      Hide(currentSession.GetCurrent());
+      Show(currentSession.MoveToNewMenu(des));
    } // end SwapMenu
+
+   public void GoPrevMenu() {
+      GameObject myCurrent = currentSession.GetCurrent();
+      GameObject des = currentSession.MoveToPrevMenu();
+      if (des == null)
+         return;
+
+      Hide(myCurrent);
+      Show(des);
+   } // end GoPrevMenu
+
+   public void GoForwdMenu() {
+      GameObject myCurrent = currentSession.GetCurrent();
+      GameObject des = currentSession.MoveToForwardMenu();
+      if (des == null)
+         return;
+      Hide(myCurrent);   
+      Show(des);
+   } // end GoForwdMenu
 
    public void SetCategoryType(CategoryType type) {
       categoryType = type.GetValue();
