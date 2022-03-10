@@ -207,6 +207,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Menu",
+                    "type": "Button",
+                    "id": "ff488d34-87ab-4c44-9985-3b4e7aa02aa0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                 },
+                 {
                     "name": "Trigger Touch",
                     "type": "Button",
                     "id": "921f015f-721a-4eb3-b2f0-761499c5c69c",
@@ -577,6 +586,28 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "UI Press Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bff913b5-d2f8-4352-b893-9542a41a9b77",
+                    "path": "<XRController>{LeftHand}/menuButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "15c52c88-f7e4-4a7c-89dc-14b073c9adbe",
+                    "path": "<XRController>{LeftHand}/primary",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -1121,6 +1152,34 @@
                     "processors": "",
                     "groups": "",
                     "action": "Trigger Touch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Toggle",
+            "id": "5d7f8c6e-a704-4f50-86a9-a67cb35d4480",
+            "actions": [
+                {
+                    "name": "Menu",
+                    "type": "Button",
+                    "id": "30289f3c-0029-45ad-98cf-7341f80fa1a6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "55b74e42-673e-41ca-8d1c-bb4518269348",
+                    "path": "*/{Menu}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
