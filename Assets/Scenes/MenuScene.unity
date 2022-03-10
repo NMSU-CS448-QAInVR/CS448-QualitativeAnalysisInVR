@@ -770,9 +770,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5cea2b4afece40cf8b2796260c87ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toggleReferences: {fileID: -7980884713035439107, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  toggleReferences: {fileID: 4312769681353694862, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   menu: {fileID: 2044611312}
-  background: {fileID: 914177483}
 --- !u!1001 &170860989
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2929,7 +2928,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &914177484
 Transform:
   m_ObjectHideFlags: 0

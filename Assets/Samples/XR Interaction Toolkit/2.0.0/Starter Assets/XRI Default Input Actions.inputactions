@@ -593,8 +593,8 @@
                 },
                 {
                     "name": "",
-                    "id": "0ba6b427-8456-4526-a421-4d12faaf830e",
-                    "path": "<OculusTouchController>{LeftHand}/primaryButton",
+                    "id": "15c52c88-f7e4-4a7c-89dc-14b073c9adbe",
+                    "path": "<XRController>{LeftHand}/primary",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
