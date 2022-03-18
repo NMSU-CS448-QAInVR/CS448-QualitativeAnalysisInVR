@@ -30,24 +30,25 @@ public class SaveLoadSystem
         items.Clear();
     } // end Clear
 
-
-    public string GetJsonSave() {
+    public void SaveOnQuest() {
         List<SaveFormat> result = new List<SaveFormat>();
         foreach (Savable item in items) {
-            result.Add(item.SaveObject());
+            SaveFormat fm = item.SaveObject();
+            if (fm == null) {
+                Debug.Log("SaveFormat item is null");
+                continue;
+            } // end if
+            result.Add(fm);
         } // end foreach
-        string my_data_json = JsonUtility.ToJson(items);
-        return my_data_json;
-    } // end Save
-
-    public void SaveOnQuest() {
-        string my_data = GetJsonSave();
-        FileManager.WriteStringTo(path, my_data);
+        Debug.Log("Count is " + result.Count);
+        FileManager.XmlSerializeList(path, result);
     } // end SaveOnQuest
 
     public List<SaveFormat> LoadFromQuest() {
-        string my_data_json = FileManager.ReadStringFrom(path); 
-        List<SaveFormat> my_data = JsonUtility.FromJson<List<SaveFormat>>(my_data_json);
+        string my_data_xml = FileManager.ReadStringFrom(path); 
+        Debug.Log(my_data_xml);
+        //List<SaveFormat> my_data = JsonUtility.FromJson<List<SaveFormat>>(my_data_json);
+        List<SaveFormat> my_data = FileManager.XmlDeserializeList(path);
         return my_data;
     }
 }

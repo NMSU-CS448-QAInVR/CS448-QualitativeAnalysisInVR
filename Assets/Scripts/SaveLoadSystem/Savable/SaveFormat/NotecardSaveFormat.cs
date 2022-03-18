@@ -3,27 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+[Serializable]
 public class NotecardSaveFormat : SaveFormat
 {
     // location
-    private float x;
-    private float y;
-    private float z;
+    public float x;
+    
+    public float y;
+    
+    public float z;
 
     // rotation
-    private float quaternion_x;
-    private float quaternion_y;
-    private float quaternion_z;
+    
+    public float quaternion_x;
+    
+    public float quaternion_y;
+    
+    public float quaternion_z;
+    public float quaternion_w;
     
 
     // color
-    private float color_r;
-    private float color_g;
-    private float color_b;
-    private float color_a;
+    
+    public float color_r;
+    
+    public float color_g;
+    
+    public float color_b;
+    
+    public float color_a;
 
     // text
-    private string text;
+    
+    public string text;
 
     public NotecardSaveFormat() : base(FormatType.NOTECARD) {
     } // end NotecardSaveFormat
@@ -41,6 +53,7 @@ public class NotecardSaveFormat : SaveFormat
         quaternion_x = transform.rotation.x;
         quaternion_y = transform.rotation.y;
         quaternion_z = transform.rotation.z;
+        quaternion_w  = transform.rotation.w;
 
         // color
         Renderer renderer = note.GetComponent<Renderer>();
@@ -62,7 +75,7 @@ public class NotecardSaveFormat : SaveFormat
 
     public override void LoadObjectInto(GameObject notecard) {
         notecard.transform.position = new Vector3(x, y, z);
-        notecard.transform.rotation = new Quaternion(quaternion_x, quaternion_y, quaternion_z, 0);
+        notecard.transform.rotation = new Quaternion(quaternion_x, quaternion_y, quaternion_z, quaternion_w);
 
         Renderer renderer = notecard.GetComponent<Renderer>();
         if (renderer == null) {

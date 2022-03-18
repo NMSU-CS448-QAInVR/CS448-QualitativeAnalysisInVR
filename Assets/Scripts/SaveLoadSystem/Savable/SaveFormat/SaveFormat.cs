@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
+using System.Text;
 using UnityEngine;
 
-public enum FormatType {
-    NOTECARD, BOARD
-}
-
-public abstract class SaveFormat
+[XmlType("SaveFormat")]
+[XmlInclude(typeof(NotecardSaveFormat))]
+public class SaveFormat
 {
-    private FormatType type;
+    public FormatType type;
 
     // Call this function to set the type
+
+    public SaveFormat() {
+        type = FormatType.NONE;
+    } // end SaveFormat
+
     public SaveFormat(FormatType myType) {
         type = myType;
     } // end SaveFormat
@@ -19,5 +24,6 @@ public abstract class SaveFormat
         return type;
     } // end getType
 
-    public abstract void LoadObjectInto(GameObject obj);
+    public virtual void  LoadObjectInto(GameObject obj) {
+    }
 }

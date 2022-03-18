@@ -9,7 +9,7 @@ public class NotecardSavable : MonoBehaviour, Savable
     public SaveFormat SaveObject() {
         // check if the components are here
         try {
-            NotecardSaveFormat result = new NotecardSaveFormat(this.gameObject);
+            SaveFormat result = new NotecardSaveFormat(this.gameObject);
             return result;
         } catch (Exception b) {
             Debug.Log("Exception here");

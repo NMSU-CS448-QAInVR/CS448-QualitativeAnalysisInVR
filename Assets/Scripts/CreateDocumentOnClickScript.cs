@@ -34,6 +34,7 @@ public class CreateDocumentOnClickScript : MonoBehaviour
 
         foreach (SaveFormat item in items) {
             GameObject obj = (GameObject) Object.Instantiate(note, new Vector3(0, 1, 0), Quaternion.Euler(0, 0, 0));
+            Debug.Log(item);
             item.LoadObjectInto(obj);
 
             objects.Add((GameObject) obj);
