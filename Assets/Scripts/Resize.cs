@@ -10,21 +10,38 @@ public class Resize : MonoBehaviour
     public InputActionReference sizePrimary = null;
     public InputActionReference sizeSecondary = null;
 
+    private float HandDistanceVert;
+    private float HandDistanceHoriz;
 
-    bool cardHeld;
+    bool cardHeld = false;
+    bool cardSizeActive = false;
 
     //[SerializeField]
      public GameObject card;
+
     // Gets the local scale of a game object
     
     public void Clicked(){
+       
         Debug.Log("clicked");
         cardHeld = true;
     }
 
     public void LetGo(){
+        
         Debug.Log("let go");
         cardHeld = false;
+    }
+
+    public void triggered(){
+        Debug.Log("trigger pressed");
+        //Debug.Log(GetPosition.LX);
+        //Debug.Log(GetPositionR.RX);
+        cardSizeActive = true;  
+    }
+
+    public void unTriggered(){
+        cardSizeActive = false;
     }
 
     void Start()
@@ -37,12 +54,20 @@ public class Resize : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
        if(card != null && cardHeld == true){
         
        Vector3 objectScale = transform.localScale;
        float value = sizePrimary.action.ReadValue<float>();
        float value2 = sizeSecondary.action.ReadValue<float>();
        size(value, value2, objectScale);  
+
+       if(cardSizeActive == true){
+           HandDistanceHoriz = System.Math.Abs(GetPosition.LX - GetPositionR.RX);
+           HandDistanceVert = System.Math.Abs(GetPosition.LY - GetPositionR.RY);
+           transform.localScale = new Vector3(HandDistanceHoriz, HandDistanceVert, objectScale.z);}
+
        }     
     }
 
