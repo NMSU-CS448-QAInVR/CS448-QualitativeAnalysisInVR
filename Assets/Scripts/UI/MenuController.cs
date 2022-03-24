@@ -12,6 +12,8 @@ public class MenuController : MonoBehaviour
    public GameObject CardPrefab;
    public GameObject BoardPrefab;
    public GameObject InitialMenu;
+   [SerializeField]
+   GameObject SpawnLocation;
 
    [Range(1, 10)]
    public int max_sessions = 1;
@@ -89,7 +91,7 @@ public class MenuController : MonoBehaviour
       } // end if
       CardPrefabRenderer.material.SetColor("_Color", color.GetValue());
 
-      Object.Instantiate(CardPrefab, new Vector3(0, 1, 0), Quaternion.Euler(0, 0, 0));
+      Object.Instantiate(CardPrefab, SpawnLocation.transform.position, SpawnLocation.transform.rotation);
    } // end CreateCard
 
    public void CreateCategory(ColorType color) {
@@ -99,7 +101,7 @@ public class MenuController : MonoBehaviour
       } // end if
       BoardPrefabRenderer.material.SetColor("_Color", color.GetValue());
 
-      Object.Instantiate(BoardPrefab, new Vector3(0, 1, 0), Quaternion.Euler(0, 0, 0));
+      Object.Instantiate(BoardPrefab, SpawnLocation.transform.position, SpawnLocation.transform.rotation);
    } // end CreateCategory
    
    private void Hide(GameObject menu) {
