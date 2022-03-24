@@ -9,6 +9,7 @@ public class CreateDocumentOnClickScript : MonoBehaviour
     private SaveLoadSystem sys;
     List<GameObject> objects;
 
+
     void Awake() {
         sys = new SaveLoadSystem();
         objects = new List<GameObject>();
@@ -21,12 +22,16 @@ public class CreateDocumentOnClickScript : MonoBehaviour
     }
 
     public void Save() {
-        sys.SaveOnQuest();
+        sys.SaveOnQuest(sys.GetCurrentPath());
     } // end Save
 
-    public void Load() {
+    public void SaveAs(string path) {
+         sys.SaveOnQuest(path, true);
+    } // end SaveAs
+
+    public void Load(string path) {
         Delete();
-        List<SaveFormat> items = sys.LoadFromQuest();
+        List<SaveFormat> items = sys.LoadFromQuest(path);
         if (items == null) {
             Debug.LogError("The loaded items is empty");
             return;

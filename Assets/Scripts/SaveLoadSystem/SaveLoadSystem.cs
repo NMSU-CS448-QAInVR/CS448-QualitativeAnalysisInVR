@@ -6,8 +6,8 @@ using System;
 public class SaveLoadSystem
 {
     List<Savable> items;
-    private const string path = "test_save.dat";
-
+    private string current_path = "default_save.dat";
+   
     public SaveLoadSystem() {
         items = new List<Savable>();
     } // end Awake
@@ -30,7 +30,11 @@ public class SaveLoadSystem
         items.Clear();
     } // end Clear
 
-    public void SaveOnQuest() {
+    public void SaveOnQuest(string path, bool setCurrentPath=false) {
+        if (setCurrentPath) {
+            current_path = path;
+        } // end if
+
         List<SaveFormat> result = new List<SaveFormat>();
         foreach (Savable item in items) {
             SaveFormat fm = item.SaveObject();
@@ -44,11 +48,16 @@ public class SaveLoadSystem
         FileManager.XmlSerializeList(path, result);
     } // end SaveOnQuest
 
-    public List<SaveFormat> LoadFromQuest() {
+    public List<SaveFormat> LoadFromQuest(string path) {
         string my_data_xml = FileManager.ReadStringFrom(path); 
+        current_path = path;
         Debug.Log(my_data_xml);
         //List<SaveFormat> my_data = JsonUtility.FromJson<List<SaveFormat>>(my_data_json);
         List<SaveFormat> my_data = FileManager.XmlDeserializeList(path);
         return my_data;
-    }
+    } // end LoadFromQuest
+
+    public string GetCurrentPath() {
+        return current_path;
+    } // end GetCurrentPath
 }
