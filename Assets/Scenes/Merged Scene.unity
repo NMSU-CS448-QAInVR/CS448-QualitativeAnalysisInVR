@@ -10162,7 +10162,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1777721565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10180,8 +10180,8 @@ MonoBehaviour:
   CreateCardMenu: {fileID: 1337833490}
   CategoryColorMenu: {fileID: 925669403}
   CategoryTypeMenu: {fileID: 663819055}
-  CardPrefab: {fileID: 5079874600087058494, guid: 431535fdb35f64086ab62aff91e5c368, type: 3}
-  BoardPrefab: {fileID: 5079874600087058494, guid: 431535fdb35f64086ab62aff91e5c368, type: 3}
+  CardPrefab: {fileID: 5079874600087058494, guid: 6c1402743bdd94cfd8d75b44f6a49814, type: 3}
+  BoardPrefab: {fileID: 5079874600087058494, guid: 6c1402743bdd94cfd8d75b44f6a49814, type: 3}
   InitialMenu: {fileID: 466158702}
   ListViewButtonTemplate: {fileID: 1435453678}
   ListViewContentObject: {fileID: 1940776543}
