@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5079874600087058493}
   - component: {fileID: 4113771564491047581}
   - component: {fileID: 6018270440344305156}
+  - component: {fileID: 474473574383290906}
   m_Layer: 0
   m_Name: Notecard-try1
   m_TagString: Untagged
@@ -157,16 +158,64 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 474473574383290906}
+        m_TargetAssemblyTypeName: Resize, Assembly-CSharp
+        m_MethodName: Clicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 474473574383290906}
+        m_TargetAssemblyTypeName: Resize, Assembly-CSharp
+        m_MethodName: LetGo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_Activated:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 474473574383290906}
+        m_TargetAssemblyTypeName: Resize, Assembly-CSharp
+        m_MethodName: triggered
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_Deactivated:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 474473574383290906}
+        m_TargetAssemblyTypeName: Resize, Assembly-CSharp
+        m_MethodName: unTriggered
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnFirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -255,6 +304,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c163e667a257497bae746a8df3bbd44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &474473574383290906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5079874600087058494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8df92209e9751734f84da796512ffdd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizePrimary: {fileID: -6059904301284996345, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  sizeSecondary: {fileID: 1716673005982093081, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  card: {fileID: 5079874600087058494}
 --- !u!1 &6578839774316090409
 GameObject:
   m_ObjectHideFlags: 0
