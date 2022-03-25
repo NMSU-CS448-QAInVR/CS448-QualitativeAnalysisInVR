@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 5079874600087058493}
   - component: {fileID: 4113771564491047581}
   - component: {fileID: 6018270440344305156}
-  - component: {fileID: 5045666315681197042}
   m_Layer: 0
   m_Name: Notecard-try1
   m_TagString: Untagged
@@ -239,7 +238,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5079874600087058494}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9b2d083080e848ec86825f6686dfe6d, type: 3}
   m_Name: 
@@ -254,18 +253,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c163e667a257497bae746a8df3bbd44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5045666315681197042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5079874600087058494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad0b1d833d2b9af44ae8802b7c33c6fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6578839774316090409

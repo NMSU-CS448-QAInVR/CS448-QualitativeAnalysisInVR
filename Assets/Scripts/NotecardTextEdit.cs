@@ -15,11 +15,6 @@ public class NotecardTextEdit : MonoBehaviour
             Debug.LogError("Notecard Object does not have the text component");
     }
 
-    // Update is called once per frame
-    void Update()
-    {    
-    }
-
     void ChangeText(string text) {
         this.textEditor.SetText(text);
     }
