@@ -214,15 +214,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Trigger Touch",
-                    "type": "Button",
-                    "id": "921f015f-721a-4eb3-b2f0-761499c5c69c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -610,17 +601,6 @@
                     "action": "Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "50d64905-4208-4734-870f-91c81e63cce6",
-                    "path": "<XRController>{LeftHand}/triggerTouched",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Trigger Touch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
@@ -782,13 +762,13 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Trigger Touch",
-                    "type": "Button",
-                    "id": "fad9d5ba-1873-4d90-87ea-5f0f32bb7e39",
+                    "name": "Stick Click",
+                    "type": "Value",
+                    "id": "dc22bfbb-fa79-4a5e-bb32-a798d6c7cbfd",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -1146,12 +1126,12 @@
                 },
                 {
                     "name": "",
-                    "id": "19186617-db4b-4dc8-9546-68882f5f3506",
-                    "path": "<XRController>{RightHand}/triggerTouched",
+                    "id": "89124472-8527-4ad7-bd14-21a8ae7779c6",
+                    "path": "<XRController>{RightHand}/joystickClicked",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Trigger Touch",
+                    "action": "Stick Click",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -1190,7 +1170,7 @@
             "id": "f5d91014-0be3-42d8-867b-7d9c1a7def71",
             "actions": [
                 {
-                    "name": "resizeUP",
+                    "name": "Button A",
                     "type": "Button",
                     "id": "8a3b267c-54a6-4e43-852c-09bbec36ffa9",
                     "expectedControlType": "Button",
@@ -1208,7 +1188,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "resizeDOWN",
+                    "name": "Button B",
                     "type": "Button",
                     "id": "2789ab91-426d-4d02-8357-1b45b15af2ab",
                     "expectedControlType": "Button",
@@ -1221,11 +1201,11 @@
                 {
                     "name": "",
                     "id": "4ceba50b-0573-4042-931e-34e7b24be662",
-                    "path": "<OculusTouchController>{RightHand}/primaryButton",
+                    "path": "<XRController>{RightHand}/primaryButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "resizeUP",
+                    "action": "Button A",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -1247,7 +1227,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "resizeDOWN",
+                    "action": "Button B",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
