@@ -27,8 +27,8 @@ public class MenuToggle : MonoBehaviour
     private void Toggle(InputAction.CallbackContext context) {
         Debug.LogError("Toggled");
         menu.SetActive(!menu.activeSelf);
-        menu.transform.position = MenuMointPoint.transform.position;
-        menu.transform.rotation = MenuMointPoint.transform.rotation;
+        this.transform.position = MenuMointPoint.transform.position;
+        this.transform.rotation = MenuMointPoint.transform.rotation;
     } // end Toggle
 
 }

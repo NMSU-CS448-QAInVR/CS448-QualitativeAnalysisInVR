@@ -57,6 +57,24 @@ public class FileManager {
         return result;
     } // end ReadStringFrom
 
+    public static FileInfo[] GetFileList() {
+        DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath);
+        return di.GetFiles();
+    } // end GetFileList
+
+    public static bool EndsWith(string str, string end) {
+        int strLen = str.Length;
+        for (int i = 0; i < end.Length; ++i) {
+            int strIdx = strLen - 1 - i;
+            int endIdx = end.Length - 1 - i;
+            if (strIdx < str.Length && str[strIdx] != end[endIdx]) {
+                return false;
+            } // end if
+        } // end for i
+
+        return true;
+    } // end EndsWith
+
     public static List<SaveFormat> XmlDeserializeList(string path) {
         string final_path = Path.Combine(Application.persistentDataPath, path);
         using (StreamReader file = new StreamReader(final_path)) {
