@@ -1,38 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;   
 using TMPro;
 
 public class MenuController : MonoBehaviour
 {
+   // menus
+   [Header("Menus Canvas")]
    public GameObject MainMenu;
    public GameObject CreateMenu;
    public GameObject CreateCardMenu;
    public GameObject CategoryColorMenu;
    public GameObject CategoryTypeMenu;
-   public GameObject CardPrefab;
-   public GameObject BoardPrefab;
    public GameObject InitialMenu;
+   public GameObject PromptMenu;
+   public GameObject ProgressMenu;
+
+   // List
+   [Header("List View")]
    public GameObject ListViewButtonTemplate;
    public GameObject ListViewContentObject;
+
+   // locations
+   [Header("Spawn Location")]
    [SerializeField]
    GameObject SpawnLocation;
 
+   // session
+   [Header("Session")]
    [Range(1, 10)]
    public int max_sessions = 1;
+   private List<UISession> sessions;
+   private int currentSessionID;
+   private UISession currentSession;
 
+   // prefab
+   [Header("Prefab")]
+   public GameObject CardPrefab;
+   public GameObject BoardPrefab;
 
+   // prefab renderer
    private Renderer CardPrefabRenderer;
    private Renderer BoardPrefabRenderer;
    
-   private List<UISession> sessions;
-
-   private int currentSessionID;
-   
-   private UISession currentSession;
+   // save load system
    private SaveLoadSystem saveLoadSys;
-   
-
+   // type of category
    private CategoryTypeEnum categoryType;
 
    void Awake() {
@@ -143,6 +158,68 @@ public class MenuController : MonoBehaviour
       Object.Instantiate(BoardPrefab, SpawnLocation.transform.position, SpawnLocation.transform.rotation);
    } // end CreateCategory
 
+   /*
+      return an array of 2 elements that contain the buttons Yes/No of the prompt menu. 
+      array[0] is the yes button
+      array[1] is the no button
+      precodnition: menu is not null
+   */
+   private Button[] PromptExtractButtons(GameObject menu) {
+      Button[] result = new Button[2];
+
+      // extract the yes button
+      Button[] temp = menu.GetComponentsInChildren<Button>();
+      if (temp.Length > 2 || temp.Length < 2) {
+         return result;
+      } // end if
+      result = temp;
+
+      return result;
+   } // end PromptExtractbutton
+
+   /*
+      return the prompt object of the menu. 
+      precodnition: menu is not null
+   */
+   private TextMeshPro GetPromptField(GameObject menu) {
+      return menu.GetComponentInChildren<TextMeshPro>();
+   } // end GetPromptField
+
+   public void ShowPrompt(string prompt, UnityAction action) {
+      TextMeshPro promptField = GetPromptField(PromptMenu);
+      if (promptField == null)
+         return;
+
+      promptField.SetText(prompt);
+
+      Button[] buttons = PromptExtractButtons(PromptMenu);
+      // yes button
+      if (buttons[0] != null)
+         buttons[0].onClick.AddListener(delegate {action();});
+      // no button
+      if (buttons[1] != null)
+         buttons[1].onClick.AddListener(delegate {PromptMenu.SetActive(false);});
+
+      PromptMenu.SetActive(true);
+   } // end ShowPrompt
+
+   public bool ShowPrompt(string prompt) {
+      TextMeshPro promptField = GetPromptField(PromptMenu);
+      if (promptField == null)
+         return false;
+      
+      Button[] buttons = PromptExtractButtons(PromptMenu);
+      // yes button
+      if (buttons[0] != null)
+         buttons[0].onClick.AddListener(delegate {;});
+      // no button
+      if (buttons[1] != null)
+         buttons[1].onClick.AddListener(delegate {PromptMenu.SetActive(false);});
+
+      PromptMenu.SetActive(true);
+      return false;
+   } // end ShowPrompt
+
     public void Save() {
       saveLoadSys.SaveOnQuest(saveLoadSys.GetCurrentPath());
     } // end Save
@@ -157,8 +234,14 @@ public class MenuController : MonoBehaviour
          saveLoadSys.SaveOnQuest(path, true);
     } // end SaveAs
 
-    public void Load(string path) {
-        Delete();
+   public void Load(string path) {
+         ShowPrompt("Do you want to load: " + path, delegate {
+            PLoadSession(path);
+         });
+    } // end Load
+
+   private void PLoadSession(string path) {
+      Delete();
         List<SaveFormat> items = saveLoadSys.LoadFromQuest(path);
         if (items == null) {
             Debug.LogError("The loaded items is empty");
@@ -178,7 +261,9 @@ public class MenuController : MonoBehaviour
                saveLoadSys.Add(obj);
             } // end if
         } // end foreach
-    } // end Load
+   } // end PLoadSession
+
+   
 
     public void Delete() {
         foreach (GameObject obj in saveLoadSys.objects) {
