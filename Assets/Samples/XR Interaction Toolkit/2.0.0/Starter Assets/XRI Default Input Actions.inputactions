@@ -214,15 +214,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                 },
-                 {
-                    "name": "Trigger Touch",
-                    "type": "Button",
-                    "id": "921f015f-721a-4eb3-b2f0-761499c5c69c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -610,17 +601,6 @@
                     "action": "Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "50d64905-4208-4734-870f-91c81e63cce6",
-                    "path": "<XRController>{LeftHand}/triggerTouched",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Trigger Touch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
@@ -782,13 +762,13 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Trigger Touch",
-                    "type": "Button",
-                    "id": "fad9d5ba-1873-4d90-87ea-5f0f32bb7e39",
+                    "name": "Stick Click",
+                    "type": "Value",
+                    "id": "dc22bfbb-fa79-4a5e-bb32-a798d6c7cbfd",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -1146,12 +1126,12 @@
                 },
                 {
                     "name": "",
-                    "id": "19186617-db4b-4dc8-9546-68882f5f3506",
-                    "path": "<XRController>{RightHand}/triggerTouched",
+                    "id": "89124472-8527-4ad7-bd14-21a8ae7779c6",
+                    "path": "<XRController>{RightHand}/joystickClicked",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Trigger Touch",
+                    "action": "Stick Click",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -1180,6 +1160,74 @@
                     "processors": "",
                     "groups": "",
                     "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Customize",
+            "id": "f5d91014-0be3-42d8-867b-7d9c1a7def71",
+            "actions": [
+                {
+                    "name": "Button A",
+                    "type": "Button",
+                    "id": "8a3b267c-54a6-4e43-852c-09bbec36ffa9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Scencechange",
+                    "type": "Button",
+                    "id": "653f1037-01b5-4b22-975e-942a60b730c8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Button B",
+                    "type": "Button",
+                    "id": "2789ab91-426d-4d02-8357-1b45b15af2ab",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4ceba50b-0573-4042-931e-34e7b24be662",
+                    "path": "<XRController>{RightHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Button A",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "83cb8944-c4a9-462e-9290-1bb817c223e2",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Scencechange",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1b7fe188-ef2f-4333-af24-aa8d0d0a6e34",
+                    "path": "<XRController>{RightHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Button B",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
