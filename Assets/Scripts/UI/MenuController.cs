@@ -172,6 +172,12 @@ public class MenuController : MonoBehaviour
       if (temp.Length > 2 || temp.Length < 2) {
          return result;
       } // end if
+      if (temp[0].name.ToLower() == "no") {
+         Button t = temp[0];
+         temp[0] = temp[1];
+         temp[1] = t;
+      } // end if
+
       result = temp;
 
       return result;
@@ -181,12 +187,13 @@ public class MenuController : MonoBehaviour
       return the prompt object of the menu. 
       precodnition: menu is not null
    */
-   private TextMeshPro GetPromptField(GameObject menu) {
-      return menu.GetComponentInChildren<TextMeshPro>();
+   private TextMeshProUGUI GetPromptField(GameObject menu) {
+      return menu.GetComponentInChildren<TextMeshProUGUI>();
    } // end GetPromptField
 
    public void ShowPrompt(string prompt, UnityAction action) {
-      TextMeshPro promptField = GetPromptField(PromptMenu);
+      Debug.Log("In Prompt");
+      TextMeshProUGUI promptField = GetPromptField(PromptMenu);
       if (promptField == null)
          return;
 
@@ -200,11 +207,13 @@ public class MenuController : MonoBehaviour
       if (buttons[1] != null)
          buttons[1].onClick.AddListener(delegate {PromptMenu.SetActive(false);});
 
+      Debug.Log("Show Prompt");
       PromptMenu.SetActive(true);
    } // end ShowPrompt
 
    public bool ShowPrompt(string prompt) {
-      TextMeshPro promptField = GetPromptField(PromptMenu);
+       
+      TextMeshProUGUI promptField = GetPromptField(PromptMenu);
       if (promptField == null)
          return false;
       
