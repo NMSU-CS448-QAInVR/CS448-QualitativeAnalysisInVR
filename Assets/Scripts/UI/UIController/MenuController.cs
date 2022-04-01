@@ -182,9 +182,10 @@ namespace UIController {
       } // end Save
 
       public void SaveAs(GameObject obj) {
-         TextMeshPro input = obj.GetComponent<TextMeshPro>();
+         TMP_InputField input = obj.GetComponent<TMP_InputField>();
          if (input == null) 
             return;
+         Debug.Log("Saving");
          SaveAs(input.text + ".dat");
       } // end SaveAs
       private void SaveAs(string path) {

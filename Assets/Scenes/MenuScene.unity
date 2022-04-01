@@ -918,7 +918,15 @@ PrefabInstance:
     - target: {fileID: 6768532458360871650, guid: b0e236d35c7a7486f86ddbeca65d5d7b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 6768532457773582898, guid: b0e236d35c7a7486f86ddbeca65d5d7b, type: 3}
+      objectReference: {fileID: 1114040581}
+    - target: {fileID: 6768532458360871650, guid: b0e236d35c7a7486f86ddbeca65d5d7b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SaveAs
+      objectReference: {fileID: 0}
+    - target: {fileID: 6768532458360871650, guid: b0e236d35c7a7486f86ddbeca65d5d7b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIController.MenuController, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 6768532458690355503, guid: b0e236d35c7a7486f86ddbeca65d5d7b, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -1956,6 +1964,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1114040581 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 644738916, guid: b0e236d35c7a7486f86ddbeca65d5d7b, type: 3}
+  m_PrefabInstance: {fileID: 644738914}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77371ee045f374f129a635d606d5cf60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1926444573 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1311071383, guid: b0e236d35c7a7486f86ddbeca65d5d7b, type: 3}
