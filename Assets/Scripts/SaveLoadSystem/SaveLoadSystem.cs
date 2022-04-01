@@ -2,31 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.IO;
 
 public class SaveLoadSystem
 {
     List<Savable> items;
+    public List<GameObject> objects;
     private string current_path = "default_save.dat";
    
     public SaveLoadSystem() {
         items = new List<Savable>();
+        objects = new List<GameObject>();
     } // end Awake
 
-    public void Add(Savable obj) {
+    public void Add(GameObject obj) {
         if (obj == null)
             return;
         
-        items.Add(obj);
+        objects.Add(obj);
+        Savable sav = ((GameObject) obj).GetComponent<Savable>();
+        items.Add(sav);
     } // end Add
 
-    public void Remove(Savable obj) {
+    public void Remove(GameObject obj) {
         if (obj == null)
             return;
         
-        items.Remove(obj);
+        objects.Remove(obj);
+        Savable sav = ((GameObject) obj).GetComponent<Savable>();
+        items.Remove(sav);
     } // end Remove
 
     public void Clear() {
+        objects.Clear();
         items.Clear();
     } // end Clear
 
@@ -56,6 +64,22 @@ public class SaveLoadSystem
         List<SaveFormat> my_data = FileManager.XmlDeserializeList(path);
         return my_data;
     } // end LoadFromQuest
+
+    public List<string> GetSessionsList() {
+        FileInfo[] infos = FileManager.GetFileList();
+        Debug.Log("There are  " + infos.Length + " files");
+        List<string> result = new List<string>();
+        if (infos != null) {
+            foreach (FileInfo info in infos) {
+                Debug.Log("In file: " + info.Name);
+                string name = info.Name;
+                if (FileManager.EndsWith(name, ".dat")) {
+                    result.Add(name);
+                } // end if
+            } // end foreach
+        } // end if
+        return result;
+    } // end GetSessionsList
 
     public string GetCurrentPath() {
         return current_path;
