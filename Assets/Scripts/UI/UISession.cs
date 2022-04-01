@@ -1,20 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UIController;
 
 public class UISession
 {
-    Stack<GameObject> prev;
-    Queue<GameObject> forward;
-    GameObject current;
+    Stack<BaseSubMenuController> prev;
+    Queue<BaseSubMenuController> forward;
+    BaseSubMenuController current;
 
-    public UISession(GameObject intial) {
-        prev = new Stack<GameObject>();
-        forward = new Queue<GameObject>();  
+    public UISession(BaseSubMenuController intial) {
+        prev = new Stack<BaseSubMenuController>();
+        forward = new Queue<BaseSubMenuController>();  
         current = intial;
     } // end UISession
 
-    public GameObject MoveToNewMenu(GameObject menu) {
+    public BaseSubMenuController MoveToNewMenu(BaseSubMenuController menu) {
         if (menu == null) {
             Debug.LogError("Cannot add null menu");
             return null;
@@ -25,8 +26,8 @@ public class UISession
         return current;
     } // end PushMenu
 
-    public GameObject MoveToForwardMenu() {
-        GameObject temp = forward.Dequeue();
+    public BaseSubMenuController MoveToForwardMenu() {
+        BaseSubMenuController temp = forward.Dequeue();
         if (temp == null)
             return temp;
 
@@ -35,8 +36,8 @@ public class UISession
         return current;
     } // end GetForward
 
-    public GameObject MoveToPrevMenu() {
-        GameObject temp = prev.Pop();
+    public BaseSubMenuController MoveToPrevMenu() {
+        BaseSubMenuController temp = prev.Pop();
         if (temp == null)
             return temp;
             
@@ -45,7 +46,7 @@ public class UISession
         return current;
     } // GetPrev
 
-    public GameObject GetCurrent() {
+    public BaseSubMenuController GetCurrent() {
         return current;
     } // GetCurrent
 
