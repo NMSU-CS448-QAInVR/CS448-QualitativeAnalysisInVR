@@ -73,6 +73,8 @@ namespace UIController {
 
          saveLoadSys = new SaveLoadSystem();
          FileManager.Initialize();
+
+         // set up keyboard
       } // end Awake
 
       public void GoToMenu(BaseSubMenuController des) {
