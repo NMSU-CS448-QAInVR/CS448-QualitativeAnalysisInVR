@@ -29,6 +29,11 @@ public class FileManager {
         
     } // end path
 
+    public static void DeleteFile(string path) {
+        string final_path = Path.Combine(persistentDataPath, path);
+        File.Delete(final_path);
+    } // end DeleteFile
+
     public static void XmlSerializeList(string path, List<SaveFormat> list) {
         
         string final_path = Path.Combine(persistentDataPath, path);
