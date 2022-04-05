@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UIController;
 
 // based on https://www.youtube.com/watch?v=jOn0YWoNFVY
 public class MenuToggle : MonoBehaviour
@@ -10,13 +11,18 @@ public class MenuToggle : MonoBehaviour
     [SerializeField]
     GameObject menu;
     [SerializeField]
+    GameObject contextualMenu;
+    private ContextualMenuController cmc;
+    [SerializeField]
     GameObject MenuMointPoint;
+    GameObject ContextualMenuMountPoint;
 
     // Start is called before the first frame update
     void Awake()
     {
         Debug.LogError("Awake Start");
         toggleReferences.action.started +=  this.Toggle;
+        cmc = contextualMenu.GetComponentInChildren<ContextualMenuController>();
     }
 
     private void OnDestroy() {
@@ -27,8 +33,18 @@ public class MenuToggle : MonoBehaviour
     private void Toggle(InputAction.CallbackContext context) {
         Debug.LogError("Toggled");
         menu.SetActive(!menu.activeSelf);
-        this.transform.position = MenuMointPoint.transform.position;
-        this.transform.rotation = MenuMointPoint.transform.rotation;
+        MoveThisToPosition(menu, MenuMointPoint);
     } // end Toggle
+
+    private void MoveThisToPosition(GameObject target, GameObject mountPoint) {
+        target.transform.position = mountPoint.transform.position;
+        target.transform.rotation = mountPoint.transform.rotation;
+    } // end MoveToPosition
+
+    public void ToggleMenuMountPoint(GameObject obj, FormatType type) {
+        cmc.SetTargetObject(obj, type);
+        contextualMenu.SetActive(!contextualMenu.activeSelf);
+        MoveThisToPosition(contextualMenu, ContextualMenuMountPoint);
+    } // end OpenMenuMountPoint
 
 }

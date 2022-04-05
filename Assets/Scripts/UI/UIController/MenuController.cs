@@ -144,7 +144,7 @@ namespace UIController {
          return the prompt object of the menu. 
          precodnition: menu is not null
       */
-      private async void ShowProgress(string prompt, string done_prompt_true, string done_prompt_false, Func<bool> operation) {
+      private void ShowProgress(string prompt, string done_prompt_true, string done_prompt_false, Func<bool> operation) {
          
          // Set the UI components
          ProgressMenu.SetPrompt(prompt);
