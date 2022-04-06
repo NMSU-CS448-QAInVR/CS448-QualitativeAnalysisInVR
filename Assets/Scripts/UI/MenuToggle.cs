@@ -11,7 +11,7 @@ public class MenuToggle : MonoBehaviour
     [SerializeField]
     GameObject menu;
     [SerializeField]
-    GameObject contextualMenu;
+    GameObject ContextualMenu;
     private ContextualMenuController cmc;
     [SerializeField]
     GameObject MenuMointPoint;
@@ -22,7 +22,8 @@ public class MenuToggle : MonoBehaviour
     {
         Debug.LogError("Awake Start");
         toggleReferences.action.started +=  this.Toggle;
-        cmc = contextualMenu.GetComponentInChildren<ContextualMenuController>();
+        cmc = ContextualMenu.GetComponentInChildren<ContextualMenuController>();
+        ContextualMenuMountPoint = MenuMointPoint;
     }
 
     private void OnDestroy() {
@@ -41,10 +42,15 @@ public class MenuToggle : MonoBehaviour
         target.transform.rotation = mountPoint.transform.rotation;
     } // end MoveToPosition
 
-    public void ToggleMenuMountPoint(GameObject obj, FormatType type) {
-        cmc.SetTargetObject(obj, type);
-        contextualMenu.SetActive(!contextualMenu.activeSelf);
-        MoveThisToPosition(contextualMenu, ContextualMenuMountPoint);
+    public void ShowContextualMenuNotecard(GameObject obj) {
+        cmc.SetTargetObject(obj, FormatType.NOTECARD);
+        ContextualMenu.SetActive(true);
+        MoveThisToPosition(ContextualMenu, ContextualMenuMountPoint);
+
+    } // end OpenMenuMountPoint
+
+    public void HideContextualMenu() {
+        ContextualMenu.SetActive(false);
     } // end OpenMenuMountPoint
 
 }

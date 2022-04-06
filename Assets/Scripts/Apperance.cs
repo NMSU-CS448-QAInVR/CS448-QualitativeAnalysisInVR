@@ -7,7 +7,7 @@ public class Apperance : MonoBehaviour
     private Material myMaterial;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Renderer renderer = GetComponent<Renderer>();
         if (renderer == null) {
@@ -24,9 +24,13 @@ public class Apperance : MonoBehaviour
         
     }
 
-    void ChangeColor(Color newColor) {
-        this.myMaterial.color = newColor;
+    public void ChangeColor(Color newColor) {
+        this.myMaterial.SetColor("_Color", newColor);
     } // end ChangeColor
+
+    public Color GetColor() {
+        return this.myMaterial.GetColor("_Color");
+    } // end GetColor
 
     void Resize(float scale) {
         this.transform.localScale *= scale;

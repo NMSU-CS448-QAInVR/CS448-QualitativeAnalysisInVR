@@ -21,6 +21,8 @@ namespace UIController {
       public PromptMenuController PromptMenu;
       public ProgressMenuController ProgressMenu;
 
+      public ContextualMenuController ContextualMenu;
+
       public LoadMenuController LoadMenu;
 
       // locations
@@ -74,8 +76,8 @@ namespace UIController {
          saveLoadSys = new SaveLoadSystem();
          FileManager.Initialize();
 
-         // set up keyboard
       } // end Awake
+
 
       public void GoToMenu(BaseSubMenuController des) {
          if (des == null) {
@@ -119,6 +121,7 @@ namespace UIController {
       } // end SetCategoryType
 
       public void CreateCard(ColorType color) {
+         Debug.Log("create card");
          if (CardPrefabRenderer == null) {
             Debug.LogError("Cannot find renderer of card prefab");
             return;
@@ -126,6 +129,7 @@ namespace UIController {
          CardPrefabRenderer.material.SetColor("_Color", color.GetValue());
 
          GameObject newObj = GameObject.Instantiate(CardPrefab, SpawnLocation.transform.position, SpawnLocation.transform.rotation);
+         newObj.SetActive(true);
          saveLoadSys.Add(newObj);
       } // end CreateCard
 
