@@ -151,14 +151,12 @@ namespace UIController {
       private void ShowProgress(string prompt, string done_prompt_true, string done_prompt_false, Func<bool> operation) {
          
          // Set the UI components
-         ProgressMenu.SetPrompt(prompt);
          Show(ProgressMenu);
+         ProgressMenu.SetPrompt(prompt);
          
          // Run the task
-         Debug.Log("Running");
          ProgressMenu.ShowOnProgress(operation);
          bool result = operation();
-         Debug.Log("Hello");
 
          // if result is true, show the prompt true
          if (result) { // if result is false, show the prompt false
@@ -172,13 +170,9 @@ namespace UIController {
       } // end ShowProgress
 
       public void ShowPrompt(string prompt, UnityAction action) {
-         Debug.Log("In Prompt");
-
+         Show(PromptMenu);
          PromptMenu.SetPrompt(prompt);
          PromptMenu.SetButtonActions(delegate {action();}, delegate {PromptMenu.Hide();});
-
-         Debug.Log("Show Prompt");
-         Show(PromptMenu);
       } // end ShowPrompt
 
       public void Save() {
