@@ -100,11 +100,19 @@ namespace UIController {
 
       public void PopulateSessionsListView() {
          List<string> sessions = saveLoadSys.GetSessionsList();
-         LoadMenu.PopulateSessionList(sessions, Load);
+         LoadMenu.PopulateSessionList(sessions, Load, DeleteSession);
       } // end PopulateListView
 
-      public void DeleteSession() {
-
+      public void DeleteSession(string sessionPath, UnityAction deleteAction) {
+         string session = SaveLoadSystem.GetSessionName(sessionPath);
+         ShowPrompt("Do you want to delete session: " + session, delegate {
+               ShowProgress("Deleting...", "Session " + session + " is deleted successfully", "The session has not been deleted properly", () => {
+                  bool result = saveLoadSys.DeleteSessionFile(sessionPath);
+                  if (result)
+                     deleteAction();
+                  return result;
+               }); // end ShowProgress
+            }); // end ShowPrompt
       } // end DeleteSession
 
       public void GoForwdMenu() {

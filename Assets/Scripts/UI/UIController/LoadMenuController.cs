@@ -20,7 +20,7 @@ namespace UIController {
         { 
 
         }
-        public void PopulateSessionList(List<string> sessions, UnityAction<string> loadAction) {
+        public void PopulateSessionList(List<string> sessions, UnityAction<string> loadAction, UnityAction<string, UnityAction> deleteAction) {
             Transform[] children = ListViewContentObject.GetComponentsInChildren<Transform>();
             // remove existing buttons
             for (int i = 0; i < children.Length; ++i) {
@@ -34,11 +34,16 @@ namespace UIController {
 
             // add new buttons
             foreach (string session in sessions) {
-               GameObject button = GameObject.Instantiate(ListViewButtonTemplate);
-               button.transform.SetParent(ListViewButtonTemplate.transform.parent, false);
-               ListViewButton lvb = button.GetComponentInChildren<ListViewButton>();
-               lvb.UpdateText(session.Substring(0, session.Length - 4));
-               lvb.SetOnClick(delegate {loadAction(session);});
+                GameObject button = GameObject.Instantiate(ListViewButtonTemplate);
+                button.transform.SetParent(ListViewButtonTemplate.transform.parent, false);
+                ListViewButton lvb = button.GetComponentInChildren<ListViewButton>();
+                lvb.UpdateText(SaveLoadSystem.GetSessionName(session));
+                lvb.SetOnClick(delegate {loadAction(session);});
+
+                ListViewDeleteButton deleteButton = button.GetComponentInChildren<ListViewDeleteButton>();
+                deleteButton.SetOnClick(delegate { 
+                   deleteAction(session, delegate {GameObject.Destroy(button);});
+                });
                button.SetActive(true);
             } // end foreach
 
