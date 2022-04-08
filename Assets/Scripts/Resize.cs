@@ -15,16 +15,20 @@ public class Resize : MonoBehaviour
 
     bool cardHeld = false;
     bool cardSizeActive = false;
+    bool placed = false;
+    
 
     //[SerializeField]
      public GameObject card;
-
+     public Rigidbody rb;
     // Gets the local scale of a game object
     
     public void Clicked(){
        
         Debug.Log("clicked");
         cardHeld = true;
+        placed = false;
+        rb.constraints = RigidbodyConstraints.None;
     }
 
     public void LetGo(){
@@ -35,9 +39,15 @@ public class Resize : MonoBehaviour
 
     public void triggered(){
         Debug.Log("trigger pressed");
+
+        if( card.transform.position.x > .55){
+            placed = true;
+        }
+
+
         //Debug.Log(GetPosition.LX);
         //Debug.Log(GetPositionR.RX);
-        cardSizeActive = true;  
+        //cardSizeActive = true;  
     }
 
     public void unTriggered(){
@@ -55,6 +65,17 @@ public class Resize : MonoBehaviour
     void Update()
     {
 
+
+        if(placed == true){
+            //set z position for pos board
+            card.transform.position = new Vector3(6.75f, card.transform.position.y, card.transform.position.z);
+            //set rotation
+            card.transform.localEulerAngles = new Vector3(0,90,0);
+            //lock x position
+            rb.constraints = RigidbodyConstraints.FreezePositionX;
+            //lock rotation
+
+        }
 
        if(card != null && cardHeld == true){
         
