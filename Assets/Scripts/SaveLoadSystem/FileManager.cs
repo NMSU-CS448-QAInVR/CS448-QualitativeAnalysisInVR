@@ -98,4 +98,13 @@ public class FileManager {
             return save_list.list_format;
         } // end
     } // end Des
+
+    public static string GetNameFromPath(string path) {
+        // to be done
+        return "";
+    } // end GetNameFromPath
+
+    public static void GetFilesAndDirsAt(string path) {
+        // to be done
+    } // end GetFilesAndDirsAt
 } // end FileManager
