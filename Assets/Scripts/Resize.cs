@@ -14,14 +14,14 @@ public class Resize : MonoBehaviour
     private float HandDistanceHoriz;
 
     bool cardHeld = false;
-    bool cardSizeActive = false;
+    //bool cardSizeActive = false;
     bool placed = false;
     
 
-    //[SerializeField]
+   
      public GameObject card;
      public Rigidbody rb;
-    // Gets the local scale of a game object
+ 
     
     public void Clicked(){
        
@@ -109,4 +109,5 @@ public class Resize : MonoBehaviour
 
   
 
+}
 }
