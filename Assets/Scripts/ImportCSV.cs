@@ -34,10 +34,11 @@ public class ImportCSV : MonoBehaviour
         }
         else
         {
+            string cardText = data[i].Replace("\n", "").Replace("\r", "");//remove newline and return from text
             Debug.Log("Generate card number " + i + " from CSV");
-            Debug.Log(data[i]);
+            Debug.Log(cardText);
             Instantiate(notecard, new Vector3(0, 1, 0), Quaternion.Euler(0, 0, 0));//create note card object
-            notecard.GetComponentInChildren<TextMeshPro>().SetText(data[i]); //set text on child component, TextMeshPro, of Notecard object
+            notecard.GetComponentInChildren<TextMeshPro>().SetText(cardText); //set text on child component, TextMeshPro, of Notecard object
             i++;
         }
     }
