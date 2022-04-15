@@ -5,7 +5,6 @@ public class MyDirectory : MyFileOrDirectory {
     public List<MyFile> files;
     public List<MyDirectory> directories;
 
-    // to be done - constructors
     public MyDirectory(DirectoryInfo root) : base(root.Name, root.FullName, true, root.Parent.FullName) {
         FileInfo[] myFiles = root.GetFiles();
         files = new List<MyFile>(myFiles.Length);

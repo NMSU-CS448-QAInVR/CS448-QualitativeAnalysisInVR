@@ -15,7 +15,9 @@ public class FileViewerEntry: MonoBehaviour {
     
     private MyFileOrDirectory entry;
 
-    public UnityEvent<string> OnClickAction;
+    public UnityEvent<string> OnDirectoryClickedAction;
+
+    public UnityEvent<MyFile> OnFileClickedAction;
 
     public void ShowIcon() {
         icon.gameObject.SetActive(true);
@@ -42,7 +44,11 @@ public class FileViewerEntry: MonoBehaviour {
     } // end GetPath
 
     public void Clicked() {
-        OnClickAction.Invoke(entry.path);
+        if (entry.GetIsDirectory())
+            OnDirectoryClickedAction.Invoke(entry.path);
+        else {
+            OnFileClickedAction.Invoke((MyFile) entry);
+        }
     } // end Clicked
 
 

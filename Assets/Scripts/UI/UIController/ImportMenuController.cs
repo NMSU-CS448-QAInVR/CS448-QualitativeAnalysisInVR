@@ -11,7 +11,10 @@ using TMPro;
 namespace UIController {
    public class ImportMenuController : BaseSubMenuController
    {
-      public UnityEvent<bool, string> OnImportAction;
+      public UnityEvent<string, bool> OnImportAction;
+
+      [SerializeField]
+      private FileViewerController FileViewerController;
 
       private MyDirectory CurrentDirectory;
       private MyFile SelectedFile;
@@ -22,7 +25,7 @@ namespace UIController {
       } // end UpdateParseToNotecard
 
       public void Import() {
-         // to be done
+         OnImportAction.Invoke(FileViewerController.GetSelectedFilePath(), true);
       } // end Import
    }
 

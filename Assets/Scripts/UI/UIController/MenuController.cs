@@ -247,6 +247,11 @@ namespace UIController {
       private void Show(BaseSubMenuController menu) {
          menu.Show();
       } // end Show
-   } // end MenuController
 
+       public void Import(string path, bool willParse=false) {
+          // to be done
+          Debug.Log(path);
+      } // end Import
+
+   } // end MenuController
 } // end UIController

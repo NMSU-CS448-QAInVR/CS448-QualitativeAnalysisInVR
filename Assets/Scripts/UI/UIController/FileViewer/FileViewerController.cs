@@ -27,6 +27,8 @@ namespace UIController {
 
       private Stack<MyDirectory> prev = null;
       private Stack<MyDirectory> forward = null;
+
+      private MyFile selectedFile = null;
       
       public void Awake() {
          #if UNITY_ANDROID && !UNITY_EDITOR
@@ -66,7 +68,7 @@ namespace UIController {
       public void EntryGoToFolder(string path) {
          GoToFolder(path, true);
       } // end EntryGoToFolder
-      
+
       public void GoToFolder(string path, bool ChangeHistory=false) {
          if (isAndroid) {
             if (!Permission.HasUserAuthorizedPermission(Permission.ExternalStorageRead))
@@ -98,7 +100,6 @@ namespace UIController {
       } // end CreateEntry
 
       public void UpdateFolderName(string name) {
-         // to be done
          FolderName.text = name;
       } // end LinkClicked
 
@@ -115,6 +116,17 @@ namespace UIController {
          if (target != null)
             GoToFolder(target.path);
       } // end GoToParentDir
+
+      public void SetSelectedFile(MyFile file) {
+         selectedFile = file;
+      } // end SetSelectedFile
+
+      public string GetSelectedFilePath() {
+         if (selectedFile != null)
+            return selectedFile.path;
+
+         return "";
+      } // end GetSelectedFilePath
    }
 
 } // end UIController
