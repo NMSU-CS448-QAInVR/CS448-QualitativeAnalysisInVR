@@ -11,7 +11,13 @@ public class FileViewerEntry: MonoBehaviour {
     [SerializeField]
     private Image icon;
     [SerializeField]
-    private Text name;
+    private Text entryName;
+    
+    private MyFileOrDirectory entry;
+
+    public UnityEvent<string> OnDirectoryClickedAction;
+
+    public UnityEvent<MyFile> OnFileClickedAction;
 
     public void ShowIcon() {
         icon.gameObject.SetActive(true);
@@ -21,7 +27,32 @@ public class FileViewerEntry: MonoBehaviour {
         icon.gameObject.SetActive(false);
     } // end HideIcon
 
+    public void SetUpFile(MyFile dir) {
+        entry = dir;
+        SetEntryName(entry.name);
+        HideIcon();
+    } // end SetUp
+
+    public void SetUpDir(MyDirectory dir) {
+        entry = dir;
+        SetEntryName(entry.name);
+        ShowIcon();
+    } // end SetUpDir
+
+    public string GetPath() {
+        return entry.path;
+    } // end GetPath
+
+    public void Clicked() {
+        if (entry.GetIsDirectory())
+            OnDirectoryClickedAction.Invoke(entry.path);
+        else {
+            OnFileClickedAction.Invoke((MyFile) entry);
+        }
+    } // end Clicked
+
+
     public void SetEntryName(string text) {
-        name.text = text;
+        entryName.text = text;
     } // end 
 }

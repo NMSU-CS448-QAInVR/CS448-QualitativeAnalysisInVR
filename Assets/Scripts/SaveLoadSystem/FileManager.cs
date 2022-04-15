@@ -104,7 +104,12 @@ public class FileManager {
         return "";
     } // end GetNameFromPath
 
-    public static void GetFilesAndDirsAt(string path) {
-        // to be done
+    public static DirectoryInfo GetFilesAndDirsAt(string path) {
+        DirectoryInfo di = new DirectoryInfo(path);
+        return di;
     } // end GetFilesAndDirsAt
+
+    public static string GetDataPath() {
+        return persistentDataPath;
+    } // end GetDataPath
 } // end FileManager

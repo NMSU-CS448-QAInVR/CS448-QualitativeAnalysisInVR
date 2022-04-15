@@ -1,6 +1,5 @@
-public class MyFile {
-    public string name;
-    public string path;
-
-     // to be done - constructors
+public class MyFile : MyFileOrDirectory {
+    public MyFile(string n, string p) : base(n, p, false) {
+        
+    }
 }
