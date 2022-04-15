@@ -4965,6 +4965,10 @@ PrefabInstance:
       propertyPath: SpawnLocation
       value: 
       objectReference: {fileID: 701021871}
+    - target: {fileID: 5595234270790181116, guid: 47015d46a77724cba99e6faf76117c75, type: 3}
+      propertyPath: ImportObjectPrefab
+      value: 
+      objectReference: {fileID: 16730409216176524, guid: 586c24e272eeb4179b72c6800bd9b810, type: 3}
     - target: {fileID: 5595234270822745304, guid: 47015d46a77724cba99e6faf76117c75, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
