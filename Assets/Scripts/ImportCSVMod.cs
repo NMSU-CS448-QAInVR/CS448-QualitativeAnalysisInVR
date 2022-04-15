@@ -5,8 +5,8 @@ using TMPro;
 
 public class ImportCSVMod : MonoBehaviour
 {
-    private static int i = 0; //keeps track of what value is being read from csv
-    private static string[] data; //holds parsed strings from csv
+    private int i = 0; //keeps track of what value is being read from csv
+    private string[] data; //holds parsed strings from csv
     private UnityAction<string> createCardWithTextFunc;
 
 
