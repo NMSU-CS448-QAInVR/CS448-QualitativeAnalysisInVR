@@ -6,10 +6,14 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class DrawController3D : MonoBehaviour
 {
-    bool isGrabbed = false;
+    public bool isErasing = false;
+    public bool isGrabbed = false;
+    private GameObject go;
     // Action reference to trigger the 3d draw functionality
     // (set in the editor). Should be a trigger press.
     public InputActionReference trigger = null;
+
+    public InputActionReference deleteMode = null;
 
     // Object whose position will be tracked when drawing. 
     // This should be the tip of a brush or pen or something. 
@@ -18,7 +22,7 @@ public class DrawController3D : MonoBehaviour
     public GameObject gameObjectToTrack;
 
     [SerializeField, Range(0, 1.0f)]
-    private float minDistanceBeforeNewPoint = 0.2f;
+    private float minDistanceBeforeNewPoint = 0.01f;
 
     private int positionCount = 0;
 
@@ -28,7 +32,7 @@ public class DrawController3D : MonoBehaviour
     private LineRenderer currentLineRender;
 
     [SerializeField, Range(0, 1.0f)]
-    private float lineDefaultWidth = 0.010f;
+    private float lineDefaultWidth = 0.02f;
 
     [SerializeField]
     private Material defaultLineMaterial;
@@ -41,6 +45,7 @@ public class DrawController3D : MonoBehaviour
     void Update()
     {
         CheckTriggerState();
+        CheckDeleteState();
     }
 
     void Awake()
@@ -52,8 +57,8 @@ public class DrawController3D : MonoBehaviour
     {
         positionCount = 0;
 
-        GameObject go = new GameObject($"LineRenderer_brush_{lines.Count}");
-        go.transform.parent = gameObjectToTrack.transform.parent;
+        go = new GameObject($"LineRenderer_brush_{lines.Count}");
+        // go.transform.parent = gameObjectToTrack.transform.parent;
         go.transform.position = gameObjectToTrack.transform.position;
 
         LineRenderer goLineRenderer = go.AddComponent<LineRenderer>();
@@ -88,6 +93,21 @@ public class DrawController3D : MonoBehaviour
 
     }
 
+    void CheckDeleteState()
+    {
+        bool isPrimaryButtonPressed = deleteMode.action.ReadValue<float>() > 0.0f;
+
+        if (isPrimaryButtonPressed && isGrabbed)
+        {
+            isErasing = true;
+        }
+        else
+        {
+            isErasing = false;
+        }
+
+    }
+
     void UpdateLine()
     {
         if (prevPointDistance == null)
@@ -109,6 +129,18 @@ public class DrawController3D : MonoBehaviour
         positionCount++;
         currentLineRender.positionCount = positionCount + 1;
         currentLineRender.SetPosition(positionCount, position);
+
+        var colliderGameObject = new GameObject();
+        colliderGameObject.transform.position = position;
+        colliderGameObject.transform.parent = go.transform;
+        colliderGameObject.tag = "LineCollider";
+        AddCollider(colliderGameObject);
+    }
+
+    void AddCollider(GameObject gameObject)
+    {
+        SphereCollider sc = gameObject.AddComponent(typeof(SphereCollider)) as SphereCollider;
+        sc.radius = lineDefaultWidth * .25f;
     }
 
     public void UpdateIsGrabbed(bool state)
