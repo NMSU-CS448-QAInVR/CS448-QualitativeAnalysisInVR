@@ -660,7 +660,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5079874600087058488
 Transform:
   m_ObjectHideFlags: 0
@@ -968,6 +968,7 @@ MonoBehaviour:
   sizePrimary: {fileID: -6059904301284996345, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   sizeSecondary: {fileID: 1716673005982093081, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   card: {fileID: 5079874600087058494}
+  rb: {fileID: 0}
 --- !u!114 &1602757353426782354
 MonoBehaviour:
   m_ObjectHideFlags: 0

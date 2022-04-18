@@ -145,6 +145,7 @@ namespace UIController {
          GameObject newObj = GameObject.Instantiate(CardPrefab, position, rotation);
          newObj.SetActive(true);
          saveLoadSys.Add(newObj);
+         Debug.Log("Added a notecard: " + saveLoadSys.GetSessionsList().Count);
          return newObj;
       } // end CreateCard
 

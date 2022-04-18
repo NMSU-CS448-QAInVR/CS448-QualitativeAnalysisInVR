@@ -18,14 +18,14 @@ public class DrawDeleteController3D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log($"parentDrawController.isGrabbed is {parentDrawController.isGrabbed}. " +
-            $"parentDrawController.isErasing is {parentDrawController.isErasing}");
+        // Debug.Log($"parentDrawController.isGrabbed is {parentDrawController.isGrabbed}. " +
+        //     $"parentDrawController.isErasing is {parentDrawController.isErasing}");
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log($"OnCollisionEnter Entered. parentDrawController.isGrabbed is {parentDrawController.isGrabbed}. " +
-            $"parentDrawController.isErasing is {parentDrawController.isErasing}");
+        // Debug.Log($"OnCollisionEnter Entered. parentDrawController.isGrabbed is {parentDrawController.isGrabbed}. " +
+        //     $"parentDrawController.isErasing is {parentDrawController.isErasing}");
         if (collision.gameObject.tag == "LineCollider" && 
             parentDrawController.isGrabbed && 
             parentDrawController.isErasing)

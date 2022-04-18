@@ -10,7 +10,7 @@ public class RelativeDisplay : MonoBehaviour
     public GameObject user;
     public GameObject card;
     
-    public TextMeshPro info;
+    public NotecardTextEdit info;
 
     public static string Title = "Title";
     string LongInfo = Title + "\n"  + "Sample data here (close up) this would be the lowest level of display. It might be too much info far away.";
@@ -39,11 +39,11 @@ public class RelativeDisplay : MonoBehaviour
          
          if(distancex > rangeOfView.x || distancey > rangeOfView.y || distancez > rangeOfView.z){
              //Debug.Log("Far");
-             info.text = Title;
+            info.ChangeText(Title);
          }
 
          else{
-             info.text = LongInfo;
+            info.ChangeText(LongInfo);
          }
 
     }
