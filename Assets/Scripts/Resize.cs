@@ -13,6 +13,8 @@ public class Resize : MonoBehaviour
     private float HandDistanceVert;
     private float HandDistanceHoriz;
 
+    public LineRenderer line;
+
     bool cardHeld = false;
     //bool cardSizeActive = false;
     bool placed = false;
@@ -42,7 +44,7 @@ public class Resize : MonoBehaviour
 
 
         // check if card is currently passed placing boundry larger number is closer to board smaller is farther away
-        if( card.transform.position.x > .45){  
+        if( card.transform.position.x > -2){  
             placed = true;   //boards will likely each need there own value for this.
         }
 
@@ -51,12 +53,12 @@ public class Resize : MonoBehaviour
 
     public void unTriggered(){
         //cardSizeActive = false;
+        placed = false;
     }
 
     void Start()
     {
         Debug.Log("in resize");
-        
         
     }
 
@@ -66,13 +68,24 @@ public class Resize : MonoBehaviour
 
 
         if(placed == true){
-            //set z position for pos board | 6.75 = just off surface. may need to be updated or refrenced from board if object loation is moved.
-            card.transform.position = new Vector3(6.75f, card.transform.position.y, card.transform.position.z);
+            // get line renderer position
+            Vector3 endpos = line.GetPosition(line.positionCount - 1);
+            Vector3 startPos = line.GetPosition(0);
+            RaycastHit hit;
+            if (Physics.Raycast(endpos, endpos - startPos, out hit, 40, LayerMask.GetMask("Everything"))) {
+                 
+                 card.transform.position = hit.point;
             //set rotation to be flat against surface
-            card.transform.localEulerAngles = new Vector3(0,90,0);
+                card.transform.localEulerAngles = hit.transform.localEulerAngles;
+                // new Vector3(0,90,0);
             //lock x position
-            rb.constraints = RigidbodyConstraints.FreezePositionX;
+                rb.constraints = RigidbodyConstraints.FreezePositionX;
             //lock rotation
+            }
+            //set z position for pos board | 6.75 = just off surface. may need to be updated or refrenced from board if object loation is moved.
+
+           
+           
 
         }
 
