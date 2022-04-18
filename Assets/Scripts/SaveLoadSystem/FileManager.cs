@@ -6,12 +6,18 @@ using System;
 using UnityEngine;
 
 public class FileManager {
+    private static string persistentDataPath;
+
 
     private static Type[] types = {typeof(SaveFormat), typeof(NotecardSaveFormat)};
     private static XmlSerializer serializer = new XmlSerializer(typeof(ListSaveFormat), FileManager.types);
     
+    public static void Initialize() {
+        persistentDataPath = Application.persistentDataPath;
+    } // end Set PersistentDataPath
+
     public static void WriteStringTo(string path, string content) {
-        string final_path = Path.Combine(Application.persistentDataPath, path);
+        string final_path = Path.Combine(persistentDataPath, path);
         using (StreamWriter file = new StreamWriter(final_path, false)) {
             if (file == null) {
                 Debug.LogError("cannot open file - writer");
@@ -23,9 +29,14 @@ public class FileManager {
         
     } // end path
 
+    public static void DeleteFile(string path) {
+        string final_path = Path.Combine(persistentDataPath, path);
+        File.Delete(final_path);
+    } // end DeleteFile
+
     public static void XmlSerializeList(string path, List<SaveFormat> list) {
         
-        string final_path = Path.Combine(Application.persistentDataPath, path);
+        string final_path = Path.Combine(persistentDataPath, path);
         using (StreamWriter file = new StreamWriter(final_path, false)) {
             if (file == null) {
                 Debug.LogError("cannot open file - writer");
@@ -40,7 +51,7 @@ public class FileManager {
     } // end SaveListFormat
 
     public static string ReadStringFrom(string path) {
-        string final_path = Path.Combine(Application.persistentDataPath, path);
+        string final_path = Path.Combine(persistentDataPath, path);
         string result = "";
         using (StreamReader file = new StreamReader(final_path)) {
             if (file == null) {
@@ -58,7 +69,7 @@ public class FileManager {
     } // end ReadStringFrom
 
     public static FileInfo[] GetFileList() {
-        DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath);
+        DirectoryInfo di = new DirectoryInfo(persistentDataPath);
         return di.GetFiles();
     } // end GetFileList
 
@@ -76,7 +87,7 @@ public class FileManager {
     } // end EndsWith
 
     public static List<SaveFormat> XmlDeserializeList(string path) {
-        string final_path = Path.Combine(Application.persistentDataPath, path);
+        string final_path = Path.Combine(persistentDataPath, path);
         using (StreamReader file = new StreamReader(final_path)) {
             if (file == null) {
                 Debug.LogError("Cannot open file - reader");
@@ -87,4 +98,18 @@ public class FileManager {
             return save_list.list_format;
         } // end
     } // end Des
+
+    public static string GetNameFromPath(string path) {
+        // to be done
+        return "";
+    } // end GetNameFromPath
+
+    public static DirectoryInfo GetFilesAndDirsAt(string path) {
+        DirectoryInfo di = new DirectoryInfo(path);
+        return di;
+    } // end GetFilesAndDirsAt
+
+    public static string GetDataPath() {
+        return persistentDataPath;
+    } // end GetDataPath
 } // end FileManager
