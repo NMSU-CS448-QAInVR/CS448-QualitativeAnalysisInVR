@@ -5,7 +5,7 @@ using TMPro;
 
 public class ImportCSVMod : MonoBehaviour
 {
-    private int i = 0; //keeps track of what value is being read from csv
+    private int i = 1; //keeps track of what value is being read from csv
     private string[] data; //holds parsed strings from csv
     private UnityAction<string, string> createCardWithTextFunc;
     private string title;
@@ -35,12 +35,6 @@ public class ImportCSVMod : MonoBehaviour
         else
         {
             string cardText = data[i].Replace("\n", "").Replace("\r", "");//remove newline and return from text
-            if (i == 0) {
-                title = cardText;
-                i++;
-                return;
-            }
-
             Debug.Log("Generate card number " + i + " from CSV");
             Debug.Log(cardText);
             // create card
