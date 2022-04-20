@@ -284,7 +284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sizePrimary: {fileID: -6059904301284996345, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   sizeSecondary: {fileID: 1716673005982093081, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  line: {fileID: 0}
+  line: {fileID: 6185550539391540593}
   card: {fileID: 5079874600087058494}
   rb: {fileID: 5079874600087058492}
 --- !u!114 &-496996167362501435
@@ -309,7 +309,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5079874600087058494}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -352,7 +352,7 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
+        time: 0.014034271
         value: 1
         inSlope: 0
         outSlope: 0

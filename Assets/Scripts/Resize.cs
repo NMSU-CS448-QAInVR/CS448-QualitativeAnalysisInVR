@@ -23,7 +23,8 @@ public class Resize : MonoBehaviour
      public Rigidbody rb;
 
      
-          
+    public void Awake() {
+    } // end Awake
  
     
     public void Clicked(){
@@ -75,15 +76,19 @@ public class Resize : MonoBehaviour
                 //Debug.Log("here");
              //Physics.Raycast(endpos, endpos - startPos, out hit, 40, LayerMask.GetMask("Everything"));
              //Debug.DrawRay(endpos, lineLength, Color.yellow);
-            Vector3 lineLength = new Vector3(30, 30 ,30);
-            Vector3 collisionPadding = new Vector3(0.3f, 0.3f, 0.3f);
-
             Vector3 endpos = line.GetPosition(line.positionCount - 1);
             Vector3 startPos = line.GetPosition(0);
+            Vector3 lineLength = new Vector3(30, 30 ,30);
+            Vector3 direction = Vector3.Normalize(endpos - startPos);
+            Vector3 collisionPadding = direction * 0.3f;
+
+            
             RaycastHit hit;
-          if (Physics.Raycast(endpos + collisionPadding , endpos-startPos, out hit, 30, LayerMask.GetMask("Board"))) {
-                 Debug.DrawRay(endpos, endpos-startPos, Color.yellow);
-                 Debug.Log("ray collided!");
+          if (Physics.Raycast(endpos + collisionPadding , direction, out hit, 30, LayerMask.GetMask("Board"))) {
+                Debug.Log("here in raycast");
+                DrawLine(endpos + collisionPadding, hit.point, Color.blue);
+                 //Debug.DrawRay(endpos, endpos-startPos, Color.yellow);
+                 //Debug.Log("ray collided!");
                  
                  if(placed == true){
                  card.transform.position = hit.point;
@@ -138,7 +143,22 @@ public class Resize : MonoBehaviour
         
     }// of size
 
-  
+    void DrawLine(Vector3 start, Vector3 end, Color color, float duration = 0.01f)
+         {
+             GameObject myLine = new GameObject();
+             myLine.transform.position = start;
+             myLine.AddComponent<LineRenderer>();
+             LineRenderer lr = myLine.GetComponent<LineRenderer>();
+             lr.positionCount = 2;
+             //lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
+             lr.startColor = color;
+             lr.endColor = color;
+             lr.startWidth = 0.01f;
+             lr.endWidth = 0.01f;
+             lr.SetPosition(0, start);
+             lr.SetPosition(1, end);
+             GameObject.Destroy(myLine, duration);
+         }
 
 }
 
