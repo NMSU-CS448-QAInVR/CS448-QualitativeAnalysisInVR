@@ -43,6 +43,7 @@ public class MenuToggle : MonoBehaviour
     } // end MoveToPosition
 
     public void ShowContextualMenuNotecard(GameObject obj) {
+        Debug.Log("Show contextual");
         cmc.SetTargetObject(obj, FormatType.NOTECARD);
         ContextualMenu.SetActive(true);
         MoveThisToPosition(ContextualMenu, ContextualMenuMountPoint);
