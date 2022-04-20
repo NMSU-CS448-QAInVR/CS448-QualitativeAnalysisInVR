@@ -25,6 +25,8 @@ namespace UIController {
 
       public LoadMenuController LoadMenu;
 
+      public ImportCSVMod ImportObjectPrefab;
+
       // locations
       [Header("Spawn Location")]
       [SerializeField]
@@ -129,16 +131,22 @@ namespace UIController {
       } // end SetCategoryType
 
       public void CreateCard(ColorType color) {
+         CreateCardInternal(color.GetValue(), SpawnLocation.transform.position, SpawnLocation.transform.rotation);
+      } // end CreateCard
+
+      private GameObject CreateCardInternal(Color color, Vector3 position, Quaternion rotation) {
          Debug.Log("create card");
          if (CardPrefabRenderer == null) {
             Debug.LogError("Cannot find renderer of card prefab");
-            return;
+            return null;
          } // end if
-         CardPrefabRenderer.material.SetColor("_Color", color.GetValue());
+         CardPrefabRenderer.material.SetColor("_Color", color);
 
-         GameObject newObj = GameObject.Instantiate(CardPrefab, SpawnLocation.transform.position, SpawnLocation.transform.rotation);
+         GameObject newObj = GameObject.Instantiate(CardPrefab, position, rotation);
          newObj.SetActive(true);
          saveLoadSys.Add(newObj);
+         Debug.Log("Added a notecard: " + saveLoadSys.GetSessionsList().Count);
+         return newObj;
       } // end CreateCard
 
       public void CreateCategory(ColorType color) {
@@ -249,8 +257,24 @@ namespace UIController {
       } // end Show
 
        public void Import(string path, bool willParse=false) {
-          // to be done
-          Debug.Log(path);
+         ShowProgress("Importing...", "Created the import file creator successfully", "Failed to import this file", () => {
+            if (!path.EndsWith(".csv")) {
+               return false;
+            } // end if
+
+            // to be done
+            string myText = FileManager.ReadStringFrom(path);
+            GameObject importObj = GameObject.Instantiate(ImportObjectPrefab.gameObject, SpawnLocation.transform.position, SpawnLocation.transform.rotation);
+            //CreateCardInternal(Color.yellow);
+            importObj.GetComponent<ImportCSVMod>().Initialize(CardPrefab, myText, (string title, string text) => {
+               GameObject notecard = CreateCardInternal(Color.yellow, importObj.transform.position, SpawnLocation.transform.rotation);
+               //notecard.GetComponentInChildren<NotecardTextEdit>().ChangeText(text); //set text on child component, TextMeshPro, of Notecard object
+               RelativeDisplay rd = notecard.GetComponent<RelativeDisplay>();
+               rd.Title = title;
+               rd.LongInfo = text;
+            });
+            return true;
+         }); // end ShowPRogress
       } // end Import
 
    } // end MenuController
