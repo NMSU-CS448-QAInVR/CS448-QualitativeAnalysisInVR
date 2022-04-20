@@ -19,10 +19,11 @@ public class Resize : MonoBehaviour
     //bool cardSizeActive = false;
     bool placed = false;
     
-
-   
      public GameObject card;
      public Rigidbody rb;
+
+     
+          
  
     
     public void Clicked(){
@@ -31,6 +32,8 @@ public class Resize : MonoBehaviour
         cardHeld = true;
         placed = false;
         rb.constraints = RigidbodyConstraints.None;
+
+        
     }
 
     public void LetGo(){
@@ -39,21 +42,20 @@ public class Resize : MonoBehaviour
         cardHeld = false;
     }
 
+    public void snap(){
+         
+    }
+
     public void triggered(){
         Debug.Log("trigger pressed");
-
-
-        // check if card is currently passed placing boundry larger number is closer to board smaller is farther away
-        if( card.transform.position.x > -2){  
-            placed = true;   //boards will likely each need there own value for this.
-        }
-
+        placed = true;   
+        
         //cardSizeActive = true;  
     }
 
     public void unTriggered(){
         //cardSizeActive = false;
-        placed = false;
+        
     }
 
     void Start()
@@ -65,36 +67,47 @@ public class Resize : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+            
 
+        
 
-        if(placed == true){
-            // get line renderer position
+        if(card != null && cardHeld == true){
+                //Debug.Log("here");
+             //Physics.Raycast(endpos, endpos - startPos, out hit, 40, LayerMask.GetMask("Everything"));
+             //Debug.DrawRay(endpos, lineLength, Color.yellow);
+            Vector3 lineLength = new Vector3(30, 30 ,30);
+            Vector3 collisionPadding = new Vector3(0.3f, 0.3f, 0.3f);
+
             Vector3 endpos = line.GetPosition(line.positionCount - 1);
             Vector3 startPos = line.GetPosition(0);
             RaycastHit hit;
-            if (Physics.Raycast(endpos, endpos - startPos, out hit, 40, LayerMask.GetMask("Everything"))) {
+          if (Physics.Raycast(endpos + collisionPadding , endpos-startPos, out hit, 30, LayerMask.GetMask("Board"))) {
+                 Debug.DrawRay(endpos, endpos-startPos, Color.yellow);
+                 Debug.Log("ray collided!");
                  
+                 if(placed == true){
                  card.transform.position = hit.point;
+                 card.transform.localEulerAngles = new Vector3(hit.transform.localEulerAngles.x, hit.transform.localEulerAngles.y + 90, hit.transform.localEulerAngles.z);
+    
+                 //rb.constraints = RigidbodyConstraints.FreezePosition;
+                 
+                 }
+                
+           
+            }
+
             //set rotation to be flat against surface
-                card.transform.localEulerAngles = hit.transform.localEulerAngles;
+                
                 // new Vector3(0,90,0);
             //lock x position
-                rb.constraints = RigidbodyConstraints.FreezePositionX;
-            //lock rotation
-            }
-            //set z position for pos board | 6.75 = just off surface. may need to be updated or refrenced from board if object loation is moved.
-
-           
-           
-
-        }
-
-       if(card != null && cardHeld == true){
-        
-       Vector3 objectScale = transform.localScale;
-       float value = sizePrimary.action.ReadValue<float>();
-       float value2 = sizeSecondary.action.ReadValue<float>();
-       size(value, value2, objectScale);  
+            
+            
+            //Debug.DrawRay (gameObject.transform.position, transform.right, Color.red, 5);
+            //resize with buttons code
+            Vector3 objectScale = transform.localScale;
+            float value = sizePrimary.action.ReadValue<float>();
+             float value2 = sizeSecondary.action.ReadValue<float>();
+            size(value, value2, objectScale);  
 
     //    if(cardSizeActive == true){
     //        HandDistanceHoriz = System.Math.Abs(GetPosition.LX - GetPositionR.RX);
@@ -103,6 +116,11 @@ public class Resize : MonoBehaviour
 
     //    }     
     }
+
+    else{}
+
+    }
+
 
     void size(float value, float value2, Vector3 objectScale){
 
@@ -123,4 +141,4 @@ public class Resize : MonoBehaviour
   
 
 }
-}
+
