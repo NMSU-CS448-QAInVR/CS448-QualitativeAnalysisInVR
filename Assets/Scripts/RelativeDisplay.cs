@@ -12,8 +12,8 @@ public class RelativeDisplay : MonoBehaviour
     
     public NotecardTextEdit info;
 
-    public static string Title = "Title";
-    string LongInfo = Title + "\n"  + "Sample data here (close up) this would be the lowest level of display. It might be too much info far away.";
+    public string Title = "Title";
+    public string LongInfo;
 
     float distancex;
     float distancey;
@@ -34,6 +34,7 @@ public class RelativeDisplay : MonoBehaviour
         distancex = System.Math.Abs(card.transform.position.x - GetPositionR.RX);
         distancey = System.Math.Abs(card.transform.position.y - GetPositionR.RY);
         distancez = System.Math.Abs(card.transform.position.z - GetPositionR.RZ);
+        string result = Title + "\n"  + LongInfo;
 
         //Debug.Log(distance);
          
@@ -43,7 +44,7 @@ public class RelativeDisplay : MonoBehaviour
          }
 
          else{
-            info.ChangeText(LongInfo);
+            info.ChangeText(result);
          }
 
     }

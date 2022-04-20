@@ -4108,64 +4108,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5079874600087058493, guid: 4362c96f979884ac6ab549d82b61fb1a, type: 3}
-      propertyPath: m_HoverExited.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5079874600087058493, guid: 4362c96f979884ac6ab549d82b61fb1a, type: 3}
-      propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5079874600087058493, guid: 4362c96f979884ac6ab549d82b61fb1a, type: 3}
-      propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5079874600087058493, guid: 4362c96f979884ac6ab549d82b61fb1a, type: 3}
-      propertyPath: m_HoverExited.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1966152912}
-    - target: {fileID: 5079874600087058493, guid: 4362c96f979884ac6ab549d82b61fb1a, type: 3}
       propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1966152912}
-    - target: {fileID: 5079874600087058493, guid: 4362c96f979884ac6ab549d82b61fb1a, type: 3}
-      propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5079874600087058493, guid: 4362c96f979884ac6ab549d82b61fb1a, type: 3}
-      propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ShowContextualMenuNotecard
-      objectReference: {fileID: 0}
-    - target: {fileID: 5079874600087058493, guid: 4362c96f979884ac6ab549d82b61fb1a, type: 3}
-      propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: MenuToggle, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5079874600087058493, guid: 4362c96f979884ac6ab549d82b61fb1a, type: 3}
-      propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
-      value: 
-      objectReference: {fileID: 1873354132}
-    - target: {fileID: 5079874600087058493, guid: 4362c96f979884ac6ab549d82b61fb1a, type: 3}
-      propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 5079874600087058494, guid: 4362c96f979884ac6ab549d82b61fb1a, type: 3}
       propertyPath: m_Name
       value: Notecard-sprint4
-      objectReference: {fileID: 0}
-    - target: {fileID: 9128468475048745472, guid: 4362c96f979884ac6ab549d82b61fb1a, type: 3}
-      propertyPath: m_fontSize
-      value: 72
-      objectReference: {fileID: 0}
-    - target: {fileID: 9128468475048745472, guid: 4362c96f979884ac6ab549d82b61fb1a, type: 3}
-      propertyPath: m_fontSizeMin
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9128468475048745472, guid: 4362c96f979884ac6ab549d82b61fb1a, type: 3}
-      propertyPath: m_enableAutoSizing
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9128468475048745472, guid: 4362c96f979884ac6ab549d82b61fb1a, type: 3}
-      propertyPath: m_HorizontalAlignment
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4362c96f979884ac6ab549d82b61fb1a, type: 3}

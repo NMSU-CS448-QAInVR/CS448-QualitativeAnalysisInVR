@@ -46,7 +46,6 @@ public class MenuToggle : MonoBehaviour
         cmc.SetTargetObject(obj, FormatType.NOTECARD);
         ContextualMenu.SetActive(true);
         MoveThisToPosition(ContextualMenu, ContextualMenuMountPoint);
-
     } // end OpenMenuMountPoint
 
     public void HideContextualMenu() {
