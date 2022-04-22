@@ -4,7 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Fidel - 2D Drawing.unity
+    guid: 4fe6c0fbd3c54614b9a8f7a2b4e72b0e
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 08025658ceb3c4546943c0831ecacd1e, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: db1040415b8be2a4baccac4151a7a949, type: 2}
