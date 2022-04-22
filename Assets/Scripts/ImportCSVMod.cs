@@ -10,7 +10,7 @@ public class ImportCSVMod : MonoBehaviour
     private Func<string, string, GameObject> createCardWithTextFunc;
     private string title;
 
-    private Transform CardLocation;
+    private GameObject CardLocation;
 
 
     // Start is called before the first frame update
@@ -19,7 +19,7 @@ public class ImportCSVMod : MonoBehaviour
         //try to read in file and save data to string array 'data' before clicked
        
         //Debug.Log("Data length: " + data.Length);
-        CardLocation = GetComponentInChildren<ImportCardLocationScript>().gameObject.transform;
+        CardLocation = GetComponentInChildren<ImportCardLocationScript>().gameObject;
         
     }
 
@@ -43,7 +43,9 @@ public class ImportCSVMod : MonoBehaviour
             Debug.Log(cardText);
             // create card
             GameObject gObj = createCardWithTextFunc(title, cardText);
-            gObj.transform.position = CardLocation.position;
+            gObj.transform.position = CardLocation.transform.position + new Vector3(0, gObj.transform.localScale.y / 2f, 0);
+            Debug.Log("Spawn: " + gObj.transform.position);
+            Debug.Log("This: " + this.transform.position);
             gObj.transform.rotation = this.transform.rotation;
             i++;
         }
