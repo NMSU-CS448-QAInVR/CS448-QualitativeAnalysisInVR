@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.442399, g: 0.49145627, b: 0.5713157, a: 1}
+  m_IndirectSpecularColor: {r: 0.44239882, g: 0.4914561, b: 0.57131535, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -954,6 +954,10 @@ PrefabInstance:
       value: boardSnapTesting (1)
       objectReference: {fileID: 0}
     - target: {fileID: 6176612437403076544, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6176612437403076544, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -1046,6 +1050,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 1173446656866838136, guid: 47015d46a77724cba99e6faf76117c75, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173446657132485452, guid: 47015d46a77724cba99e6faf76117c75, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1173446657196895947, guid: 47015d46a77724cba99e6faf76117c75, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1122,6 +1134,10 @@ PrefabInstance:
     - target: {fileID: 6176612437403076544, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
       propertyPath: m_Name
       value: boardSnapTesting
+      objectReference: {fileID: 0}
+    - target: {fileID: 6176612437403076544, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6176612437403076544, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
       propertyPath: m_IsActive
@@ -2522,6 +2538,10 @@ PrefabInstance:
       propertyPath: noteCard
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4458056064003815491, guid: ac76c04c7e3db4840bff476049dac38e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4458056064003815494, guid: ac76c04c7e3db4840bff476049dac38e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9
@@ -2701,6 +2721,10 @@ PrefabInstance:
     - target: {fileID: 6176612437403076544, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
       propertyPath: m_Name
       value: boardSnapTesting (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6176612437403076544, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6176612437403076544, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
       propertyPath: m_IsActive
@@ -3864,6 +3888,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5079874600087058488, guid: 4362c96f979884ac6ab549d82b61fb1a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5079874600087058493, guid: 4362c96f979884ac6ab549d82b61fb1a, type: 3}
+      propertyPath: m_RetainTransformParent
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5079874600087058493, guid: 4362c96f979884ac6ab549d82b61fb1a, type: 3}
