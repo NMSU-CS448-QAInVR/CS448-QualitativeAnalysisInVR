@@ -21,7 +21,11 @@ namespace UIController {
       public PromptMenuController PromptMenu;
       public ProgressMenuController ProgressMenu;
 
+      public ContextualMenuController ContextualMenu;
+
       public LoadMenuController LoadMenu;
+
+      public ImportCSVMod ImportObjectPrefab;
 
       // locations
       [Header("Spawn Location")]
@@ -74,8 +78,8 @@ namespace UIController {
          saveLoadSys = new SaveLoadSystem();
          FileManager.Initialize();
 
-         // set up keyboard
       } // end Awake
+
 
       public void GoToMenu(BaseSubMenuController des) {
          if (des == null) {
@@ -98,11 +102,19 @@ namespace UIController {
 
       public void PopulateSessionsListView() {
          List<string> sessions = saveLoadSys.GetSessionsList();
-         LoadMenu.PopulateSessionList(sessions, Load);
+         LoadMenu.PopulateSessionList(sessions, Load, DeleteSession);
       } // end PopulateListView
 
-      public void DeleteSession() {
-
+      public void DeleteSession(string sessionPath, UnityAction deleteAction) {
+         string session = SaveLoadSystem.GetSessionName(sessionPath);
+         ShowPrompt("Do you want to delete session: " + session, delegate {
+               ShowProgress("Deleting...", "Session " + session + " is deleted successfully", "The session has not been deleted properly", () => {
+                  bool result = saveLoadSys.DeleteSessionFile(sessionPath);
+                  if (result)
+                     deleteAction();
+                  return result;
+               }); // end ShowProgress
+            }); // end ShowPrompt
       } // end DeleteSession
 
       public void GoForwdMenu() {
@@ -119,14 +131,22 @@ namespace UIController {
       } // end SetCategoryType
 
       public void CreateCard(ColorType color) {
+         CreateCardInternal(color.GetValue(), SpawnLocation.transform.position, SpawnLocation.transform.rotation);
+      } // end CreateCard
+
+      private GameObject CreateCardInternal(Color color, Vector3 position, Quaternion rotation) {
+         Debug.Log("create card");
          if (CardPrefabRenderer == null) {
             Debug.LogError("Cannot find renderer of card prefab");
-            return;
+            return null;
          } // end if
-         CardPrefabRenderer.material.SetColor("_Color", color.GetValue());
+         CardPrefabRenderer.material.SetColor("_Color", color);
 
-         GameObject newObj = GameObject.Instantiate(CardPrefab, SpawnLocation.transform.position, SpawnLocation.transform.rotation);
+         GameObject newObj = GameObject.Instantiate(CardPrefab, position, rotation);
+         newObj.SetActive(true);
          saveLoadSys.Add(newObj);
+         Debug.Log("Added a notecard: " + saveLoadSys.GetSessionsList().Count);
+         return newObj;
       } // end CreateCard
 
       public void CreateCategory(ColorType color) {
@@ -144,17 +164,15 @@ namespace UIController {
          return the prompt object of the menu. 
          precodnition: menu is not null
       */
-      private async void ShowProgress(string prompt, string done_prompt_true, string done_prompt_false, Func<bool> operation) {
+      private void ShowProgress(string prompt, string done_prompt_true, string done_prompt_false, Func<bool> operation) {
          
          // Set the UI components
-         ProgressMenu.SetPrompt(prompt);
          Show(ProgressMenu);
+         ProgressMenu.SetPrompt(prompt);
          
          // Run the task
-         Debug.Log("Running");
          ProgressMenu.ShowOnProgress(operation);
          bool result = operation();
-         Debug.Log("Hello");
 
          // if result is true, show the prompt true
          if (result) { // if result is false, show the prompt false
@@ -168,13 +186,9 @@ namespace UIController {
       } // end ShowProgress
 
       public void ShowPrompt(string prompt, UnityAction action) {
-         Debug.Log("In Prompt");
-
+         Show(PromptMenu);
          PromptMenu.SetPrompt(prompt);
          PromptMenu.SetButtonActions(delegate {action();}, delegate {PromptMenu.Hide();});
-
-         Debug.Log("Show Prompt");
-         Show(PromptMenu);
       } // end ShowPrompt
 
       public void Save() {
@@ -241,6 +255,28 @@ namespace UIController {
       private void Show(BaseSubMenuController menu) {
          menu.Show();
       } // end Show
-   } // end MenuController
 
+       public void Import(string path, bool willParse=false) {
+         ShowProgress("Importing...", "Created the import file creator successfully", "Failed to import this file", () => {
+            if (!path.EndsWith(".csv")) {
+               return false;
+            } // end if
+
+            // to be done
+            string myText = FileManager.ReadStringFrom(path);
+            GameObject importObj = GameObject.Instantiate(ImportObjectPrefab.gameObject, SpawnLocation.transform.position, SpawnLocation.transform.rotation);
+            //CreateCardInternal(Color.yellow);
+            importObj.GetComponent<ImportCSVMod>().Initialize(CardPrefab, myText, (string title, string text) => {
+               GameObject notecard = CreateCardInternal(Color.yellow, importObj.transform.position + Vector3.up * 2, SpawnLocation.transform.rotation);
+               //notecard.GetComponentInChildren<NotecardTextEdit>().ChangeText(text); //set text on child component, TextMeshPro, of Notecard object
+               RelativeDisplay rd = notecard.GetComponent<RelativeDisplay>();
+               rd.Title = title;
+               rd.LongInfo = text;
+               return notecard;
+            });
+            return true;
+         }); // end ShowPRogress
+      } // end Import
+
+   } // end MenuController
 } // end UIController

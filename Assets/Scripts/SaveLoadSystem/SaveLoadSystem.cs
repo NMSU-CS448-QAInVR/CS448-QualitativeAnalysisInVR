@@ -38,6 +38,10 @@ public class SaveLoadSystem
         items.Clear();
     } // end Clear
 
+    public static string GetSessionName(string sessionPath) {
+        return sessionPath.Substring(0, sessionPath.Length - 4);
+    } // end GetSessionName
+
     public void SaveOnQuest(string path, bool setCurrentPath=false) {
         if (setCurrentPath) {
             current_path = path;
@@ -80,6 +84,16 @@ public class SaveLoadSystem
         } // end if
         return result;
     } // end GetSessionsList
+
+    public bool DeleteSessionFile(string path) {
+        try {
+            FileManager.DeleteFile(path);
+            return true;
+        } catch (SystemException ex) {
+            Debug.LogError(ex.Message);
+            return false;
+        } // end catch        
+    } // end DeleteSessionFile
 
     public string GetCurrentPath() {
         return current_path;

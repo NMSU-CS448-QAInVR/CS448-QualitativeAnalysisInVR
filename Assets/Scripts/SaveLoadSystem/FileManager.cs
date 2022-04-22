@@ -98,4 +98,18 @@ public class FileManager {
             return save_list.list_format;
         } // end
     } // end Des
+
+    public static string GetNameFromPath(string path) {
+        // to be done
+        return "";
+    } // end GetNameFromPath
+
+    public static DirectoryInfo GetFilesAndDirsAt(string path) {
+        DirectoryInfo di = new DirectoryInfo(path);
+        return di;
+    } // end GetFilesAndDirsAt
+
+    public static string GetDataPath() {
+        return persistentDataPath;
+    } // end GetDataPath
 } // end FileManager
