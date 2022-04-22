@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class NotecardSaveFormat : SaveFormat
+public class DrawingSaveFormat : SaveFormat
 {
     // location
     public float x;
@@ -43,10 +43,10 @@ public class NotecardSaveFormat : SaveFormat
     public string text;
     public float font_size;
 
-    public NotecardSaveFormat() : base(FormatType.NOTECARD) {
+    public DrawingSaveFormat() : base(FormatType.DRAWING) {
     } // end NotecardSaveFormat
 
-    public NotecardSaveFormat(GameObject note) : base(FormatType.NOTECARD) {
+    public DrawingSaveFormat(GameObject note) : base(FormatType.DRAWING) {
         Transform transform = note.transform;
         if (transform == null) {
             throw new Exception("Cannot find transform component in the game object");
@@ -98,7 +98,7 @@ public class NotecardSaveFormat : SaveFormat
         NotecardTextEdit nte = notecard.GetComponent<NotecardTextEdit>();
         if (nte == null)
             Debug.LogError("NotecardTextEdit is null");
-        //nte.SetTextFontSize(font_size);
+        nte.SetTextFontSize(font_size);
         nte.ChangeText(text);
     } // end LoadObject
 }

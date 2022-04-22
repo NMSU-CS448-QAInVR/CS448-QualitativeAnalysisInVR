@@ -61,6 +61,7 @@ public class DrawController3D : MonoBehaviour
         // go.transform.parent = gameObjectToTrack.transform.parent;
         go.transform.position = gameObjectToTrack.transform.position;
 
+        go.AddComponent<DrawingSavable>();
         LineRenderer goLineRenderer = go.AddComponent<LineRenderer>();
         goLineRenderer.startWidth = lineDefaultWidth;
         goLineRenderer.endWidth = lineDefaultWidth;

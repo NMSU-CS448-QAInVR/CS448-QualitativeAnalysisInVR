@@ -9,7 +9,7 @@ public class FileManager {
     private static string persistentDataPath;
 
 
-    private static Type[] types = {typeof(SaveFormat), typeof(NotecardSaveFormat)};
+    private static Type[] types = {typeof(SaveFormat), typeof(NotecardSaveFormat), typeof(DrawingSaveFormat)};
     private static XmlSerializer serializer = new XmlSerializer(typeof(ListSaveFormat), FileManager.types);
     
     public static void Initialize() {
@@ -68,8 +68,8 @@ public class FileManager {
         return result;
     } // end ReadStringFrom
 
-    public static FileInfo[] GetFileList() {
-        DirectoryInfo di = new DirectoryInfo(persistentDataPath);
+    public static FileInfo[] GetFileList(string path = "") {
+        DirectoryInfo di = new DirectoryInfo(Path.Combine(persistentDataPath, path));
         return di.GetFiles();
     } // end GetFileList
 
@@ -112,4 +112,12 @@ public class FileManager {
     public static string GetDataPath() {
         return persistentDataPath;
     } // end GetDataPath
+
+    public static void CreateDirectory(string path, bool startAtPersistentPath=true) {
+        string myPath = "";
+        if (startAtPersistentPath) {
+            myPath = Path.Combine(persistentDataPath, path);
+        } // end if
+        Directory.CreateDirectory(myPath);
+    } // end path
 } // end FileManager

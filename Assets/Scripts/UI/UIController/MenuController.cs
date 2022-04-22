@@ -77,6 +77,7 @@ namespace UIController {
 
          saveLoadSys = new SaveLoadSystem();
          FileManager.Initialize();
+         saveLoadSys.Initialize();
 
       } // end Awake
 
@@ -263,6 +264,7 @@ namespace UIController {
             } // end if
 
             // to be done
+            Debug.Log("my path is " + path);
             string myText = FileManager.ReadStringFrom(path);
             GameObject importObj = GameObject.Instantiate(ImportObjectPrefab.gameObject, SpawnLocation.transform.position, SpawnLocation.transform.rotation);
             //CreateCardInternal(Color.yellow);

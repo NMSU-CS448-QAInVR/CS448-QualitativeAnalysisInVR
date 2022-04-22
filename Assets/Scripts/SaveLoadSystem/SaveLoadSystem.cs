@@ -8,12 +8,18 @@ public class SaveLoadSystem
 {
     List<Savable> items;
     public List<GameObject> objects;
-    private string current_path = "default_save.dat";
+    private string session_folder = "sessions/";
+    private string current_session_path = "default_save.dat";
+    
    
     public SaveLoadSystem() {
         items = new List<Savable>();
         objects = new List<GameObject>();
     } // end Awake
+
+    public void Initialize() {
+        FileManager.CreateDirectory(session_folder);
+    } // end Initialize
 
     public void Add(GameObject obj) {
         if (obj == null)
@@ -43,8 +49,9 @@ public class SaveLoadSystem
     } // end GetSessionName
 
     public void SaveOnQuest(string path, bool setCurrentPath=false) {
+        string myPath = Path.Combine(session_folder, path);
         if (setCurrentPath) {
-            current_path = path;
+            current_session_path = myPath;
         } // end if
 
         List<SaveFormat> result = new List<SaveFormat>();
@@ -57,20 +64,21 @@ public class SaveLoadSystem
             result.Add(fm);
         } // end foreach
         Debug.Log("Count is " + result.Count);
-        FileManager.XmlSerializeList(path, result);
+        FileManager.XmlSerializeList(myPath, result);
     } // end SaveOnQuest
 
     public List<SaveFormat> LoadFromQuest(string path) {
-        string my_data_xml = FileManager.ReadStringFrom(path); 
-        current_path = path;
+        string myPath = Path.Combine(session_folder, path);
+        string my_data_xml = FileManager.ReadStringFrom(myPath); 
+        current_session_path = myPath;
         Debug.Log(my_data_xml);
         //List<SaveFormat> my_data = JsonUtility.FromJson<List<SaveFormat>>(my_data_json);
-        List<SaveFormat> my_data = FileManager.XmlDeserializeList(path);
+        List<SaveFormat> my_data = FileManager.XmlDeserializeList(myPath);
         return my_data;
     } // end LoadFromQuest
 
     public List<string> GetSessionsList() {
-        FileInfo[] infos = FileManager.GetFileList();
+        FileInfo[] infos = FileManager.GetFileList(session_folder);
         Debug.Log("There are  " + infos.Length + " files");
         List<string> result = new List<string>();
         if (infos != null) {
@@ -87,7 +95,8 @@ public class SaveLoadSystem
 
     public bool DeleteSessionFile(string path) {
         try {
-            FileManager.DeleteFile(path);
+            string myPath = Path.Combine(session_folder, path);
+            FileManager.DeleteFile(myPath);
             return true;
         } catch (SystemException ex) {
             Debug.LogError(ex.Message);
@@ -96,6 +105,6 @@ public class SaveLoadSystem
     } // end DeleteSessionFile
 
     public string GetCurrentPath() {
-        return current_path;
+        return current_session_path;
     } // end GetCurrentPath
 }
