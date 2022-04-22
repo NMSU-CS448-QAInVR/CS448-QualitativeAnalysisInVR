@@ -266,9 +266,13 @@ namespace UIController {
             string myText = FileManager.ReadStringFrom(path);
             GameObject importObj = GameObject.Instantiate(ImportObjectPrefab.gameObject, SpawnLocation.transform.position, SpawnLocation.transform.rotation);
             //CreateCardInternal(Color.yellow);
-            importObj.GetComponent<ImportCSVMod>().Initialize(CardPrefab, myText, (string text) => {
-               GameObject notecard = CreateCardInternal(Color.yellow, importObj.transform.position, SpawnLocation.transform.rotation);
-               notecard.GetComponentInChildren<NotecardTextEdit>().ChangeText(text); //set text on child component, TextMeshPro, of Notecard object
+            importObj.GetComponent<ImportCSVMod>().Initialize(CardPrefab, myText, (string title, string text) => {
+               GameObject notecard = CreateCardInternal(Color.yellow, importObj.transform.position + Vector3.up * 2, SpawnLocation.transform.rotation);
+               //notecard.GetComponentInChildren<NotecardTextEdit>().ChangeText(text); //set text on child component, TextMeshPro, of Notecard object
+               RelativeDisplay rd = notecard.GetComponent<RelativeDisplay>();
+               rd.Title = title;
+               rd.LongInfo = text;
+               return notecard;
             });
             return true;
          }); // end ShowPRogress
