@@ -15,6 +15,7 @@ public class MenuToggle : MonoBehaviour
     private ContextualMenuController cmc;
     [SerializeField]
     GameObject MenuMointPoint;
+    [SerializeField]
     GameObject ContextualMenuMountPoint;
 
     // Start is called before the first frame update
@@ -23,7 +24,6 @@ public class MenuToggle : MonoBehaviour
         Debug.LogError("Awake Start");
         toggleReferences.action.started +=  this.Toggle;
         cmc = ContextualMenu.GetComponentInChildren<ContextualMenuController>();
-        ContextualMenuMountPoint = MenuMointPoint;
     }
 
     private void OnDestroy() {
@@ -43,6 +43,7 @@ public class MenuToggle : MonoBehaviour
     } // end MoveToPosition
 
     public void ShowContextualMenuNotecard(GameObject obj) {
+        Debug.Log("Show contextual");
         cmc.SetTargetObject(obj, FormatType.NOTECARD);
         ContextualMenu.SetActive(true);
         MoveThisToPosition(ContextualMenu, ContextualMenuMountPoint);
