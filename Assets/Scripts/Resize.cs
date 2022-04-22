@@ -15,6 +15,8 @@ public class Resize : MonoBehaviour
 
     public LineRenderer line;
 
+    public Material lineMat;
+
     bool cardHeld = false;
     //bool cardSizeActive = false;
     bool placed = false;
@@ -43,10 +45,7 @@ public class Resize : MonoBehaviour
         cardHeld = false;
     }
 
-    public void snap(){
-         
-    }
-
+  
     public void triggered(){
         Debug.Log("trigger pressed");
         placed = true;   
@@ -70,42 +69,33 @@ public class Resize : MonoBehaviour
     {
             
 
-        
-
         if(card != null && cardHeld == true){
-                //Debug.Log("here");
-             //Physics.Raycast(endpos, endpos - startPos, out hit, 40, LayerMask.GetMask("Everything"));
-             //Debug.DrawRay(endpos, lineLength, Color.yellow);
+                
             Vector3 endpos = line.GetPosition(line.positionCount - 1);
             Vector3 startPos = line.GetPosition(0);
-            Vector3 lineLength = new Vector3(30, 30 ,30);
+            
             Vector3 direction = Vector3.Normalize(endpos - startPos);
             Vector3 collisionPadding = direction * 0.3f;
 
             
             RaycastHit hit;
           if (Physics.Raycast(endpos + collisionPadding , direction, out hit, 30, LayerMask.GetMask("Board"))) {
-                Debug.Log("here in raycast");
+                //Debug.Log("here in raycast");
+               
                 DrawLine(endpos + collisionPadding, hit.point, Color.blue);
-                 //Debug.DrawRay(endpos, endpos-startPos, Color.yellow);
-                 //Debug.Log("ray collided!");
+                 
                  
                  if(placed == true){
                  card.transform.position = hit.point;
                  card.transform.localEulerAngles = new Vector3(hit.transform.localEulerAngles.x, hit.transform.localEulerAngles.y + 90, hit.transform.localEulerAngles.z);
     
-                 //rb.constraints = RigidbodyConstraints.FreezePosition;
+                 rb.constraints = RigidbodyConstraints.FreezePosition;
                  
-                 }
+                 }// if placed = true
                 
            
             }
-
-            //set rotation to be flat against surface
-                
-                // new Vector3(0,90,0);
-            //lock x position
-            
+ 
             
             //Debug.DrawRay (gameObject.transform.position, transform.right, Color.red, 5);
             //resize with buttons code
@@ -119,12 +109,13 @@ public class Resize : MonoBehaviour
     //        HandDistanceVert = System.Math.Abs(GetPosition.LY - GetPositionR.RY);
     //        transform.localScale = new Vector3(HandDistanceHoriz, HandDistanceVert, objectScale.z);}
 
-    //    }     
-    }
+    //    }    of size active
 
-    else{}
+   }//of cardHeld
 
-    }
+
+
+    }// of update
 
 
     void size(float value, float value2, Vector3 objectScale){
@@ -150,7 +141,7 @@ public class Resize : MonoBehaviour
              myLine.AddComponent<LineRenderer>();
              LineRenderer lr = myLine.GetComponent<LineRenderer>();
              lr.positionCount = 2;
-             //lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
+             lr.material = lineMat;
              lr.startColor = color;
              lr.endColor = color;
              lr.startWidth = 0.01f;

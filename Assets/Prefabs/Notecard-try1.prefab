@@ -34,7 +34,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5079874600087058494}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.754, y: 1, z: 0}
+  m_LocalPosition: {x: 0.42, y: 1, z: 0}
   m_LocalScale: {x: 0.2773076, y: 0.2113471, z: 0.001}
   m_Children:
   - {fileID: 1044874112070875004}
@@ -285,6 +285,7 @@ MonoBehaviour:
   sizePrimary: {fileID: -6059904301284996345, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   sizeSecondary: {fileID: 1716673005982093081, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   line: {fileID: 6185550539391540593}
+  lineMat: {fileID: 0}
   card: {fileID: 5079874600087058494}
   rb: {fileID: 5079874600087058492}
 --- !u!114 &-496996167362501435
