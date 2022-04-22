@@ -7,8 +7,10 @@ public class ImportCSVMod : MonoBehaviour
 {
     private int i = 1; //keeps track of what value is being read from csv
     private string[] data; //holds parsed strings from csv
-    private UnityAction<string, string> createCardWithTextFunc;
+    private Func<string, string, GameObject> createCardWithTextFunc;
     private string title;
+
+    private Transform CardLocation;
 
 
     // Start is called before the first frame update
@@ -17,9 +19,11 @@ public class ImportCSVMod : MonoBehaviour
         //try to read in file and save data to string array 'data' before clicked
        
         //Debug.Log("Data length: " + data.Length);
+        CardLocation = GetComponentInChildren<ImportCardLocationScript>().gameObject.transform;
+        
     }
 
-    public void Initialize(GameObject prefab, string text, UnityAction<string, string> createCardWithText) {
+    public void Initialize(GameObject prefab, string text, Func<string, string, GameObject> createCardWithText) {
         data = text.Split(','); //split string by commas
         createCardWithTextFunc = createCardWithText;
         title = data[0].Replace("\n", "").Replace("\r", "");//remove newline and return from text
@@ -38,7 +42,9 @@ public class ImportCSVMod : MonoBehaviour
             Debug.Log("Generate card number " + i + " from CSV");
             Debug.Log(cardText);
             // create card
-            createCardWithTextFunc(title, cardText);
+            GameObject gObj = createCardWithTextFunc(title, cardText);
+            gObj.transform.position = CardLocation.position;
+            gObj.transform.rotation = this.transform.rotation;
             i++;
         }
     }

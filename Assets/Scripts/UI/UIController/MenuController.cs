@@ -272,6 +272,7 @@ namespace UIController {
                RelativeDisplay rd = notecard.GetComponent<RelativeDisplay>();
                rd.Title = title;
                rd.LongInfo = text;
+               return notecard;
             });
             return true;
          }); // end ShowPRogress
