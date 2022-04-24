@@ -51,7 +51,7 @@ public class SaveLoadSystem
     public void SaveOnQuest(string path, bool setCurrentPath=false) {
         string myPath = Path.Combine(session_folder, path);
         if (setCurrentPath) {
-            current_session_path = myPath;
+            current_session_path = path;
         } // end if
 
         List<SaveFormat> result = new List<SaveFormat>();
@@ -70,7 +70,7 @@ public class SaveLoadSystem
     public List<SaveFormat> LoadFromQuest(string path) {
         string myPath = Path.Combine(session_folder, path);
         string my_data_xml = FileManager.ReadStringFrom(myPath); 
-        current_session_path = myPath;
+        current_session_path = path;
         Debug.Log(my_data_xml);
         //List<SaveFormat> my_data = JsonUtility.FromJson<List<SaveFormat>>(my_data_json);
         List<SaveFormat> my_data = FileManager.XmlDeserializeList(myPath);

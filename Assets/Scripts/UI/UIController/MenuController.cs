@@ -237,6 +237,7 @@ namespace UIController {
                item.LoadObjectInto(obj);
                saveLoadSys.Add(obj);
             } // end if
+            Debug.Log("My object scale is: " + obj.transform.localScale.x);
          } // end foreach
 
          return true;
