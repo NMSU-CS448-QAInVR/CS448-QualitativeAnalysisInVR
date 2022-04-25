@@ -4,9 +4,9 @@ using System;
 using UnityEngine;
 
 
-public class DrawingSavable : MonoBehaviour, Savable
+public class DrawingSavable : Savable
 {
-    public SaveFormat SaveObject() {
+    public override SaveFormat SaveObject() {
         // check if the components are here
         try {
             SaveFormat result = new DrawingSaveFormat(this.gameObject);

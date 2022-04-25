@@ -31,6 +31,11 @@ namespace UIController {
       [Header("Spawn Location")]
       [SerializeField]
       GameObject SpawnLocation;
+      
+      [Header("Drawing Functions")]
+      [SerializeField]
+      private DrawController3D Draw3DController;
+
 
       // session
       [Header("Session")]
@@ -193,6 +198,7 @@ namespace UIController {
       } // end ShowPrompt
 
       public void Save() {
+         saveLoadSys.AddExternalStuffs(Draw3DController.GetLines());
          saveLoadSys.SaveOnQuest(saveLoadSys.GetCurrentPath());
       } // end Save
 
@@ -204,6 +210,7 @@ namespace UIController {
          SaveAs(input.text + ".dat");
       } // end SaveAs
       private void SaveAs(string path) {
+         saveLoadSys.AddExternalStuffs(Draw3DController.GetLines());
          saveLoadSys.SaveOnQuest(path, true);
       } // end SaveAs
 
@@ -217,7 +224,6 @@ namespace UIController {
       } // end Load
 
       private bool PLoadSession(string path) {
-         Debug.Log("I'm here");
          Delete();
          List<SaveFormat> items = saveLoadSys.LoadFromQuest(path);
          if (items == null) {
@@ -227,17 +233,21 @@ namespace UIController {
 
          foreach (SaveFormat item in items) {
             GameObject obj = null;
+            bool addToSaveLoadSys = true;
             if (item.getType() == FormatType.NOTECARD) {
                obj = (GameObject) GameObject.Instantiate(CardPrefab, new Vector3(0, 1, 0), Quaternion.Euler(0, 0, 0));
+            } else if (item.getType() == FormatType.DRAWING) {
+               obj = Draw3DController.gameObject;
+               addToSaveLoadSys = false;
             } else {
 
             } // end else
             
             if (obj != null) {
                item.LoadObjectInto(obj);
-               saveLoadSys.Add(obj);
+               if (addToSaveLoadSys)
+                  saveLoadSys.Add(obj);
             } // end if
-            Debug.Log("My object scale is: " + obj.transform.localScale.x);
          } // end foreach
 
          return true;
@@ -248,6 +258,7 @@ namespace UIController {
                GameObject.Destroy(obj);
          } // end for each
          saveLoadSys.Clear();
+         Draw3DController.ClearAllDrawings();
       } // end Delete
       
       private void Hide(BaseSubMenuController menu) {

@@ -1315,6 +1315,10 @@ PrefabInstance:
       propertyPath: SpawnLocation
       value: 
       objectReference: {fileID: 749864636}
+    - target: {fileID: 5595234270790181116, guid: 47015d46a77724cba99e6faf76117c75, type: 3}
+      propertyPath: Draw3DController
+      value: 
+      objectReference: {fileID: 1653096426}
     - target: {fileID: 6797268797666232222, guid: 47015d46a77724cba99e6faf76117c75, type: 3}
       propertyPath: m_RootOrder
       value: 18
@@ -2940,6 +2944,17 @@ Transform:
   m_Father: {fileID: 612597452}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1653096426 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 291212856596748040, guid: 5180434c96b4c614f960bddf1d953a9d, type: 3}
+  m_PrefabInstance: {fileID: 1854717896}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 623d8d9e217403f4e9cf3b8c0654b78e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1681103750
 PrefabInstance:
   m_ObjectHideFlags: 0

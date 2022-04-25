@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface Savable
+public class Savable : MonoBehaviour
 {
-    public SaveFormat SaveObject();
+    public virtual SaveFormat SaveObject() {
+        return null;
+    }
 }

@@ -4,9 +4,9 @@ using System;
 using UnityEngine;
 
 
-public class NotecardSavable : MonoBehaviour, Savable
+public class NotecardSavable : Savable
 {
-    public SaveFormat SaveObject() {
+    public override SaveFormat SaveObject() {
         // check if the components are here
         try {
             SaveFormat result = new NotecardSaveFormat(this.gameObject);

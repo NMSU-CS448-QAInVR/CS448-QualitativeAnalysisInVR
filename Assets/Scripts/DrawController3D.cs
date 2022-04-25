@@ -75,6 +75,46 @@ public class DrawController3D : MonoBehaviour
         lines.Add(goLineRenderer);
     }
 
+    public List<Savable> GetLines() {
+        List<Savable> result = new List<Savable>();
+        foreach (LineRenderer line in lines) {
+            Debug.Log(line.gameObject);
+            result.Add(line.gameObject.GetComponent<Savable>());
+        } // end foreach
+        return result;
+    } // end GetLines()
+
+    public void LoadLinesForSaveSystem(List<Vector3[]> myLines) {
+        foreach (Vector3[] line in myLines) {
+            LoadLineForSaveSystem(line);
+        } // end foreach
+    } // end LoadLines
+
+    public void ClearAllDrawings() {
+        foreach (LineRenderer line in lines) {
+            GameObject.Destroy(line.gameObject);
+        } // end foreach
+        lines.Clear();
+    } // end ClearAllDrawings
+
+    public void LoadLineForSaveSystem(Vector3[] myLine, GameObject objectToTrack = null) {
+        GameObject backup = gameObjectToTrack;
+        bool error = false;
+        try {
+            AddNewLineRenderer();
+            for (int i = 0; i < myLine.Length; ++i) {
+                AddPoint(myLine[i]);
+            } // end 
+        } catch (UnityException exc) {
+            Debug.LogError(exc.Message);
+            error = true;
+        } finally {
+            gameObjectToTrack = backup;
+            AddNewLineRenderer();
+        } // end finally
+    
+    } // end LoadLines
+
     void CheckTriggerState()
     {
         bool isTriggerPressing = trigger.action.ReadValue<float>() > 0.1f;

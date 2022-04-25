@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+using System.Linq;
 
 public class SaveLoadSystem
 {
@@ -48,6 +49,12 @@ public class SaveLoadSystem
         return sessionPath.Substring(0, sessionPath.Length - 4);
     } // end GetSessionName
 
+    public void AddExternalStuffs(List<Savable> externalSavable) {
+        IEnumerable<Savable> ie = externalSavable;
+        items.AddRange(ie);
+        objects.AddRange(ie.Select((Savable sav) => sav.gameObject));
+    } // end AddExternalSavable
+
     public void SaveOnQuest(string path, bool setCurrentPath=false) {
         string myPath = Path.Combine(session_folder, path);
         if (setCurrentPath) {
@@ -63,7 +70,6 @@ public class SaveLoadSystem
             } // end if
             result.Add(fm);
         } // end foreach
-        Debug.Log("Count is " + result.Count);
         FileManager.XmlSerializeList(myPath, result);
     } // end SaveOnQuest
 
