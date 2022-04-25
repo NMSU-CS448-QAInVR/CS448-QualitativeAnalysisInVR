@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using System.Threading.Tasks;
 using System.Text;
 using UnityEngine;
 
@@ -24,6 +25,7 @@ public class SaveFormat
         return type;
     } // end getType
 
-    public virtual void  LoadObjectInto(GameObject obj) {
+    public virtual async Task<bool>  LoadObjectInto(GameObject obj) {
+        return true;
     }
 }

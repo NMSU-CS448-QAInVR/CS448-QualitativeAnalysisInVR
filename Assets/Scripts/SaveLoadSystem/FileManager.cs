@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Threading.Tasks;
 using System;
 using UnityEngine;
 
@@ -93,7 +94,24 @@ public class FileManager {
                 Debug.LogError("Cannot open file - reader");
             } // end if
             
-            ListSaveFormat save_list = (ListSaveFormat) serializer.Deserialize(file.BaseStream);
+            //ListSaveFormat save_list = (ListSaveFormat) serializer.Deserialize(file.BaseStream);
+            ListSaveFormat save_list = new ListSaveFormat();
+            Debug.Log("Deserialize Xml from file");
+            return save_list.list_format;
+        } // end
+    } // end Des
+
+    public static async Task<List<SaveFormat>> XmlDeserializeListAsync(string path) {
+        string final_path = Path.Combine(persistentDataPath, path);
+        using (StreamReader file = new StreamReader(final_path)) {
+            if (file == null) {
+                Debug.LogError("Cannot open file - reader");
+            } // end if
+            
+            ListSaveFormat save_list = null;
+            await Task.Run(() => {
+                save_list = (ListSaveFormat) serializer.Deserialize(file.BaseStream);
+            });
             Debug.Log("Deserialize Xml from file");
             return save_list.list_format;
         } // end

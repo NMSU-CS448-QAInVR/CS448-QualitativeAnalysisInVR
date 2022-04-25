@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 using System;
 
 [Serializable]
@@ -43,6 +44,12 @@ public class NotecardSaveFormat : SaveFormat
     public string text;
     public float font_size;
 
+    // texture for drawings. 
+    public float[] texture_color_r;
+    public float[] texture_color_g;
+    public float[] texture_color_b;
+    public float[] texture_color_a;
+
     public NotecardSaveFormat() : base(FormatType.NOTECARD) {
     } // end NotecardSaveFormat
 
@@ -77,9 +84,23 @@ public class NotecardSaveFormat : SaveFormat
         NotecardTextEdit nte = note.GetComponent<NotecardTextEdit>();
         text = nte.GetText();
         font_size = nte.GetTextFontSize();
+
+        // texture for drawing
+        Drawable dr = note.GetComponent<Drawable>();
+        Color[] color = dr.GetTextureColor();
+        // texture_color_r = new float[color.Length];
+        // texture_color_g = new float[color.Length];
+        // texture_color_b = new float[color.Length];
+        // texture_color_a = new float[color.Length];
+        // for (int i = 0; i < color.Length; ++i) {
+        //     texture_color_r[i] = color[i].r;
+        //     texture_color_g[i] = color[i].g;
+        //     texture_color_b[i] = color[i].b;
+        //     texture_color_a[i] = color[i].a;
+        // } // end for i
     } // end NotecardSaveFormat
 
-    public override void LoadObjectInto(GameObject notecard) {
+    public override async Task<bool> LoadObjectInto(GameObject notecard) {
         // set position and rotation
         notecard.transform.position = new Vector3(x, y, z);
         notecard.transform.rotation = new Quaternion(quaternion_x, quaternion_y, quaternion_z, quaternion_w);
@@ -100,5 +121,17 @@ public class NotecardSaveFormat : SaveFormat
             Debug.LogError("NotecardTextEdit is null");
         //nte.SetTextFontSize(font_size);
         nte.ChangeText(text);
+
+        // load texture
+        // if (texture_color_a != null) {
+        //     Drawable dr = notecard.GetComponent<Drawable>();
+        //     Color[] color = new Color[texture_color_a.Length];
+        //     for (int i = 0; i < color.Length; ++i) {
+        //         color[i] = new Color(texture_color_r[i], texture_color_b[i], texture_color_g[i], texture_color_r[i]);
+        //     } // end for i
+        //     dr.UpdateTexture(color);
+        // } //end if
+
+        return true;
     } // end LoadObject
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using System;
 using System.IO;
@@ -75,11 +76,21 @@ public class SaveLoadSystem
 
     public List<SaveFormat> LoadFromQuest(string path) {
         string myPath = Path.Combine(session_folder, path);
-        string my_data_xml = FileManager.ReadStringFrom(myPath); 
+        //string my_data_xml = FileManager.ReadStringFrom(myPath); 
         current_session_path = path;
-        Debug.Log(my_data_xml);
         //List<SaveFormat> my_data = JsonUtility.FromJson<List<SaveFormat>>(my_data_json);
         List<SaveFormat> my_data = FileManager.XmlDeserializeList(myPath);
+        return my_data;
+    } // end LoadFromQuest
+
+    public async Task<List<SaveFormat>> LoadFromQuestAsync(string path) {
+        string myPath = Path.Combine(session_folder, path);
+        //string my_data_xml = FileManager.ReadStringFrom(myPath); 
+        current_session_path = path;
+        //List<SaveFormat> my_data = JsonUtility.FromJson<List<SaveFormat>>(my_data_json);
+        Debug.Log("start deserializing");
+        List<SaveFormat> my_data = await FileManager.XmlDeserializeListAsync(myPath);
+        Debug.Log("end deserializing");
         return my_data;
     } // end LoadFromQuest
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using System;
 
@@ -53,18 +54,22 @@ public class DrawingSaveFormat : SaveFormat
         } // end for i
     } // end NotecardSaveFormat
 
-    public override void LoadObjectInto(GameObject draw3DController) {
+    public override async Task<bool> LoadObjectInto(GameObject draw3DController) {
         DrawController3D dc3 = draw3DController.GetComponent<DrawController3D>();
         Vector3[] pointsOnLine = new Vector3[x_values.Length];
-        for (int i = 0; i < pointsOnLine.Length; ++i) {
-            pointsOnLine[i].x = x_values[i];
-            pointsOnLine[i].y = y_values[i];
-            pointsOnLine[i].z = z_values[i];
-        } // end for i
+        await Task.Run(() => {
+            for (int i = 0; i < pointsOnLine.Length; ++i) {
+                pointsOnLine[i].x = x_values[i];
+                pointsOnLine[i].y = y_values[i];
+                pointsOnLine[i].z = z_values[i];
+            } // end for i
+        });
 
         GameObject obj = new GameObject("temp");
         obj.transform.position = new Vector3(x, y, z);
         dc3.LoadLineForSaveSystem(pointsOnLine, obj);
         GameObject.Destroy(obj);
+
+        return true;
     } // end LoadObject
 }

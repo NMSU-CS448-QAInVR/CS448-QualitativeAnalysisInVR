@@ -118,7 +118,7 @@ namespace UIController {
                   bool result = saveLoadSys.DeleteSessionFile(sessionPath);
                   if (result)
                      deleteAction();
-                  return result;
+                  return Task.FromResult(result);
                }); // end ShowProgress
             }); // end ShowPrompt
       } // end DeleteSession
@@ -170,15 +170,15 @@ namespace UIController {
          return the prompt object of the menu. 
          precodnition: menu is not null
       */
-      private void ShowProgress(string prompt, string done_prompt_true, string done_prompt_false, Func<bool> operation) {
+      private async void ShowProgress(string prompt, string done_prompt_true, string done_prompt_false, Func<Task<bool>> operation) {
          
          // Set the UI components
          Show(ProgressMenu);
          ProgressMenu.SetPrompt(prompt);
          
          // Run the task
-         ProgressMenu.ShowOnProgress(operation);
-         bool result = operation();
+         bool result = await ProgressMenu.ShowOnProgress(operation);
+         //bool result = await operation();
 
          // if result is true, show the prompt true
          if (result) { // if result is false, show the prompt false
@@ -216,21 +216,22 @@ namespace UIController {
 
       public void Load(string path) {
             ShowPrompt("Do you want to load: " + path, delegate {
-               ShowProgress("Loading...", "File is loaded successfully", "The file is empty", () => {
-                  bool result = PLoadSession(path);
+               ShowProgress("Loading...", "File is loaded successfully", "The file is empty", async () => {
+                  bool result = await PLoadSession(path);
                   return result;
                }); // end ShowProgress
             }); // end ShowPrompt
       } // end Load
 
-      private bool PLoadSession(string path) {
-         Delete();
-         List<SaveFormat> items = saveLoadSys.LoadFromQuest(path);
+      private async Task<bool> PLoadSession(string path) {
+         List<SaveFormat> items = null;
+         items = await saveLoadSys.LoadFromQuestAsync(path);
          if (items == null) {
             Debug.LogError("The loaded items is empty");
             return false;
          } // end if
 
+         Delete();
          foreach (SaveFormat item in items) {
             GameObject obj = null;
             bool addToSaveLoadSys = true;
@@ -244,7 +245,7 @@ namespace UIController {
             } // end else
             
             if (obj != null) {
-               item.LoadObjectInto(obj);
+               await item.LoadObjectInto(obj);
                if (addToSaveLoadSys)
                   saveLoadSys.Add(obj);
             } // end if
@@ -272,7 +273,7 @@ namespace UIController {
        public void Import(string path, bool willParse=false) {
          ShowProgress("Importing...", "Created the import file creator successfully", "Failed to import this file", () => {
             if (!path.EndsWith(".csv")) {
-               return false;
+               return Task.FromResult<bool>(false);
             } // end if
 
             // to be done
@@ -288,7 +289,7 @@ namespace UIController {
                rd.LongInfo = text;
                return notecard;
             });
-            return true;
+            return Task.FromResult<bool>(true);
          }); // end ShowPRogress
       } // end Import
 

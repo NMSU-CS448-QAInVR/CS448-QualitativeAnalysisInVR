@@ -15,6 +15,8 @@ namespace UIController {
         public Button cancelButton;
         public Button doneButton;
 
+        private bool success = true;
+
         // Start is called before the first frame update
         void Awake()
         {
@@ -34,7 +36,7 @@ namespace UIController {
 
         } // end SetDoneAction
 
-        public void ShowOnProgress(Func<bool> actionToDo) {
+        public async Task<bool> ShowOnProgress(Func<Task<bool>> actionToDo) {
             // show cancel button
             cancelButton.gameObject.SetActive(true);
 
@@ -45,13 +47,13 @@ namespace UIController {
             var cancelTokenSrc = new CancellationTokenSource();
             CancellationToken ct = cancelTokenSrc.Token;
 
-            Task<bool> task = Task.Run(() => {
-                return actionToDo();
-            }, ct);
+            bool task = await actionToDo();
 
             // set cancel action
             cancelButton.onClick.RemoveAllListeners();
             cancelButton.onClick.AddListener(delegate {cancelTokenSrc.Cancel();});
+            await Task.Delay(1, ct);
+            return task;
         } // end ShowOnProgress
 
         public void ShowDone(UnityAction onDoneAction) {
