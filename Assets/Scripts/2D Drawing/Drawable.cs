@@ -25,4 +25,13 @@ public class Drawable : MonoBehaviour
         renderer.material.mainTexture = texture;
     }
 
+    public void UpdateTexture(Color[] color) {
+        texture.SetPixels(0, 0, width, height, color);
+    } // end UpdateTexture
+
+    public Color[] GetTextureColor() {
+        return texture.GetPixels();
+    } // end GetTexture
+
+
 }
