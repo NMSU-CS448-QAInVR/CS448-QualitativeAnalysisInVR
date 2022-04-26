@@ -55,7 +55,7 @@ namespace UIController {
          nct.InvokeEdit(true);
       } // EditText
 
-      public void EditTtile() {
+      public void EditTitle() {
          NotecardTextEdit nct = targetObject.GetComponent<NotecardTextEdit>();
          nct.InvokeEdit(false);
       } // EditText
