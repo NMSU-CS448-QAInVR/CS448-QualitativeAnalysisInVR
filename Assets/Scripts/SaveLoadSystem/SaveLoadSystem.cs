@@ -11,7 +11,7 @@ public class SaveLoadSystem
     List<Savable> items;
     public List<GameObject> objects;
     private string session_folder = "sessions/";
-    private string current_session_path = "default_save.dat";
+    private string current_session_path = "default_save";
     
    
     public SaveLoadSystem() {
@@ -84,7 +84,7 @@ public class SaveLoadSystem
             FileManager.CreateDirectory(myPath);
         } // end if
         
-        string data_file_path = Path.Combine(myPath, path);
+        string data_file_path = Path.Combine(myPath, path + ".dat");
         
         List<SaveFormat> result = new List<SaveFormat>();
         foreach (Savable item in items) {
@@ -101,7 +101,7 @@ public class SaveLoadSystem
 
     public List<SaveFormat> LoadFromQuest(string path) {
         string myPath = Path.Combine(session_folder, path);
-        string data_file_path = Path.Combine(myPath, path);
+        string data_file_path = Path.Combine(myPath, path + ".dat");
         //string my_data_xml = FileManager.ReadStringFrom(myPath); 
         current_session_path = path;
         //List<SaveFormat> my_data = JsonUtility.FromJson<List<SaveFormat>>(my_data_json);
@@ -111,11 +111,12 @@ public class SaveLoadSystem
 
     public async Task<List<SaveFormat>> LoadFromQuestAsync(string path) {
         string myPath = Path.Combine(session_folder, path);
+        string data_file_path = Path.Combine(myPath, path + ".dat");
         //string my_data_xml = FileManager.ReadStringFrom(myPath); 
         current_session_path = path;
         //List<SaveFormat> my_data = JsonUtility.FromJson<List<SaveFormat>>(my_data_json);
         Debug.Log("start deserializing");
-        List<SaveFormat> my_data = await FileManager.XmlDeserializeListAsync(myPath);
+        List<SaveFormat> my_data = await FileManager.XmlDeserializeListAsync(data_file_path);
         Debug.Log("end deserializing");
         return my_data;
     } // end LoadFromQuest

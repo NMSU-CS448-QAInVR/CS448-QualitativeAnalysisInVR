@@ -52,7 +52,12 @@ namespace UIController {
 
       public void EditText() {
          NotecardTextEdit nct = targetObject.GetComponent<NotecardTextEdit>();
-         nct.InvokeEdit();
+         nct.InvokeEdit(true);
+      } // EditText
+
+      public void EditTtile() {
+         NotecardTextEdit nct = targetObject.GetComponent<NotecardTextEdit>();
+         nct.InvokeEdit(false);
       } // EditText
 
    } // end MenuController

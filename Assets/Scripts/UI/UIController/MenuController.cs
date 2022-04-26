@@ -214,7 +214,7 @@ namespace UIController {
          if (input == null) 
             return;
          Debug.Log("Saving");
-         SaveAs(input.text + ".dat");
+         SaveAs(input.text);
       } // end SaveAs
       private void SaveAs(string path) {
          ShowProgress("Saving session...", "Saving is successful", "Saving is not successful", async () => {
