@@ -299,14 +299,14 @@ namespace UIController {
       } // end Show
 
        public void Import(string path, bool willParse=false) {
-         ShowProgress("Importing...", "Created the import file creator successfully", "Failed to import this file", () => {
+         ShowProgress("Importing...", "Created the import file creator successfully", "Failed to import this file", async () => {
             if (!path.EndsWith(".csv")) {
-               return Task.FromResult<bool>(false);
+               return false;
             } // end if
 
             // to be done
             Debug.Log("my path is " + path);
-            string myText = FileManager.ReadStringFrom(path);
+            string myText = await FileManager.ReadStringFromAsync(path);
             GameObject importObj = GameObject.Instantiate(ImportObjectPrefab.gameObject, SpawnLocation.transform.position, SpawnLocation.transform.rotation);
             //CreateCardInternal(Color.yellow);
             importObj.GetComponent<ImportCSVMod>().Initialize(CardPrefab, myText, (string title, string text) => {
@@ -317,7 +317,7 @@ namespace UIController {
                rd.LongInfo = text;
                return notecard;
             });
-            return Task.FromResult<bool>(true);
+            return true;
          }); // end ShowPRogress
       } // end Import
 

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
@@ -42,15 +43,18 @@ public class NotecardSaveFormat : SaveFormat
     // text
     
     public string text;
-    public float font_size;
+    public string title;
 
     // texture for drawings. 
-    public int[] drawn_location_x;
+    public string texture_file_name;
+    public string saved_folder;
+
+    private int notecard_no = 0;
 
     public NotecardSaveFormat() : base(FormatType.NOTECARD) {
     } // end NotecardSaveFormat
 
-    public override async Task UpdateData(GameObject note) {
+    public override async Task UpdateData(GameObject note, string save_des_folder) {
         Transform transform = note.transform;
         if (transform == null) {
             throw new Exception("Cannot find transform component in the game object");
@@ -78,19 +82,17 @@ public class NotecardSaveFormat : SaveFormat
         color_a = myColor.w;
 
         // text
-        NotecardTextEdit nte = note.GetComponent<NotecardTextEdit>();
-        text = nte.GetText();
-        font_size = nte.GetTextFontSize();
+        RelativeDisplay nte = note.GetComponent<RelativeDisplay>();
+        text = nte.LongInfo;
+        title = nte.Title;
 
         // texture for drawing
         Drawable dr = note.GetComponent<Drawable>();
-        List<LocationDrawn> drawn_locations = await dr.GetTextureColor();
-        drawn_location_x = new int[drawn_locations.Count];
-        await Task.Run(() => {
-            for (int i = 0; i < drawn_locations.Count; ++i) {
-                drawn_location_x[i] = drawn_locations[i].x;
-            } // end for i
-        });
+        byte[] texture_data = await dr.GetTextureColor();
+        texture_file_name = "notecard" + (notecard_no++) + ".png";
+        saved_folder = save_des_folder;
+        string path = Path.Combine(saved_folder, texture_file_name);
+        await FileManager.WriteBytesToAsync(path, texture_data);
     } // end UpdateData
 
     public override async Task<bool> LoadObjectInto(GameObject notecard) {
@@ -109,23 +111,19 @@ public class NotecardSaveFormat : SaveFormat
         apperance.ChangeColor(newColor);
 
         // set text and font size
-        NotecardTextEdit nte = notecard.GetComponent<NotecardTextEdit>();
-        if (nte == null)
+        RelativeDisplay nte = notecard.GetComponent<RelativeDisplay>();
+        if (nte != null) {
+            nte.Title = title;  
+            nte.LongInfo = text;
+        } else {
             Debug.LogError("NotecardTextEdit is null");
-        //nte.SetTextFontSize(font_size);
-        nte.ChangeText(text);
+        } // end else
 
         // load texture
         Drawable dr = notecard.GetComponent<Drawable>();
-        LocationDrawn[] locationDrawns = new LocationDrawn[drawn_location_x.Length];
-        Debug.Log("Having locations: " + locationDrawns.Length);
-        await Task.Run(() => {
-            for (int i = 0; i < locationDrawns.Length; ++i) {
-                locationDrawns[i].x = drawn_location_x[i];
-            } // end for i
-        });
-        
-        await dr.UpdateTexture(locationDrawns);
+        string path = Path.Combine(saved_folder, texture_file_name);
+        byte[] data = await FileManager.ReadBytesFromAsync(path);
+        await dr.UpdateTexture(data);
 
         return true;
     } // end LoadObject

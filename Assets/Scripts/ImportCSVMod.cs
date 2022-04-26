@@ -24,7 +24,7 @@ public class ImportCSVMod : MonoBehaviour
     }
 
     public void Initialize(GameObject prefab, string text, Func<string, string, GameObject> createCardWithText) {
-        data = text.Split(','); //split string by commas
+        data = text.Split('\n'); //split string by commas
         createCardWithTextFunc = createCardWithText;
         title = data[0].Replace("\n", "").Replace("\r", "");//remove newline and return from text
     } // end Initialize

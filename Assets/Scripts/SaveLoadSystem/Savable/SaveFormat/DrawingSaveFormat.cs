@@ -27,7 +27,7 @@ public class DrawingSaveFormat : SaveFormat
     public DrawingSaveFormat() : base(FormatType.DRAWING) {
     } // end NotecardSaveFormat
 
-    public override async Task UpdateData(GameObject drawing) {
+    public override async Task UpdateData(GameObject drawing, string save_des_folder) {
         Transform transform = drawing.transform;
         if (transform == null) {
             throw new Exception("Cannot find transform component in the game object");

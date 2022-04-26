@@ -30,7 +30,7 @@ public class SaveFormat
         return true;
     }
 
-    public virtual async Task UpdateData(GameObject obj) {
+    public virtual async Task UpdateData(GameObject obj, string save_des_folder) {
         await Task.Delay(0);
     } // end UpdateData
 }

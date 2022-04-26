@@ -64,7 +64,7 @@ public class SaveLoadSystem
 
         List<SaveFormat> result = new List<SaveFormat>();
         foreach (Savable item in items) {
-            SaveFormat fm = item.SaveObject().Result;
+            SaveFormat fm = item.SaveObject(session_folder).Result;
             if (fm == null) {
                 Debug.Log("SaveFormat item is null");
                 continue;
@@ -80,9 +80,15 @@ public class SaveLoadSystem
             current_session_path = path;
         } // end if
 
+        if (! await FileManager.ThisDirectoryExists(myPath)) {
+            FileManager.CreateDirectory(myPath);
+        } // end if
+        
+        string data_file_path = Path.Combine(myPath, path);
+        
         List<SaveFormat> result = new List<SaveFormat>();
         foreach (Savable item in items) {
-            SaveFormat fm = await item.SaveObject();
+            SaveFormat fm = await item.SaveObject(myPath);
             if (fm == null) {
                 Debug.Log("SaveFormat item is null");
                 continue;
@@ -90,15 +96,16 @@ public class SaveLoadSystem
             result.Add(fm);
         } // end foreach
 
-        await FileManager.XmlSerializeListAsync(myPath, result);
+        await FileManager.XmlSerializeListAsync(data_file_path, result);
     } // end SaveOnQuest
 
     public List<SaveFormat> LoadFromQuest(string path) {
         string myPath = Path.Combine(session_folder, path);
+        string data_file_path = Path.Combine(myPath, path);
         //string my_data_xml = FileManager.ReadStringFrom(myPath); 
         current_session_path = path;
         //List<SaveFormat> my_data = JsonUtility.FromJson<List<SaveFormat>>(my_data_json);
-        List<SaveFormat> my_data = FileManager.XmlDeserializeList(myPath);
+        List<SaveFormat> my_data = FileManager.XmlDeserializeList(data_file_path);
         return my_data;
     } // end LoadFromQuest
 
@@ -132,7 +139,7 @@ public class SaveLoadSystem
     public bool DeleteSessionFile(string path) {
         try {
             string myPath = Path.Combine(session_folder, path);
-            FileManager.DeleteFile(myPath);
+            FileManager.DeleteDirectoryRecursive(myPath);
             return true;
         } catch (SystemException ex) {
             Debug.LogError(ex.Message);

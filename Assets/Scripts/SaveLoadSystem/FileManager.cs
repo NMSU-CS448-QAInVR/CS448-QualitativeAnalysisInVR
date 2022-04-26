@@ -87,6 +87,59 @@ public class FileManager {
         return result;
     } // end ReadStringFrom
 
+    public static async Task<string> ReadStringFromAsync(string path) {
+        string final_path = Path.Combine(persistentDataPath, path);
+        string result = "";
+        using (StreamReader file = new StreamReader(final_path)) {
+            if (file == null) {
+                Debug.LogError("Cannot open file - reader");
+            } // end if
+            string line = "";
+            await Task.Run(() => {
+                while ((line = file.ReadLine()) != null) {
+                    result = result + line;
+                } // end while
+            });
+        } // end
+        
+        return result;
+    } // end ReadStringFrom
+
+    public static async Task<byte[]> ReadBytesFromAsync(string path) {
+        string final_path = Path.Combine(persistentDataPath, path);
+        byte[] result = new byte[0];
+        await Task.Run(() => {
+            result = File.ReadAllBytes(final_path);
+        });
+       
+        return result;
+    } // end ReadStringFrom
+
+    public static async Task WriteBytesToAsync(string path, byte[] bytes) {
+        string final_path = Path.Combine(persistentDataPath, path);
+        await Task.Run(() => {
+            File.WriteAllBytes(final_path, bytes);
+        });
+    } // end ReadStringFrom
+
+    public static async Task<bool> ThisFileExists(string path) {
+        bool result = false;
+        string final_path = Path.Combine(persistentDataPath, path);
+        await Task.Run(() => {
+            result = File.Exists(path);
+        });
+        return result;
+    } // end ThisFileExists
+
+    public static async Task<bool> ThisDirectoryExists(string path) {
+        bool result = false;
+        string final_path = Path.Combine(persistentDataPath, path);
+        await Task.Run(() => {
+            result = Directory.Exists(path);
+        });
+        return result;
+    }
+
     public static FileInfo[] GetFileList(string path = "") {
         DirectoryInfo di = new DirectoryInfo(Path.Combine(persistentDataPath, path));
         return di.GetFiles();
@@ -155,5 +208,13 @@ public class FileManager {
             myPath = Path.Combine(persistentDataPath, path);
         } // end if
         Directory.CreateDirectory(myPath);
+    } // end path
+
+    public static void DeleteDirectoryRecursive(string path, bool startAtPersistentPath=true) {
+        string myPath = "";
+        if (startAtPersistentPath) {
+            myPath = Path.Combine(persistentDataPath, path);
+        } // end if
+        Directory.Delete(myPath, true);
     } // end path
 } // end FileManager
