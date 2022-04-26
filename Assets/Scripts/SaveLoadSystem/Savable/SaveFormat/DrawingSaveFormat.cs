@@ -27,7 +27,7 @@ public class DrawingSaveFormat : SaveFormat
     public DrawingSaveFormat() : base(FormatType.DRAWING) {
     } // end NotecardSaveFormat
 
-    public DrawingSaveFormat(GameObject drawing) : base(FormatType.DRAWING) {
+    public override async Task UpdateData(GameObject drawing) {
         Transform transform = drawing.transform;
         if (transform == null) {
             throw new Exception("Cannot find transform component in the game object");
@@ -47,12 +47,14 @@ public class DrawingSaveFormat : SaveFormat
         x_values = new float[actualCount];
         y_values = new float[actualCount];
         z_values = new float[actualCount];
-        for (int i = 0; i < actualCount; ++i) {
-            x_values[i] = points[i].x;
-            y_values[i] = points[i].y;
-            z_values[i] = points[i].z;
-        } // end for i
-    } // end NotecardSaveFormat
+        await Task.Run(() => {
+            for (int i = 0; i < actualCount; ++i) {
+                x_values[i] = points[i].x;
+                y_values[i] = points[i].y;
+                z_values[i] = points[i].z;
+            } // end for i
+        });
+    } // end UpdateData
 
     public override async Task<bool> LoadObjectInto(GameObject draw3DController) {
         DrawController3D dc3 = draw3DController.GetComponent<DrawController3D>();

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using System.Linq;
 
@@ -25,12 +26,34 @@ public class Drawable : MonoBehaviour
         renderer.material.mainTexture = texture;
     }
 
-    public void UpdateTexture(Color[] color) {
-        texture.SetPixels(0, 0, width, height, color);
+    public async Task UpdateTexture(LocationDrawn[] locations) {
+        var data = texture.GetPixelData<Color>(0);
+        await Task.Run(() => {
+            for (int i = 0; i < locations.Length; ++i) {
+                data[locations[i].x] = Color.red;
+            } // end for i
+        });
+
+        texture.Apply();
+       
     } // end UpdateTexture
 
-    public Color[] GetTextureColor() {
-        return texture.GetPixels();
+    public async Task<List<LocationDrawn>> GetTextureColor() {
+        List<LocationDrawn> result = new List<LocationDrawn>();
+        var data = texture.GetPixelData<Color>(0);
+        await Task.Run(() => {
+            for (int i = 0; i < data.Length; ++i) {
+                    Color color = data[i];
+                    if (color == Color.white) {
+                        continue;
+                    } // end if
+                    
+                    LocationDrawn ld = new LocationDrawn();
+                    ld.x = i;
+                    result.Add(ld);
+            } // end for i
+        });
+        return result;
     } // end GetTexture
 
 

@@ -64,7 +64,7 @@ public class SaveLoadSystem
 
         List<SaveFormat> result = new List<SaveFormat>();
         foreach (Savable item in items) {
-            SaveFormat fm = item.SaveObject();
+            SaveFormat fm = item.SaveObject().Result;
             if (fm == null) {
                 Debug.Log("SaveFormat item is null");
                 continue;
@@ -72,6 +72,25 @@ public class SaveLoadSystem
             result.Add(fm);
         } // end foreach
         FileManager.XmlSerializeList(myPath, result);
+    } // end SaveOnQuest
+
+    public async Task SaveOnQuestAsync(string path, bool setCurrentPath=false) {
+        string myPath = Path.Combine(session_folder, path);
+        if (setCurrentPath) {
+            current_session_path = path;
+        } // end if
+
+        List<SaveFormat> result = new List<SaveFormat>();
+        foreach (Savable item in items) {
+            SaveFormat fm = await item.SaveObject();
+            if (fm == null) {
+                Debug.Log("SaveFormat item is null");
+                continue;
+            } // end if
+            result.Add(fm);
+        } // end foreach
+
+        await FileManager.XmlSerializeListAsync(myPath, result);
     } // end SaveOnQuest
 
     public List<SaveFormat> LoadFromQuest(string path) {

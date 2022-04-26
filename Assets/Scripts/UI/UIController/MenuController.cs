@@ -85,8 +85,6 @@ namespace UIController {
          saveLoadSys.Initialize();
 
       } // end Awake
-
-
       public void GoToMenu(BaseSubMenuController des) {
          if (des == null) {
             Debug.LogError("The next menu is null");
@@ -198,8 +196,17 @@ namespace UIController {
       } // end ShowPrompt
 
       public void Save() {
-         saveLoadSys.AddExternalStuffs(Draw3DController.GetLines());
-         saveLoadSys.SaveOnQuest(saveLoadSys.GetCurrentPath());
+         ShowProgress("Saving session...", "Saving is successful", "Saving is not successful", async () => {
+            try {
+               saveLoadSys.AddExternalStuffs(Draw3DController.GetLines());
+               await saveLoadSys.SaveOnQuestAsync(saveLoadSys.GetCurrentPath());
+               return true;
+            } catch (Exception ex) {
+               Debug.LogError(ex.Message);
+               Debug.LogError(ex.StackTrace);
+               return false;
+            }
+         });
       } // end Save
 
       public void SaveAs(GameObject obj) {
@@ -210,15 +217,30 @@ namespace UIController {
          SaveAs(input.text + ".dat");
       } // end SaveAs
       private void SaveAs(string path) {
-         saveLoadSys.AddExternalStuffs(Draw3DController.GetLines());
-         saveLoadSys.SaveOnQuest(path, true);
+         ShowProgress("Saving session...", "Saving is successful", "Saving is not successful", async () => {
+            try {
+               saveLoadSys.AddExternalStuffs(Draw3DController.GetLines());
+               await saveLoadSys.SaveOnQuestAsync(path, true);
+               return true;
+            } catch (Exception ex) {
+               Debug.LogError(ex.Message);
+               Debug.LogError(ex.StackTrace);
+               return false;
+            }
+         });
       } // end SaveAs
 
       public void Load(string path) {
             ShowPrompt("Do you want to load: " + path, delegate {
-               ShowProgress("Loading...", "File is loaded successfully", "The file is empty", async () => {
-                  bool result = await PLoadSession(path);
-                  return result;
+               ShowProgress("Loading...", "File is loaded successfully", "File is not loadded successfully", async () => {
+                  try {
+                     bool result = await PLoadSession(path);
+                     return result;
+                  } catch (Exception ex) {
+                     Debug.LogError(ex.Message);
+                     Debug.LogError(ex.StackTrace);
+                     return false;
+                  } // end catch
                }); // end ShowProgress
             }); // end ShowPrompt
       } // end Load
@@ -256,7 +278,13 @@ namespace UIController {
       
       public void Delete() {
          foreach (GameObject obj in saveLoadSys.objects) {
-               GameObject.Destroy(obj);
+               try {
+                  GameObject.Destroy(obj);
+               } catch (Exception ex) {
+                  Debug.LogError(ex.Message);
+                  Debug.LogError(ex.StackTrace);
+                  continue;
+               } // end catch
          } // end for each
          saveLoadSys.Clear();
          Draw3DController.ClearAllDrawings();

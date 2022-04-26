@@ -26,6 +26,11 @@ public class SaveFormat
     } // end getType
 
     public virtual async Task<bool>  LoadObjectInto(GameObject obj) {
+        await Task.Delay(0);
         return true;
     }
+
+    public virtual async Task UpdateData(GameObject obj) {
+        await Task.Delay(0);
+    } // end UpdateData
 }

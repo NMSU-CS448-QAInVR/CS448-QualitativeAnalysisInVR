@@ -45,15 +45,12 @@ public class NotecardSaveFormat : SaveFormat
     public float font_size;
 
     // texture for drawings. 
-    public float[] texture_color_r;
-    public float[] texture_color_g;
-    public float[] texture_color_b;
-    public float[] texture_color_a;
+    public int[] drawn_location_x;
 
     public NotecardSaveFormat() : base(FormatType.NOTECARD) {
     } // end NotecardSaveFormat
 
-    public NotecardSaveFormat(GameObject note) : base(FormatType.NOTECARD) {
+    public override async Task UpdateData(GameObject note) {
         Transform transform = note.transform;
         if (transform == null) {
             throw new Exception("Cannot find transform component in the game object");
@@ -87,18 +84,14 @@ public class NotecardSaveFormat : SaveFormat
 
         // texture for drawing
         Drawable dr = note.GetComponent<Drawable>();
-        Color[] color = dr.GetTextureColor();
-        // texture_color_r = new float[color.Length];
-        // texture_color_g = new float[color.Length];
-        // texture_color_b = new float[color.Length];
-        // texture_color_a = new float[color.Length];
-        // for (int i = 0; i < color.Length; ++i) {
-        //     texture_color_r[i] = color[i].r;
-        //     texture_color_g[i] = color[i].g;
-        //     texture_color_b[i] = color[i].b;
-        //     texture_color_a[i] = color[i].a;
-        // } // end for i
-    } // end NotecardSaveFormat
+        List<LocationDrawn> drawn_locations = await dr.GetTextureColor();
+        drawn_location_x = new int[drawn_locations.Count];
+        await Task.Run(() => {
+            for (int i = 0; i < drawn_locations.Count; ++i) {
+                drawn_location_x[i] = drawn_locations[i].x;
+            } // end for i
+        });
+    } // end UpdateData
 
     public override async Task<bool> LoadObjectInto(GameObject notecard) {
         // set position and rotation
@@ -123,14 +116,16 @@ public class NotecardSaveFormat : SaveFormat
         nte.ChangeText(text);
 
         // load texture
-        // if (texture_color_a != null) {
-        //     Drawable dr = notecard.GetComponent<Drawable>();
-        //     Color[] color = new Color[texture_color_a.Length];
-        //     for (int i = 0; i < color.Length; ++i) {
-        //         color[i] = new Color(texture_color_r[i], texture_color_b[i], texture_color_g[i], texture_color_r[i]);
-        //     } // end for i
-        //     dr.UpdateTexture(color);
-        // } //end if
+        Drawable dr = notecard.GetComponent<Drawable>();
+        LocationDrawn[] locationDrawns = new LocationDrawn[drawn_location_x.Length];
+        Debug.Log("Having locations: " + locationDrawns.Length);
+        await Task.Run(() => {
+            for (int i = 0; i < locationDrawns.Length; ++i) {
+                locationDrawns[i].x = drawn_location_x[i];
+            } // end for i
+        });
+        
+        await dr.UpdateTexture(locationDrawns);
 
         return true;
     } // end LoadObject

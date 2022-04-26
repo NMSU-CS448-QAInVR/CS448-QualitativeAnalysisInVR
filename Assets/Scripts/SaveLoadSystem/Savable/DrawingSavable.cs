@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System;
 using UnityEngine;
 
 
 public class DrawingSavable : Savable
 {
-    public override SaveFormat SaveObject() {
+    public override async Task<SaveFormat> SaveObject() {
         // check if the components are here
         try {
-            SaveFormat result = new DrawingSaveFormat(this.gameObject);
+            SaveFormat result = new DrawingSaveFormat();
+            await result.UpdateData(this.gameObject);
             return result;
         } catch (Exception b) {
             Debug.Log("Exception here");

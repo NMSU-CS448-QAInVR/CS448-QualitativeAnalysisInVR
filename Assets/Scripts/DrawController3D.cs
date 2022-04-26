@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -92,14 +93,19 @@ public class DrawController3D : MonoBehaviour
 
     public void ClearAllDrawings() {
         foreach (LineRenderer line in lines) {
-            GameObject.Destroy(line.gameObject);
+            try {
+                GameObject.Destroy(line.gameObject);
+            } catch (Exception ex) {
+                Debug.LogError(ex.Message);
+                Debug.LogError(ex.StackTrace);
+                continue;
+            } // end cath
         } // end foreach
         lines.Clear();
     } // end ClearAllDrawings
 
     public void LoadLineForSaveSystem(Vector3[] myLine, GameObject objectToTrack = null) {
         GameObject backup = gameObjectToTrack;
-        bool error = false;
         try {
             AddNewLineRenderer();
             for (int i = 0; i < myLine.Length; ++i) {
@@ -107,7 +113,6 @@ public class DrawController3D : MonoBehaviour
             } // end 
         } catch (UnityException exc) {
             Debug.LogError(exc.Message);
-            error = true;
         } finally {
             gameObjectToTrack = backup;
             AddNewLineRenderer();

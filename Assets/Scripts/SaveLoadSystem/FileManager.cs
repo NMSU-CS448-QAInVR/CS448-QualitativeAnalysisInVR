@@ -51,6 +51,24 @@ public class FileManager {
         } // end 
     } // end SaveListFormat
 
+     public static async Task XmlSerializeListAsync(string path, List<SaveFormat> list) {
+        
+        string final_path = Path.Combine(persistentDataPath, path);
+        using (StreamWriter file = new StreamWriter(final_path, false)) {
+            if (file == null) {
+                Debug.LogError("cannot open file - writer");
+            } // end if
+
+            ListSaveFormat list_save = new ListSaveFormat();
+            list_save.list_format = list;
+            
+            await Task.Run(() => {
+                serializer.Serialize(file.BaseStream, list_save);
+            });
+            Debug.Log("wrote to file");
+        } // end 
+    } // end SaveListFormat
+
     public static string ReadStringFrom(string path) {
         string final_path = Path.Combine(persistentDataPath, path);
         string result = "";
