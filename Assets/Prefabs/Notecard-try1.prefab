@@ -303,6 +303,8 @@ MonoBehaviour:
   user: {fileID: 100054, guid: d0c255d07fd68f14b94e55d388e7e6bb, type: 3}
   card: {fileID: 5079874600087058494}
   info: {fileID: 0}
+  Title: Title
+  LongInfo: 
 --- !u!120 &6185550539391540593
 LineRenderer:
   m_ObjectHideFlags: 0
