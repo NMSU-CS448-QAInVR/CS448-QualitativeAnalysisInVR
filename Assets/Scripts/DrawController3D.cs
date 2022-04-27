@@ -47,7 +47,7 @@ public class DrawController3D : MonoBehaviour
     {
         CheckTriggerState();
         CheckDeleteState();
-        Debug.Log("Having " + lines.Count + " lines");
+        //Debug.Log("Having " + lines.Count + " lines");
     }
 
     void Awake()

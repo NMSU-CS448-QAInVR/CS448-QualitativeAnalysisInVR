@@ -129,11 +129,12 @@ public class NotecardSaveFormat : SaveFormat
         // // load texture
         Drawable dr = notecard.GetComponent<Drawable>();
         if (texture_file_name != "") {
-            Debug.Log("I'm here in loading texture");
             string path = Path.Combine(saved_folder, texture_file_name);
-            byte[] data = await FileManager.ReadBytesFromAsync(path);
+            Debug.Log("I'm here in loading texture: " + path);
+            byte[] data = FileManager.ReadBytesFrom(path);
             if (data != null) {
-                await dr.UpdateTexture(data);
+                Debug.Log("Load texture here");
+                dr.UpdateTexture(data);
                 dr.SetModified();
             }
         } //end if

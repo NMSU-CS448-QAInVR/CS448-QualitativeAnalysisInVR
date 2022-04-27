@@ -15,21 +15,25 @@ public class Drawable : MonoBehaviour
 
     private bool modified = false;
 
-    private void Start()
+    private void Awake()
     {
         textureSize = new Vector2(width, height);
-        Renderer renderer = GetComponent<Renderer>();
+        Renderer myRenderer = GetComponent<Renderer>();
 
         texture = new Texture2D((int)textureSize.x, (int)textureSize.y);
         Color[] colors = Enumerable.Repeat(Color.white, width * height).ToArray();
 
         texture.SetPixels(0, 0, width, height, colors);
         texture.Apply(true);
-        renderer.material.mainTexture = texture;
+        myRenderer.material.mainTexture = texture;
     }
 
-    public async Task UpdateTexture(byte[] data) {
-        texture.LoadImage(data);       
+    public void UpdateTexture(byte[] data) {
+        Texture2D myTexture = new Texture2D((int)textureSize.x, (int)textureSize.y);
+        Renderer myRenderer = GetComponent<Renderer>();
+        ImageConversion.LoadImage(myTexture, data);  
+        myRenderer.material.mainTexture = myTexture;
+        texture = myTexture;
     } // end UpdateTexture
 
     public async Task<byte[]> GetTextureColor() {

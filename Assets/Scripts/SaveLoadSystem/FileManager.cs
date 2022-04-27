@@ -105,10 +105,20 @@ public class FileManager {
         return result;
     } // end ReadStringFrom
 
-    public static async Task<byte[]> ReadBytesFromAsync(string path) {
+    public static byte[] ReadBytesFrom(string path) {
         string final_path = Path.Combine(persistentDataPath, path);
         byte[] result = null;
         result = File.ReadAllBytes(final_path);
+       
+        return result;
+    } // end ReadStringFrom
+
+    public static async Task<byte[]> ReadBytesFromAsync(string path) {
+        string final_path = Path.Combine(persistentDataPath, path);
+        byte[] result = null;
+        await Task.Run(() => {
+            result = File.ReadAllBytes(final_path);
+        });
        
         return result;
     } // end ReadStringFrom
