@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1489161714}
-  m_IndirectSpecularColor: {r: 0.3823135, g: 0.46900892, b: 0.6139051, a: 1}
+  m_IndirectSpecularColor: {r: 0.38219777, g: 0.468821, b: 0.61403686, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1029,6 +1029,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4458056064003815494, guid: ac76c04c7e3db4840bff476049dac38e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877419313533975215, guid: ac76c04c7e3db4840bff476049dac38e, type: 3}
+      propertyPath: m_Convex
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5021172291866663600, guid: ac76c04c7e3db4840bff476049dac38e, type: 3}
@@ -4660,6 +4664,10 @@ PrefabInstance:
     - target: {fileID: 5079874600087058488, guid: 4362c96f979884ac6ab549d82b61fb1a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5079874600087058492, guid: 4362c96f979884ac6ab549d82b61fb1a, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5079874600087058493, guid: 4362c96f979884ac6ab549d82b61fb1a, type: 3}
       propertyPath: m_RetainTransformParent

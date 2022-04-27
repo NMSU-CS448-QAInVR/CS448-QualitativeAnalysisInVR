@@ -47,7 +47,6 @@ public class Drawer : MonoBehaviour
 
     private void Draw()
     {
-
         if (Physics.Raycast(tip.position, transform.right, out touch, tipHeight)
             && touch.transform.CompareTag("Drawable") && GetComponent<DrawController3D>().trigger.action.ReadValue<float>() == 0.0f)
         {
@@ -58,6 +57,8 @@ public class Drawer : MonoBehaviour
                 {
                     whiteboard = touch.transform.GetComponent<Drawable>();
                 }
+
+                whiteboard.transform.GetComponent<BoxCollider>().enabled = false;
 
                 touchPos = new Vector2(touch.textureCoord.x, touch.textureCoord.y);
 
@@ -116,6 +117,7 @@ public class Drawer : MonoBehaviour
             GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         }
 
+        whiteboard.transform.GetComponent<BoxCollider>().enabled = true;
         whiteboard = null;
         touchedLastFrame = false;
 
