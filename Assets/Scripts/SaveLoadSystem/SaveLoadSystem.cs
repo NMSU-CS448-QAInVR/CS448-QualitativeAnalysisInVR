@@ -87,6 +87,7 @@ public class SaveLoadSystem
             FileManager.CreateDirectory(myPath);
         } // end if
         
+        NotecardSaveFormat.ResetNotecardNo();
         string data_file_path = Path.Combine(myPath, path + ".dat");
         
         List<SaveFormat> result = new List<SaveFormat>();

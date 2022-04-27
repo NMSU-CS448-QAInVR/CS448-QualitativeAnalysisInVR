@@ -47,6 +47,7 @@ public class DrawController3D : MonoBehaviour
     {
         CheckTriggerState();
         CheckDeleteState();
+        Debug.Log("Having " + lines.Count + " lines");
     }
 
     void Awake()
@@ -74,7 +75,6 @@ public class DrawController3D : MonoBehaviour
         currentLineRender = goLineRenderer;
 
         lines.Add(goLineRenderer);
-        Debug.Log("Having " + lines.Count + " lines");
     }
 
     public List<Savable> GetLines() {

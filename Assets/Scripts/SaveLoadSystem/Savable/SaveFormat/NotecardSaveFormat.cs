@@ -99,7 +99,9 @@ public class NotecardSaveFormat : SaveFormat
         } // end else
       
     } // end UpdateData
-
+    public static void ResetNotecardNo() {
+        notecard_no = 0;
+    } // end ResetNotecardNo
     public override async Task<bool> LoadObjectInto(GameObject notecard) {
         // set position and rotation
         notecard.transform.position = new Vector3(x, y, z);
@@ -130,8 +132,10 @@ public class NotecardSaveFormat : SaveFormat
             Debug.Log("I'm here in loading texture");
             string path = Path.Combine(saved_folder, texture_file_name);
             byte[] data = await FileManager.ReadBytesFromAsync(path);
-            await dr.UpdateTexture(data);
-            dr.SetModified();
+            if (data != null) {
+                await dr.UpdateTexture(data);
+                dr.SetModified();
+            }
         } //end if
     
         return true;
