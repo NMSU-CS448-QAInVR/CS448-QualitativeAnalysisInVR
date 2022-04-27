@@ -139,7 +139,6 @@ namespace UIController {
       } // end CreateCard
 
       private GameObject CreateCardInternal(Color color, Vector3 position, Quaternion rotation) {
-         Debug.Log("create card");
          if (CardPrefabRenderer == null) {
             Debug.LogError("Cannot find renderer of card prefab");
             return null;
@@ -149,7 +148,6 @@ namespace UIController {
          GameObject newObj = GameObject.Instantiate(CardPrefab, position, rotation);
          newObj.SetActive(true);
          saveLoadSys.Add(newObj);
-         Debug.Log("Added a notecard: " + saveLoadSys.GetSessionsList().Count);
          return newObj;
       } // end CreateCard
 
@@ -176,7 +174,6 @@ namespace UIController {
          
          // Run the task
          bool result = await ProgressMenu.ShowOnProgress(operation);
-         //bool result = await operation();
 
          // if result is true, show the prompt true
          if (result) { // if result is false, show the prompt false
@@ -213,7 +210,6 @@ namespace UIController {
          TMP_InputField input = obj.GetComponent<TMP_InputField>();
          if (input == null) 
             return;
-         Debug.Log("Saving");
          SaveAs(input.text);
       } // end SaveAs
       private void SaveAs(string path) {
@@ -231,6 +227,7 @@ namespace UIController {
       } // end SaveAs
 
       public void Load(string path) {
+         Debug.Log("I'm in normal Load");
             ShowPrompt("Do you want to load: " + path, delegate {
                ShowProgress("Loading...", "File is loaded successfully", "File is not loadded successfully", async () => {
                   try {
@@ -246,6 +243,7 @@ namespace UIController {
       } // end Load
 
       private async Task<bool> PLoadSession(string path) {
+         Debug.Log("Start PLoad");
          List<SaveFormat> items = null;
          items = await saveLoadSys.LoadFromQuestAsync(path);
          if (items == null) {
@@ -254,16 +252,17 @@ namespace UIController {
          } // end if
 
          Delete();
-         foreach (SaveFormat item in items) {
+         for (int i = 0; i < items.Count; ++i) {
+            SaveFormat item = items[i];
             GameObject obj = null;
             bool addToSaveLoadSys = true;
+
             if (item.getType() == FormatType.NOTECARD) {
                obj = (GameObject) GameObject.Instantiate(CardPrefab, new Vector3(0, 1, 0), Quaternion.Euler(0, 0, 0));
             } else if (item.getType() == FormatType.DRAWING) {
                obj = Draw3DController.gameObject;
                addToSaveLoadSys = false;
             } else {
-
             } // end else
             
             if (obj != null) {
@@ -273,21 +272,13 @@ namespace UIController {
             } // end if
          } // end foreach
 
+         Debug.Log("End PLoad");
          return true;
       } // end PLoadSession
       
       public void Delete() {
-         foreach (GameObject obj in saveLoadSys.objects) {
-               try {
-                  GameObject.Destroy(obj);
-               } catch (Exception ex) {
-                  Debug.LogError(ex.Message);
-                  Debug.LogError(ex.StackTrace);
-                  continue;
-               } // end catch
-         } // end for each
-         saveLoadSys.Clear();
          Draw3DController.ClearAllDrawings();
+         saveLoadSys.Clear();
       } // end Delete
       
       private void Hide(BaseSubMenuController menu) {

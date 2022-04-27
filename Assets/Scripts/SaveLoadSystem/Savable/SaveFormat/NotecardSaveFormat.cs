@@ -49,7 +49,7 @@ public class NotecardSaveFormat : SaveFormat
     public string texture_file_name;
     public string saved_folder;
 
-    private int notecard_no = 0;
+    private static int notecard_no = 0;
 
     public NotecardSaveFormat() : base(FormatType.NOTECARD) {
     } // end NotecardSaveFormat
@@ -88,11 +88,16 @@ public class NotecardSaveFormat : SaveFormat
 
         // texture for drawing
         Drawable dr = note.GetComponent<Drawable>();
-        byte[] texture_data = await dr.GetTextureColor();
-        texture_file_name = "notecard" + (notecard_no++) + ".png";
-        saved_folder = save_des_folder;
-        string path = Path.Combine(saved_folder, texture_file_name);
-        await FileManager.WriteBytesToAsync(path, texture_data);
+        if (dr.isModified()) {
+            byte[] texture_data = await dr.GetTextureColor();
+            texture_file_name = "notecard" + (notecard_no++) + ".png";
+            saved_folder = save_des_folder;
+            string path = Path.Combine(saved_folder, texture_file_name);
+            await FileManager.WriteBytesToAsync(path, texture_data);
+        } else {
+            texture_file_name = "";
+        } // end else
+      
     } // end UpdateData
 
     public override async Task<bool> LoadObjectInto(GameObject notecard) {
@@ -119,12 +124,16 @@ public class NotecardSaveFormat : SaveFormat
             Debug.LogError("NotecardTextEdit is null");
         } // end else
 
-        // load texture
+        // // load texture
         Drawable dr = notecard.GetComponent<Drawable>();
-        string path = Path.Combine(saved_folder, texture_file_name);
-        byte[] data = await FileManager.ReadBytesFromAsync(path);
-        await dr.UpdateTexture(data);
-
+        if (texture_file_name != "") {
+            Debug.Log("I'm here in loading texture");
+            string path = Path.Combine(saved_folder, texture_file_name);
+            byte[] data = await FileManager.ReadBytesFromAsync(path);
+            await dr.UpdateTexture(data);
+            dr.SetModified();
+        } //end if
+    
         return true;
     } // end LoadObject
 }

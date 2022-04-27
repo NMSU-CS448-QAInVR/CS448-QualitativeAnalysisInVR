@@ -28,7 +28,7 @@ public class SaveLoadSystem
             return;
         
         objects.Add(obj);
-        Savable sav = ((GameObject) obj).GetComponent<Savable>();
+        Savable sav = obj.GetComponent<Savable>();
         items.Add(sav);
     } // end Add
 
@@ -42,12 +42,15 @@ public class SaveLoadSystem
     } // end Remove
 
     public void Clear() {
+        foreach (GameObject obj in objects) {
+            GameObject.Destroy(obj);
+        } // end for each
         objects.Clear();
         items.Clear();
     } // end Clear
 
     public static string GetSessionName(string sessionPath) {
-        return sessionPath.Substring(0, sessionPath.Length - 4);
+        return sessionPath;
     } // end GetSessionName
 
     public void AddExternalStuffs(List<Savable> externalSavable) {
@@ -90,8 +93,7 @@ public class SaveLoadSystem
         foreach (Savable item in items) {
             SaveFormat fm = await item.SaveObject(myPath);
             if (fm == null) {
-                Debug.Log("SaveFormat item is null");
-                continue;
+                throw new Exception("SaveFormat item is null");
             } // end if
             result.Add(fm);
         } // end foreach
@@ -110,28 +112,23 @@ public class SaveLoadSystem
     } // end LoadFromQuest
 
     public async Task<List<SaveFormat>> LoadFromQuestAsync(string path) {
+        Debug.Log("Having " + objects.Count + " objects.");
+        Debug.Log("Having " + items.Count + " savables.");
         string myPath = Path.Combine(session_folder, path);
         string data_file_path = Path.Combine(myPath, path + ".dat");
-        //string my_data_xml = FileManager.ReadStringFrom(myPath); 
         current_session_path = path;
-        //List<SaveFormat> my_data = JsonUtility.FromJson<List<SaveFormat>>(my_data_json);
-        Debug.Log("start deserializing");
+        Debug.Log("Load from: " + data_file_path);
         List<SaveFormat> my_data = await FileManager.XmlDeserializeListAsync(data_file_path);
-        Debug.Log("end deserializing");
         return my_data;
     } // end LoadFromQuest
 
     public List<string> GetSessionsList() {
-        FileInfo[] infos = FileManager.GetFileList(session_folder);
-        Debug.Log("There are  " + infos.Length + " files");
+        DirectoryInfo[] infos = FileManager.GetDirsList(session_folder);
         List<string> result = new List<string>();
         if (infos != null) {
-            foreach (FileInfo info in infos) {
-                Debug.Log("In file: " + info.Name);
+            foreach (DirectoryInfo info in infos) {
                 string name = info.Name;
-                if (FileManager.EndsWith(name, ".dat")) {
-                    result.Add(name);
-                } // end if
+                result.Add(name);
             } // end foreach
         } // end if
         return result;

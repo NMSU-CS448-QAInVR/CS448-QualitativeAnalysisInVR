@@ -145,6 +145,11 @@ public class FileManager {
         return di.GetFiles();
     } // end GetFileList
 
+    public static DirectoryInfo[] GetDirsList(string path = "") {
+        DirectoryInfo di = new DirectoryInfo(Path.Combine(persistentDataPath, path));
+        return di.GetDirectories();
+    } // end GetFileList
+
     public static bool EndsWith(string str, string end) {
         int strLen = str.Length;
         for (int i = 0; i < end.Length; ++i) {

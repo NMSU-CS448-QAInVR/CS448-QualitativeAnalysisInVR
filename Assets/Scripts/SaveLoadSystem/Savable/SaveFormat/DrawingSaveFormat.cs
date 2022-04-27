@@ -69,7 +69,7 @@ public class DrawingSaveFormat : SaveFormat
 
         GameObject obj = new GameObject("temp");
         obj.transform.position = new Vector3(x, y, z);
-        dc3.LoadLineForSaveSystem(pointsOnLine, obj);
+        dc3.LoadLineForSaveSystem(pointsOnLine);
         GameObject.Destroy(obj);
 
         return true;

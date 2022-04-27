@@ -45,12 +45,12 @@ namespace UIController {
             var cancelTokenSrc = new CancellationTokenSource();
             CancellationToken ct = cancelTokenSrc.Token;
             await Task.Delay(10, ct);
-            bool task = await actionToDo();
-            await Task.Delay(10, ct);
-
             // set cancel action
             cancelButton.onClick.RemoveAllListeners();
             cancelButton.onClick.AddListener(delegate {cancelTokenSrc.Cancel();});
+
+            bool task = await actionToDo();
+
             return task;
         } // end ShowOnProgress
 

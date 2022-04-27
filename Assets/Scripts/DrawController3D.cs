@@ -74,11 +74,15 @@ public class DrawController3D : MonoBehaviour
         currentLineRender = goLineRenderer;
 
         lines.Add(goLineRenderer);
+        Debug.Log("Having " + lines.Count + " lines");
     }
 
     public List<Savable> GetLines() {
         List<Savable> result = new List<Savable>();
         foreach (LineRenderer line in lines) {
+            if (line.positionCount <= 0)
+                continue;
+                
             Debug.Log(line.gameObject);
             result.Add(line.gameObject.GetComponent<Savable>());
         } // end foreach
@@ -93,19 +97,14 @@ public class DrawController3D : MonoBehaviour
 
     public void ClearAllDrawings() {
         foreach (LineRenderer line in lines) {
-            try {
-                GameObject.Destroy(line.gameObject);
-            } catch (Exception ex) {
-                Debug.LogError(ex.Message);
-                Debug.LogError(ex.StackTrace);
-                continue;
-            } // end cath
+            GameObject obj = line.gameObject;
+            GameObject.Destroy(line);
+            GameObject.Destroy(obj);
         } // end foreach
         lines.Clear();
     } // end ClearAllDrawings
 
     public void LoadLineForSaveSystem(Vector3[] myLine, GameObject objectToTrack = null) {
-        GameObject backup = gameObjectToTrack;
         try {
             AddNewLineRenderer();
             for (int i = 0; i < myLine.Length; ++i) {
@@ -114,10 +113,8 @@ public class DrawController3D : MonoBehaviour
         } catch (UnityException exc) {
             Debug.LogError(exc.Message);
         } finally {
-            gameObjectToTrack = backup;
             AddNewLineRenderer();
         } // end finally
-    
     } // end LoadLines
 
     void CheckTriggerState()

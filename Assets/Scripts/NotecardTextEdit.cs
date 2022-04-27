@@ -63,6 +63,12 @@ public class NotecardTextEdit : MonoBehaviour
         SetTitle = !isText;
         // disable
         rd.enabled = false;
+        if (SetText) {
+            ChangeText(rd.LongInfo);
+        } else {
+            ChangeText(rd.Title);
+        }
+        this.textEditor.MoveToEndOfLine(false, false);
         this.textEditor.Select();
     } // InvokeEdit
 

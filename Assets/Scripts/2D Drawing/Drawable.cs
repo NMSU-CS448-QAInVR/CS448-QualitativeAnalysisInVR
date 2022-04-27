@@ -13,6 +13,8 @@ public class Drawable : MonoBehaviour
     [HideInInspector]
     public Vector2 textureSize;
 
+    private bool modified = false;
+
     private void Start()
     {
         textureSize = new Vector2(width, height);
@@ -32,11 +34,22 @@ public class Drawable : MonoBehaviour
 
     public async Task<byte[]> GetTextureColor() {
         byte[] result = new byte[0];
-        await Task.Run(() => {
-            result = texture.EncodeToPNG();
-        });
+        result = texture.EncodeToPNG();
         return result;
     } // end GetTexture
+
+    public void SetPixels(int x, int y, int blockWidth, int blockHeight, Color[] colors) {
+        texture.SetPixels(x, y, blockWidth, blockHeight, colors);
+        modified = true;
+    } // end SetPixels
+
+    public void SetModified() {
+        modified = true;
+    } // end SetModified
+
+    public bool isModified() {
+        return modified;
+    } // end isModified
 
 
 }
