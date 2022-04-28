@@ -20,9 +20,15 @@ public class ImportCSVMod : MonoBehaviour
     }
 
     public void Initialize(GameObject prefab, string text, UnityAction<string, string> createCardWithText) {
-        data = text.Split(','); //split string by commas
+
+        char[] delims = new[] { '\r', '\n' };
+        data = text.Split(delims,StringSplitOptions.RemoveEmptyEntries); //split string by newlines
+        //foreach(string d in data)
+       // {
+        //    Debug.Log(d);
+       // }
         createCardWithTextFunc = createCardWithText;
-        title = data[0].Replace("\n", "").Replace("\r", "");//remove newline and return from text
+        //title = data[0].Replace("\n", "").Replace("\r", "");//remove newline and return from text
     } // end Initialize
 
     public void Clicked()
@@ -34,7 +40,8 @@ public class ImportCSVMod : MonoBehaviour
         }
         else
         {
-            string cardText = data[i].Replace("\n", "").Replace("\r", "");//remove newline and return from text
+            string cardText = data[i];
+            //string cardText = data[i].Replace("\n", "").Replace("\r", "");//remove newline and return from text
             if (i == 0) {
                 title = cardText;
                 i++;
