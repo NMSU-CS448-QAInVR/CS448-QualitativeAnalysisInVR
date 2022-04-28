@@ -28,6 +28,12 @@ public class Drawable : MonoBehaviour
         myRenderer.material.mainTexture = texture;
     }
 
+    public void ClearDrawing() {
+        Color[] colors = Enumerable.Repeat(Color.white, width * height).ToArray();
+        texture.SetPixels(0, 0, width, height, colors);
+        texture.Apply(true);
+    } // end ClearDrawing
+
     public void UpdateTexture(byte[] data) {
         Texture2D myTexture = new Texture2D((int)textureSize.x, (int)textureSize.y);
         Renderer myRenderer = GetComponent<Renderer>();
@@ -36,7 +42,7 @@ public class Drawable : MonoBehaviour
         texture = myTexture;
     } // end UpdateTexture
 
-    public async Task<byte[]> GetTextureColor() {
+    public byte[] GetTextureColor() {
         byte[] result = new byte[0];
         result = texture.EncodeToPNG();
         return result;

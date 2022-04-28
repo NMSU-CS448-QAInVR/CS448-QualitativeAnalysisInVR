@@ -35,6 +35,7 @@ namespace UIController {
       [Header("Drawing Functions")]
       [SerializeField]
       private DrawController3D Draw3DController;
+      public List<Savable> boards;
 
 
       // session
@@ -196,6 +197,7 @@ namespace UIController {
          ShowProgress("Saving session...", "Saving is successful", "Saving is not successful", async () => {
             try {
                saveLoadSys.AddExternalStuffs(Draw3DController.GetLines());
+               saveLoadSys.AddExternalStuffs(boards);
                await saveLoadSys.SaveOnQuestAsync(saveLoadSys.GetCurrentPath());
                return true;
             } catch (Exception ex) {
@@ -216,6 +218,7 @@ namespace UIController {
          ShowProgress("Saving session...", "Saving is successful", "Saving is not successful", async () => {
             try {
                saveLoadSys.AddExternalStuffs(Draw3DController.GetLines());
+               saveLoadSys.AddExternalStuffs(boards);
                await saveLoadSys.SaveOnQuestAsync(path, true);
                return true;
             } catch (Exception ex) {
@@ -227,19 +230,19 @@ namespace UIController {
       } // end SaveAs
 
       public void Load(string path) {
-         Debug.Log("I'm in normal Load");
-            ShowPrompt("Do you want to load: " + path, delegate {
-               ShowProgress("Loading...", "File is loaded successfully", "File is not loadded successfully", async () => {
-                  try {
-                     bool result = await PLoadSession(path);
-                     return result;
-                  } catch (Exception ex) {
-                     Debug.LogError(ex.Message);
-                     Debug.LogError(ex.StackTrace);
-                     return false;
-                  } // end catch
-               }); // end ShowProgress
-            }); // end ShowPrompt
+         ShowPrompt("Do you want to load: " + path, delegate {
+            Debug.Log("Do Prompt");
+            ShowProgress("Loading...", "File is loaded successfully", "File is not loadded successfully", async () => {
+               try {
+                  bool result = await PLoadSession(path);
+                  return result;
+               } catch (Exception ex) {
+                  Debug.LogError(ex.Message);
+                  Debug.LogError(ex.StackTrace);
+                  return false;
+               } // end catch
+            }); // end ShowProgress
+         }); // end ShowPrompt
       } // end Load
 
       private async Task<bool> PLoadSession(string path) {
@@ -262,6 +265,15 @@ namespace UIController {
             } else if (item.getType() == FormatType.DRAWING) {
                obj = Draw3DController.gameObject;
                addToSaveLoadSys = false;
+            } else if (item.getType() == FormatType.BOARD) {
+               BoardSaveFormat myItem = (BoardSaveFormat) item;
+               foreach (Savable b in boards) {
+                  BoardSavable board = (BoardSavable) b;
+                  if (board.id == myItem.board_no) {
+                     obj = board.gameObject;
+                     break;
+                  } // end if
+               } // end foreach
             } else {
             } // end else
             
@@ -277,7 +289,9 @@ namespace UIController {
       } // end PLoadSession
       
       public void Delete() {
-         Draw3DController.ClearAllDrawings();
+         saveLoadSys.AddExternalStuffs(Draw3DController.GetLines());
+         saveLoadSys.AddExternalStuffs(boards);
+         Draw3DController.ClearAllDrawingsList();
          saveLoadSys.Clear();
       } // end Delete
       

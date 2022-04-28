@@ -42,11 +42,13 @@ public class SaveLoadSystem
     } // end Remove
 
     public void Clear() {
-        foreach (GameObject obj in objects) {
-            GameObject.Destroy(obj);
+        foreach (Savable item in items) {
+            item.DeleteSelf();
         } // end for each
         objects.Clear();
         items.Clear();
+        Debug.Log(items.Count);
+        Debug.Log(objects.Count);
     } // end Clear
 
     public static string GetSessionName(string sessionPath) {
@@ -113,12 +115,12 @@ public class SaveLoadSystem
     } // end LoadFromQuest
 
     public async Task<List<SaveFormat>> LoadFromQuestAsync(string path) {
-        Debug.Log("Having " + objects.Count + " objects.");
-        Debug.Log("Having " + items.Count + " savables.");
+        // Debug.Log("Having " + objects.Count + " objects.");
+        // Debug.Log("Having " + items.Count + " savables.");
         string myPath = Path.Combine(session_folder, path);
         string data_file_path = Path.Combine(myPath, path + ".dat");
         current_session_path = path;
-        Debug.Log("Load from: " + data_file_path);
+        //Debug.Log("Load from: " + data_file_path);
         List<SaveFormat> my_data = await FileManager.XmlDeserializeListAsync(data_file_path);
         return my_data;
     } // end LoadFromQuest

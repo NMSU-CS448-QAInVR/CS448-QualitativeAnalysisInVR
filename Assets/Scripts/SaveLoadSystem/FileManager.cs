@@ -10,7 +10,7 @@ public class FileManager {
     private static string persistentDataPath;
 
 
-    private static Type[] types = {typeof(SaveFormat), typeof(NotecardSaveFormat), typeof(DrawingSaveFormat)};
+    private static Type[] types = {typeof(SaveFormat), typeof(NotecardSaveFormat), typeof(DrawingSaveFormat), typeof(BoardSaveFormat)};
     private static XmlSerializer serializer = new XmlSerializer(typeof(ListSaveFormat), FileManager.types);
     
     public static void Initialize() {

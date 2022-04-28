@@ -89,7 +89,7 @@ public class NotecardSaveFormat : SaveFormat
         // texture for drawing
         Drawable dr = note.GetComponent<Drawable>();
         if (dr.isModified()) {
-            byte[] texture_data = await dr.GetTextureColor();
+            byte[] texture_data = dr.GetTextureColor();
             texture_file_name = "notecard" + (notecard_no++) + ".png";
             saved_folder = save_des_folder;
             string path = Path.Combine(saved_folder, texture_file_name);
@@ -130,10 +130,10 @@ public class NotecardSaveFormat : SaveFormat
         Drawable dr = notecard.GetComponent<Drawable>();
         if (texture_file_name != "") {
             string path = Path.Combine(saved_folder, texture_file_name);
-            Debug.Log("I'm here in loading texture: " + path);
+            //Debug.Log("I'm here in loading texture: " + path);
             byte[] data = FileManager.ReadBytesFrom(path);
             if (data != null) {
-                Debug.Log("Load texture here");
+                //Debug.Log("Load texture here");
                 dr.UpdateTexture(data);
                 dr.SetModified();
             }

@@ -13,4 +13,8 @@ public class Savable : MonoBehaviour
         await Task.Delay(0);
         return null;
     }
+
+    public virtual void DeleteSelf() {
+        Destroy(this.gameObject, 1);
+    } // end Delete
 }

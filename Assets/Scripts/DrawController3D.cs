@@ -42,12 +42,15 @@ public class DrawController3D : MonoBehaviour
 
     private Vector3 prevPointDistance = Vector3.zero;
 
+    private int Called = 0;
+
     // Update is called once per frame
     void Update()
     {
         CheckTriggerState();
         CheckDeleteState();
-        //Debug.Log("Having " + lines.Count + " lines");
+        //Debug.Log("Having " + this.lines.Count + " drawing lines");
+        //Debug.Log("Drew " + this.Called + " drawing lines");
     }
 
     void Awake()
@@ -57,7 +60,9 @@ public class DrawController3D : MonoBehaviour
 
     void AddNewLineRenderer()
     {
+        Debug.Log("Add new line");
         positionCount = 0;
+        Called++;
 
         go = new GameObject($"LineRenderer_brush_{lines.Count}");
         // go.transform.parent = gameObjectToTrack.transform.parent;
@@ -89,19 +94,13 @@ public class DrawController3D : MonoBehaviour
         return result;
     } // end GetLines()
 
-    public void LoadLinesForSaveSystem(List<Vector3[]> myLines) {
-        foreach (Vector3[] line in myLines) {
-            LoadLineForSaveSystem(line);
-        } // end foreach
-    } // end LoadLines
-
-    public void ClearAllDrawings() {
+    public void ClearAllDrawingsList() {
         foreach (LineRenderer line in lines) {
             GameObject obj = line.gameObject;
-            GameObject.Destroy(line);
-            GameObject.Destroy(obj);
+            Destroy(obj);
         } // end foreach
-        lines.Clear();
+        this.lines.Clear();
+        Called = 0;
     } // end ClearAllDrawings
 
     public void LoadLineForSaveSystem(Vector3[] myLine, GameObject objectToTrack = null) {

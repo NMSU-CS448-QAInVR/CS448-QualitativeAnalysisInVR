@@ -66,7 +66,6 @@ public class DrawingSaveFormat : SaveFormat
                 pointsOnLine[i].z = z_values[i];
             } // end for i
         });
-
         GameObject obj = new GameObject("temp");
         obj.transform.position = new Vector3(x, y, z);
         dc3.LoadLineForSaveSystem(pointsOnLine);
