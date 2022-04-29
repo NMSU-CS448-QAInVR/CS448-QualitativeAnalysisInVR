@@ -45,14 +45,19 @@ namespace UIController {
       } // end GetHostObject
 
       private void SetUpContextualMenuForNotecard() {
-         Slider fontSizeSlider = NotecardMenu.GetComponentInChildren<Slider>();
+         //Slider fontSizeSlider = NotecardMenu.GetComponentInChildren<Slider>();
          NotecardTextEdit nct = targetObject.GetComponent<NotecardTextEdit>();
-         fontSizeSlider.SetValueWithoutNotify(nct.GetTextFontSize());
+         //fontSizeSlider.SetValueWithoutNotify(nct.GetTextFontSize());
       } // end Set
 
       public void EditText() {
          NotecardTextEdit nct = targetObject.GetComponent<NotecardTextEdit>();
-         nct.InvokeEdit();
+         nct.InvokeEdit(true);
+      } // EditText
+
+      public void EditTitle() {
+         NotecardTextEdit nct = targetObject.GetComponent<NotecardTextEdit>();
+         nct.InvokeEdit(false);
       } // EditText
 
    } // end MenuController

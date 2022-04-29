@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Threading.Tasks;
 using System;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class FileManager {
     private static string persistentDataPath;
 
 
-    private static Type[] types = {typeof(SaveFormat), typeof(NotecardSaveFormat)};
+    private static Type[] types = {typeof(SaveFormat), typeof(NotecardSaveFormat), typeof(DrawingSaveFormat), typeof(BoardSaveFormat)};
     private static XmlSerializer serializer = new XmlSerializer(typeof(ListSaveFormat), FileManager.types);
     
     public static void Initialize() {
@@ -50,6 +51,24 @@ public class FileManager {
         } // end 
     } // end SaveListFormat
 
+     public static async Task XmlSerializeListAsync(string path, List<SaveFormat> list) {
+        
+        string final_path = Path.Combine(persistentDataPath, path);
+        using (StreamWriter file = new StreamWriter(final_path, false)) {
+            if (file == null) {
+                Debug.LogError("cannot open file - writer");
+            } // end if
+
+            ListSaveFormat list_save = new ListSaveFormat();
+            list_save.list_format = list;
+            
+            await Task.Run(() => {
+                serializer.Serialize(file.BaseStream, list_save);
+            });
+            Debug.Log("wrote to file");
+        } // end 
+    } // end SaveListFormat
+
     public static string ReadStringFrom(string path) {
         string final_path = Path.Combine(persistentDataPath, path);
         string result = "";
@@ -59,7 +78,7 @@ public class FileManager {
             } // end if
             string line = "";
             while ((line = file.ReadLine()) != null) {
-                result = result + line;
+                result = result + line+'\n';
             } // end while
 
             Debug.Log("read from file");
@@ -68,9 +87,75 @@ public class FileManager {
         return result;
     } // end ReadStringFrom
 
-    public static FileInfo[] GetFileList() {
-        DirectoryInfo di = new DirectoryInfo(persistentDataPath);
+    public static async Task<string> ReadStringFromAsync(string path) {
+        string final_path = Path.Combine(persistentDataPath, path);
+        string result = "";
+        using (StreamReader file = new StreamReader(final_path)) {
+            if (file == null) {
+                Debug.LogError("Cannot open file - reader");
+            } // end if
+            string line = "";
+            await Task.Run(() => {
+                while ((line = file.ReadLine()) != null) {
+                    result = result + line + "\n";
+                } // end while
+            });
+        } // end
+        
+        return result;
+    } // end ReadStringFrom
+
+    public static byte[] ReadBytesFrom(string path) {
+        string final_path = Path.Combine(persistentDataPath, path);
+        byte[] result = null;
+        result = File.ReadAllBytes(final_path);
+       
+        return result;
+    } // end ReadStringFrom
+
+    public static async Task<byte[]> ReadBytesFromAsync(string path) {
+        string final_path = Path.Combine(persistentDataPath, path);
+        byte[] result = null;
+        await Task.Run(() => {
+            result = File.ReadAllBytes(final_path);
+        });
+       
+        return result;
+    } // end ReadStringFrom
+
+    public static async Task WriteBytesToAsync(string path, byte[] bytes) {
+        string final_path = Path.Combine(persistentDataPath, path);
+        await Task.Run(() => {
+            File.WriteAllBytes(final_path, bytes);
+        });
+    } // end ReadStringFrom
+
+    public static async Task<bool> ThisFileExists(string path) {
+        bool result = false;
+        string final_path = Path.Combine(persistentDataPath, path);
+        await Task.Run(() => {
+            result = File.Exists(path);
+        });
+        return result;
+    } // end ThisFileExists
+
+    public static async Task<bool> ThisDirectoryExists(string path) {
+        bool result = false;
+        string final_path = Path.Combine(persistentDataPath, path);
+        await Task.Run(() => {
+            result = Directory.Exists(path);
+        });
+        return result;
+    }
+
+    public static FileInfo[] GetFileList(string path = "") {
+        DirectoryInfo di = new DirectoryInfo(Path.Combine(persistentDataPath, path));
         return di.GetFiles();
+    } // end GetFileList
+
+    public static DirectoryInfo[] GetDirsList(string path = "") {
+        DirectoryInfo di = new DirectoryInfo(Path.Combine(persistentDataPath, path));
+        return di.GetDirectories();
     } // end GetFileList
 
     public static bool EndsWith(string str, string end) {
@@ -93,7 +178,24 @@ public class FileManager {
                 Debug.LogError("Cannot open file - reader");
             } // end if
             
-            ListSaveFormat save_list = (ListSaveFormat) serializer.Deserialize(file.BaseStream);
+            //ListSaveFormat save_list = (ListSaveFormat) serializer.Deserialize(file.BaseStream);
+            ListSaveFormat save_list = new ListSaveFormat();
+            Debug.Log("Deserialize Xml from file");
+            return save_list.list_format;
+        } // end
+    } // end Des
+
+    public static async Task<List<SaveFormat>> XmlDeserializeListAsync(string path) {
+        string final_path = Path.Combine(persistentDataPath, path);
+        using (StreamReader file = new StreamReader(final_path)) {
+            if (file == null) {
+                Debug.LogError("Cannot open file - reader");
+            } // end if
+            
+            ListSaveFormat save_list = null;
+            await Task.Run(() => {
+                save_list = (ListSaveFormat) serializer.Deserialize(file.BaseStream);
+            });
             Debug.Log("Deserialize Xml from file");
             return save_list.list_format;
         } // end
@@ -112,4 +214,20 @@ public class FileManager {
     public static string GetDataPath() {
         return persistentDataPath;
     } // end GetDataPath
+
+    public static void CreateDirectory(string path, bool startAtPersistentPath=true) {
+        string myPath = "";
+        if (startAtPersistentPath) {
+            myPath = Path.Combine(persistentDataPath, path);
+        } // end if
+        Directory.CreateDirectory(myPath);
+    } // end path
+
+    public static void DeleteDirectoryRecursive(string path, bool startAtPersistentPath=true) {
+        string myPath = "";
+        if (startAtPersistentPath) {
+            myPath = Path.Combine(persistentDataPath, path);
+        } // end if
+        Directory.Delete(myPath, true);
+    } // end path
 } // end FileManager

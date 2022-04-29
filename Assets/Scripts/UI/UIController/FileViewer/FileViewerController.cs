@@ -18,7 +18,6 @@ namespace UIController {
       public GameObject FileViewerEntryTemplate;
 
       private string path = "/";
-      private string ParentPath = "";
       private MyDirectory CurrentDir = null;
 
       private bool isAndroid = false;

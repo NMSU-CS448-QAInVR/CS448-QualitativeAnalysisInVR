@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -41,11 +42,15 @@ public class DrawController3D : MonoBehaviour
 
     private Vector3 prevPointDistance = Vector3.zero;
 
+    private int Called = 0;
+
     // Update is called once per frame
     void Update()
     {
         CheckTriggerState();
         CheckDeleteState();
+        //Debug.Log("Having " + this.lines.Count + " drawing lines");
+        //Debug.Log("Drew " + this.Called + " drawing lines");
     }
 
     void Awake()
@@ -55,12 +60,15 @@ public class DrawController3D : MonoBehaviour
 
     void AddNewLineRenderer()
     {
+        Debug.Log("Add new line");
         positionCount = 0;
+        Called++;
 
         go = new GameObject($"LineRenderer_brush_{lines.Count}");
         // go.transform.parent = gameObjectToTrack.transform.parent;
         go.transform.position = gameObjectToTrack.transform.position;
 
+        go.AddComponent<DrawingSavable>();
         LineRenderer goLineRenderer = go.AddComponent<LineRenderer>();
         goLineRenderer.startWidth = lineDefaultWidth;
         goLineRenderer.endWidth = lineDefaultWidth;
@@ -73,6 +81,40 @@ public class DrawController3D : MonoBehaviour
 
         lines.Add(goLineRenderer);
     }
+
+    public List<Savable> GetLines() {
+        List<Savable> result = new List<Savable>();
+        foreach (LineRenderer line in lines) {
+            if (line.positionCount <= 0)
+                continue;
+                
+            Debug.Log(line.gameObject);
+            result.Add(line.gameObject.GetComponent<Savable>());
+        } // end foreach
+        return result;
+    } // end GetLines()
+
+    public void ClearAllDrawingsList() {
+        foreach (LineRenderer line in lines) {
+            GameObject obj = line.gameObject;
+            Destroy(obj);
+        } // end foreach
+        this.lines.Clear();
+        Called = 0;
+    } // end ClearAllDrawings
+
+    public void LoadLineForSaveSystem(Vector3[] myLine, GameObject objectToTrack = null) {
+        try {
+            AddNewLineRenderer();
+            for (int i = 0; i < myLine.Length; ++i) {
+                AddPoint(myLine[i]);
+            } // end 
+        } catch (UnityException exc) {
+            Debug.LogError(exc.Message);
+        } finally {
+            AddNewLineRenderer();
+        } // end finally
+    } // end LoadLines
 
     void CheckTriggerState()
     {
