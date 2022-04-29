@@ -38,7 +38,9 @@ public class ImportCSVMod : MonoBehaviour
         }
         else
         {
-            // string cardText = data[i].Replace("\n", "").Replace("\r", "");//remove newline and return from text
+            //string[] data = data.Split(",");
+            //string title = data[i];
+            //string cardText = data[i].Replace("\n", "").Replace("\r", "");//remove newline and return from text
             string cardText = data[i];
             Debug.Log("Generate card number " + i + " from CSV");
             Debug.Log(cardText);
