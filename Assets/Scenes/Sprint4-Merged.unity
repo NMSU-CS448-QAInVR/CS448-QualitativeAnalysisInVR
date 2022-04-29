@@ -1306,6 +1306,10 @@ PrefabInstance:
       propertyPath: MenuMointPoint
       value: 
       objectReference: {fileID: 679255283}
+    - target: {fileID: 5595234270357306727, guid: 47015d46a77724cba99e6faf76117c75, type: 3}
+      propertyPath: ContextualMenuMountPoint
+      value: 
+      objectReference: {fileID: 138604304}
     - target: {fileID: 5595234270686162875, guid: 47015d46a77724cba99e6faf76117c75, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1

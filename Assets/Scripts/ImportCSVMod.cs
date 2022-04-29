@@ -5,7 +5,7 @@ using TMPro;
 
 public class ImportCSVMod : MonoBehaviour
 {
-    private int i = 1; //keeps track of what value is being read from csv
+    private int i = 0; //keeps track of what value is being read from csv
     private string[] data; //holds parsed strings from csv
     private Func<string, string, GameObject> createCardWithTextFunc;
     private string title;
@@ -38,7 +38,7 @@ public class ImportCSVMod : MonoBehaviour
         }
         else
         {
-            //string[] data = data.Split(",");
+            //string[] values = data.Split(",");
             //string title = data[i];
             //string cardText = data[i].Replace("\n", "").Replace("\r", "");//remove newline and return from text
             string cardText = data[i];
