@@ -5,12 +5,13 @@ using System;
 using UnityEngine;
 
 
-public class NotecardSavable : Savable
+public class BoardSavable : Savable
 {
+    public int id;
     public override async Task<SaveFormat> SaveObject(string save_des_folder) {
         // check if the components are here
         try {
-            SaveFormat result = new NotecardSaveFormat();
+            SaveFormat result = new BoardSaveFormat();
             await result.UpdateData(this.gameObject, save_des_folder);
             return result;
         } catch (Exception b) {
@@ -20,4 +21,11 @@ public class NotecardSavable : Savable
         }
         return null;
     } // end SaveObject
+
+    public override void DeleteSelf() {
+        Drawable dr = GetComponent<Drawable>();
+        if (dr != null) {
+            dr.ClearDrawing();
+        } // end if
+    } // end Delete
 }

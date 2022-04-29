@@ -80,7 +80,7 @@ public class Drawer : MonoBehaviour
 
                 if (touchedLastFrame && (isDeleting || drawMode.action.ReadValue<float>() > 0.0f))
                 {
-                    whiteboard.texture.SetPixels(x, y, penSize, penSize, colors);
+                    whiteboard.SetPixels(x, y, penSize, penSize, colors);
 
                     // Interpolation
                     for (float f = 0.01f; f < 1.00; f += 0.01f)
@@ -89,11 +89,11 @@ public class Drawer : MonoBehaviour
                         var lerpY = (int)Mathf.Lerp(lastTouchPos.y, y, f);
                         if (isDeleting)
                         {
-                            whiteboard.texture.SetPixels(lerpX, lerpY, penSize * 15, penSize * 15, colors);
+                            whiteboard.SetPixels(lerpX, lerpY, penSize * 15, penSize * 15, colors);
                         }
                         else
                         {
-                            whiteboard.texture.SetPixels(lerpX, lerpY, penSize, penSize, colors);
+                            whiteboard.SetPixels(lerpX, lerpY, penSize, penSize, colors);
                         }
                     }
 

@@ -28,11 +28,16 @@ namespace UIController {
         public void SetButtonActions(UnityAction yesAction, UnityAction noAction) {
             Button[] buttons = PromptExtractButtons(this.gameObject);
             // yes button
-            if (buttons[0] != null)
+            if (buttons[0] != null) {
+                buttons[0].onClick.RemoveAllListeners();
                 buttons[0].onClick.AddListener(yesAction);
+            }
+                
             // no button
-            if (buttons[1] != null)
+            if (buttons[1] != null) {
+                buttons[1].onClick.RemoveAllListeners();
                 buttons[1].onClick.AddListener(noAction);
+            }
         } // end SetButtonActions
 
         /*

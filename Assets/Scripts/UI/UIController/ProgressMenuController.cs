@@ -34,7 +34,7 @@ namespace UIController {
 
         } // end SetDoneAction
 
-        public void ShowOnProgress(Func<bool> actionToDo) {
+        public async Task<bool> ShowOnProgress(Func<Task<bool>> actionToDo) {
             // show cancel button
             cancelButton.gameObject.SetActive(true);
 
@@ -44,14 +44,14 @@ namespace UIController {
             // create the cancellation token
             var cancelTokenSrc = new CancellationTokenSource();
             CancellationToken ct = cancelTokenSrc.Token;
-
-            Task<bool> task = Task.Run(() => {
-                return actionToDo();
-            }, ct);
-
+            await Task.Delay(10, ct);
             // set cancel action
             cancelButton.onClick.RemoveAllListeners();
             cancelButton.onClick.AddListener(delegate {cancelTokenSrc.Cancel();});
+
+            bool task = await actionToDo();
+
+            return task;
         } // end ShowOnProgress
 
         public void ShowDone(UnityAction onDoneAction) {

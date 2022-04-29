@@ -1,6 +1,8 @@
 using System.Collections;
+using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 using System;
 
 [Serializable]
@@ -41,12 +43,18 @@ public class NotecardSaveFormat : SaveFormat
     // text
     
     public string text;
-    public float font_size;
+    public string title;
+
+    // texture for drawings. 
+    public string texture_file_name;
+    public string saved_folder;
+
+    private static int notecard_no = 0;
 
     public NotecardSaveFormat() : base(FormatType.NOTECARD) {
     } // end NotecardSaveFormat
 
-    public NotecardSaveFormat(GameObject note) : base(FormatType.NOTECARD) {
+    public override async Task UpdateData(GameObject note, string save_des_folder) {
         Transform transform = note.transform;
         if (transform == null) {
             throw new Exception("Cannot find transform component in the game object");
@@ -74,12 +82,27 @@ public class NotecardSaveFormat : SaveFormat
         color_a = myColor.w;
 
         // text
-        NotecardTextEdit nte = note.GetComponent<NotecardTextEdit>();
-        text = nte.GetText();
-        font_size = nte.GetTextFontSize();
-    } // end NotecardSaveFormat
+        RelativeDisplay nte = note.GetComponent<RelativeDisplay>();
+        text = nte.LongInfo;
+        title = nte.Title;
 
-    public override void LoadObjectInto(GameObject notecard) {
+        // texture for drawing
+        Drawable dr = note.GetComponent<Drawable>();
+        if (dr.isModified()) {
+            byte[] texture_data = dr.GetTextureColor();
+            texture_file_name = "notecard" + (notecard_no++) + ".png";
+            saved_folder = save_des_folder;
+            string path = Path.Combine(saved_folder, texture_file_name);
+            await FileManager.WriteBytesToAsync(path, texture_data);
+        } else {
+            texture_file_name = "";
+        } // end else
+      
+    } // end UpdateData
+    public static void ResetNotecardNo() {
+        notecard_no = 0;
+    } // end ResetNotecardNo
+    public override async Task<bool> LoadObjectInto(GameObject notecard) {
         // set position and rotation
         notecard.transform.position = new Vector3(x, y, z);
         notecard.transform.rotation = new Quaternion(quaternion_x, quaternion_y, quaternion_z, quaternion_w);
@@ -95,10 +118,27 @@ public class NotecardSaveFormat : SaveFormat
         apperance.ChangeColor(newColor);
 
         // set text and font size
-        NotecardTextEdit nte = notecard.GetComponent<NotecardTextEdit>();
-        if (nte == null)
+        RelativeDisplay nte = notecard.GetComponent<RelativeDisplay>();
+        if (nte != null) {
+            nte.Title = title;  
+            nte.LongInfo = text;
+        } else {
             Debug.LogError("NotecardTextEdit is null");
-        nte.SetTextFontSize(font_size);
-        nte.ChangeText(text);
+        } // end else
+
+        // // load texture
+        Drawable dr = notecard.GetComponent<Drawable>();
+        if (texture_file_name != "") {
+            string path = Path.Combine(saved_folder, texture_file_name);
+            //Debug.Log("I'm here in loading texture: " + path);
+            byte[] data = FileManager.ReadBytesFrom(path);
+            if (data != null) {
+                //Debug.Log("Load texture here");
+                dr.UpdateTexture(data);
+                dr.SetModified();
+            }
+        } //end if
+    
+        return true;
     } // end LoadObject
 }

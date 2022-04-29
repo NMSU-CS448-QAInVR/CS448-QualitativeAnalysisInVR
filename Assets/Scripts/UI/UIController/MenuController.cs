@@ -31,6 +31,12 @@ namespace UIController {
       [Header("Spawn Location")]
       [SerializeField]
       GameObject SpawnLocation;
+      
+      [Header("Drawing Functions")]
+      [SerializeField]
+      private DrawController3D Draw3DController;
+      public List<Savable> boards;
+
 
       // session
       [Header("Session")]
@@ -77,10 +83,9 @@ namespace UIController {
 
          saveLoadSys = new SaveLoadSystem();
          FileManager.Initialize();
+         saveLoadSys.Initialize();
 
       } // end Awake
-
-
       public void GoToMenu(BaseSubMenuController des) {
          if (des == null) {
             Debug.LogError("The next menu is null");
@@ -112,7 +117,7 @@ namespace UIController {
                   bool result = saveLoadSys.DeleteSessionFile(sessionPath);
                   if (result)
                      deleteAction();
-                  return result;
+                  return Task.FromResult(result);
                }); // end ShowProgress
             }); // end ShowPrompt
       } // end DeleteSession
@@ -135,7 +140,6 @@ namespace UIController {
       } // end CreateCard
 
       private GameObject CreateCardInternal(Color color, Vector3 position, Quaternion rotation) {
-         Debug.Log("create card");
          if (CardPrefabRenderer == null) {
             Debug.LogError("Cannot find renderer of card prefab");
             return null;
@@ -145,7 +149,6 @@ namespace UIController {
          GameObject newObj = GameObject.Instantiate(CardPrefab, position, rotation);
          newObj.SetActive(true);
          saveLoadSys.Add(newObj);
-         Debug.Log("Added a notecard: " + saveLoadSys.GetSessionsList().Count);
          return newObj;
       } // end CreateCard
 
@@ -164,15 +167,14 @@ namespace UIController {
          return the prompt object of the menu. 
          precodnition: menu is not null
       */
-      private void ShowProgress(string prompt, string done_prompt_true, string done_prompt_false, Func<bool> operation) {
+      private async void ShowProgress(string prompt, string done_prompt_true, string done_prompt_false, Func<Task<bool>> operation) {
          
          // Set the UI components
          Show(ProgressMenu);
          ProgressMenu.SetPrompt(prompt);
          
          // Run the task
-         ProgressMenu.ShowOnProgress(operation);
-         bool result = operation();
+         bool result = await ProgressMenu.ShowOnProgress(operation);
 
          // if result is true, show the prompt true
          if (result) { // if result is false, show the prompt false
@@ -192,59 +194,104 @@ namespace UIController {
       } // end ShowPrompt
 
       public void Save() {
-         saveLoadSys.SaveOnQuest(saveLoadSys.GetCurrentPath());
+         ShowProgress("Saving session...", "Saving is successful", "Saving is not successful", async () => {
+            try {
+               saveLoadSys.AddExternalStuffs(Draw3DController.GetLines());
+               saveLoadSys.AddExternalStuffs(boards);
+               await saveLoadSys.SaveOnQuestAsync(saveLoadSys.GetCurrentPath());
+               return true;
+            } catch (Exception ex) {
+               Debug.LogError(ex.Message);
+               Debug.LogError(ex.StackTrace);
+               return false;
+            }
+         });
       } // end Save
 
       public void SaveAs(GameObject obj) {
          TMP_InputField input = obj.GetComponent<TMP_InputField>();
          if (input == null) 
             return;
-         Debug.Log("Saving");
-         SaveAs(input.text + ".dat");
+         SaveAs(input.text);
       } // end SaveAs
       private void SaveAs(string path) {
-         saveLoadSys.SaveOnQuest(path, true);
+         ShowProgress("Saving session...", "Saving is successful", "Saving is not successful", async () => {
+            try {
+               saveLoadSys.AddExternalStuffs(Draw3DController.GetLines());
+               saveLoadSys.AddExternalStuffs(boards);
+               await saveLoadSys.SaveOnQuestAsync(path, true);
+               return true;
+            } catch (Exception ex) {
+               Debug.LogError(ex.Message);
+               Debug.LogError(ex.StackTrace);
+               return false;
+            }
+         });
       } // end SaveAs
 
       public void Load(string path) {
-            ShowPrompt("Do you want to load: " + path, delegate {
-               ShowProgress("Loading...", "File is loaded successfully", "The file is empty", () => {
-                  bool result = PLoadSession(path);
+         ShowPrompt("Do you want to load: " + path, delegate {
+            Debug.Log("Do Prompt");
+            ShowProgress("Loading...", "File is loaded successfully", "File is not loadded successfully", async () => {
+               try {
+                  bool result = await PLoadSession(path);
                   return result;
-               }); // end ShowProgress
-            }); // end ShowPrompt
+               } catch (Exception ex) {
+                  Debug.LogError(ex.Message);
+                  Debug.LogError(ex.StackTrace);
+                  return false;
+               } // end catch
+            }); // end ShowProgress
+         }); // end ShowPrompt
       } // end Load
 
-      private bool PLoadSession(string path) {
-         Debug.Log("I'm here");
-         Delete();
-         List<SaveFormat> items = saveLoadSys.LoadFromQuest(path);
+      private async Task<bool> PLoadSession(string path) {
+         Debug.Log("Start PLoad");
+         List<SaveFormat> items = null;
+         items = await saveLoadSys.LoadFromQuestAsync(path);
          if (items == null) {
             Debug.LogError("The loaded items is empty");
             return false;
          } // end if
 
-         foreach (SaveFormat item in items) {
+         Delete();
+         for (int i = 0; i < items.Count; ++i) {
+            SaveFormat item = items[i];
             GameObject obj = null;
+            bool addToSaveLoadSys = true;
+
             if (item.getType() == FormatType.NOTECARD) {
                obj = (GameObject) GameObject.Instantiate(CardPrefab, new Vector3(0, 1, 0), Quaternion.Euler(0, 0, 0));
+            } else if (item.getType() == FormatType.DRAWING) {
+               obj = Draw3DController.gameObject;
+               addToSaveLoadSys = false;
+            } else if (item.getType() == FormatType.BOARD) {
+               BoardSaveFormat myItem = (BoardSaveFormat) item;
+               foreach (Savable b in boards) {
+                  BoardSavable board = (BoardSavable) b;
+                  if (board.id == myItem.board_no) {
+                     obj = board.gameObject;
+                     break;
+                  } // end if
+               } // end foreach
             } else {
-
             } // end else
             
             if (obj != null) {
-               item.LoadObjectInto(obj);
-               saveLoadSys.Add(obj);
+               await item.LoadObjectInto(obj);
+               if (addToSaveLoadSys)
+                  saveLoadSys.Add(obj);
             } // end if
          } // end foreach
 
+         Debug.Log("End PLoad");
          return true;
       } // end PLoadSession
       
       public void Delete() {
-         foreach (GameObject obj in saveLoadSys.objects) {
-               GameObject.Destroy(obj);
-         } // end for each
+         saveLoadSys.AddExternalStuffs(Draw3DController.GetLines());
+         saveLoadSys.AddExternalStuffs(boards);
+         Draw3DController.ClearAllDrawingsList();
          saveLoadSys.Clear();
       } // end Delete
       
@@ -257,13 +304,14 @@ namespace UIController {
       } // end Show
 
        public void Import(string path, bool willParse=false) {
-         ShowProgress("Importing...", "Created the import file creator successfully", "Failed to import this file", () => {
+         ShowProgress("Importing...", "Created the import file creator successfully", "Failed to import this file", async () => {
             if (!path.EndsWith(".csv")) {
                return false;
             } // end if
 
             // to be done
-            string myText = FileManager.ReadStringFrom(path);
+            Debug.Log("my path is " + path);
+            string myText = await FileManager.ReadStringFromAsync(path);
             GameObject importObj = GameObject.Instantiate(ImportObjectPrefab.gameObject, SpawnLocation.transform.position, SpawnLocation.transform.rotation);
             //CreateCardInternal(Color.yellow);
             importObj.GetComponent<ImportCSVMod>().Initialize(CardPrefab, myText, (string title, string text) => {

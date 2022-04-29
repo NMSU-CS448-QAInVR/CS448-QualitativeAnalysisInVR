@@ -2,5 +2,5 @@ using System;
 
 [Serializable]
 public enum FormatType {
-    NOTECARD, BOARD, NONE
+    NOTECARD, BOARD, DRAWING, NONE
 }

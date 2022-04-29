@@ -24,7 +24,7 @@ public class ImportCSVMod : MonoBehaviour
     }
 
     public void Initialize(GameObject prefab, string text, Func<string, string, GameObject> createCardWithText) {
-        data = text.Split(','); //split string by commas
+        data = text.Split('\n'); //split string by commas
         createCardWithTextFunc = createCardWithText;
         title = data[0].Replace("\n", "").Replace("\r", "");//remove newline and return from text
     } // end Initialize
@@ -39,13 +39,9 @@ public class ImportCSVMod : MonoBehaviour
         else
         {
             string cardText = data[i].Replace("\n", "").Replace("\r", "");//remove newline and return from text
-            Debug.Log("Generate card number " + i + " from CSV");
-            Debug.Log(cardText);
             // create card
             GameObject gObj = createCardWithTextFunc(title, cardText);
             gObj.transform.position = CardLocation.transform.position + new Vector3(0, gObj.transform.localScale.y / 2f, 0);
-            Debug.Log("Spawn: " + gObj.transform.position);
-            Debug.Log("This: " + this.transform.position);
             gObj.transform.rotation = this.transform.rotation;
             i++;
         }
