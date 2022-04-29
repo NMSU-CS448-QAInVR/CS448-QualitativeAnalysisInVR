@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System;
+using System.Text.RegularExpressions;
 using TMPro;
 
 public class ImportCSVMod : MonoBehaviour
@@ -24,7 +25,9 @@ public class ImportCSVMod : MonoBehaviour
     }
 
     public void Initialize(GameObject prefab, string text, Func<string, string, GameObject> createCardWithText) {
-        data = text.Split('\n'); //split string by commas
+        data = text.Split(new string[] {"\n", "\r", "\r\n"}, StringSplitOptions.None); //split string by commas
+        //Debug.Log("I'm here");
+        //Debug.Log("There are " + data.Length + " lines");
         createCardWithTextFunc = createCardWithText;
         //title = data[0].Replace("\n", "").Replace("\r", "");//remove newline and return from text
     } // end Initialize
@@ -38,10 +41,15 @@ public class ImportCSVMod : MonoBehaviour
         }
         else
         {
-            //string[] values = data.Split(",");
-            //string title = data[i];
+            string[] values = Regex.Split(data[i], "[,]{1}(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
+            if (values.Length < 3) {
+                Debug.Log("Less thean the required format");
+                return;
+            }
+            string title = "Participant: " + values[0] + "\n" +
+                            "Quote Number: " + values[1];
             //string cardText = data[i].Replace("\n", "").Replace("\r", "");//remove newline and return from text
-            string cardText = data[i];
+            string cardText = values[2];
             Debug.Log("Generate card number " + i + " from CSV");
             Debug.Log(cardText);
             // create card

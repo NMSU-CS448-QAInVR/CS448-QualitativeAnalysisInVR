@@ -310,8 +310,9 @@ namespace UIController {
             } // end if
 
             // to be done
-            Debug.Log("my path is " + path);
+            //Debug.Log("my path is " + path);
             string myText = await FileManager.ReadStringFromAsync(path);
+            //Debug.Log("My text is: " + myText);
             GameObject importObj = GameObject.Instantiate(ImportObjectPrefab.gameObject, SpawnLocation.transform.position, SpawnLocation.transform.rotation);
             //CreateCardInternal(Color.yellow);
             importObj.GetComponent<ImportCSVMod>().Initialize(CardPrefab, myText, (string title, string text) => {

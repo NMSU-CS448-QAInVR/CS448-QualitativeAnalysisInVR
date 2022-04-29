@@ -97,7 +97,7 @@ public class FileManager {
             string line = "";
             await Task.Run(() => {
                 while ((line = file.ReadLine()) != null) {
-                    result = result + line;
+                    result = result + line + "\n";
                 } // end while
             });
         } // end
