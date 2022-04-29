@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/envAndalphCardSnap.unity
     guid: 0a1937fe52577184191f3f293518a2dd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Sprint4-Merged.unity
     guid: 7957ea3b09383401b9133cdb0447ff82
   m_configObjects:
