@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 592691906549161205}
   - component: {fileID: 592691906549161206}
   - component: {fileID: 592691906549161204}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ErasePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,7 +280,8 @@ GameObject:
   - component: {fileID: 354229427285766010}
   - component: {fileID: 8170211081209878299}
   - component: {fileID: 291212856596748040}
-  m_Layer: 0
+  - component: {fileID: 1475951541709477966}
+  m_Layer: 9
   m_Name: Pen black 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -494,6 +495,22 @@ MonoBehaviour:
   minDistanceBeforeNewPoint: 0.01
   lineDefaultWidth: 0.02
   defaultLineMaterial: {fileID: 2100000, guid: 6377d080458c2de45b39a84ea8c0f5b9, type: 2}
+--- !u!114 &1475951541709477966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4935772206011339362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95234faa0d2555f47bed678961cf88d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deleteMode: {fileID: -6059904301284996345, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  drawMode: {fileID: 1716673005982093081, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  tip: {fileID: 592691906549161207}
+  penSize: 3
 --- !u!1 &4935772207310149578
 GameObject:
   m_ObjectHideFlags: 0
