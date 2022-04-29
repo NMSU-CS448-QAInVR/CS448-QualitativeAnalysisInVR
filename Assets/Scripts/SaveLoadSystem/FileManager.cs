@@ -59,7 +59,7 @@ public class FileManager {
             } // end if
             string line = "";
             while ((line = file.ReadLine()) != null) {
-                result = result + line;
+                result = result + line+'\n';
             } // end while
 
             Debug.Log("read from file");
