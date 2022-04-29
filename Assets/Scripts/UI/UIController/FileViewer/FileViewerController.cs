@@ -34,6 +34,9 @@ namespace UIController {
          isAndroid = true;
          path = FileManager.GetDataPath();
          #endif
+
+         path = "\\Users\\Tom\\Documents\\VRCSVS";
+
          entries = new LinkedList<GameObject>();
          prev = new Stack<MyDirectory>();
          forward = new Stack<MyDirectory>();
