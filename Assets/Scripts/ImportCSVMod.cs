@@ -45,8 +45,6 @@ public class ImportCSVMod : MonoBehaviour
             // create card
             GameObject gObj = createCardWithTextFunc(title, cardText);
             gObj.transform.position = CardLocation.transform.position + new Vector3(0, gObj.transform.localScale.y / 2f, 0);
-            Debug.Log("Spawn: " + gObj.transform.position);
-            Debug.Log("This: " + this.transform.position);
             gObj.transform.rotation = this.transform.rotation;
             i++;
         }
