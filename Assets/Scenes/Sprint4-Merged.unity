@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1489161714}
-  m_IndirectSpecularColor: {r: 0.3818804, g: 0.46853095, b: 0.61375695, a: 1}
+  m_IndirectSpecularColor: {r: 0.38219777, g: 0.468821, b: 0.61403686, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1017,10 +1017,6 @@ PrefabInstance:
       propertyPath: noteCard
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 4458056064003815491, guid: ac76c04c7e3db4840bff476049dac38e, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 4458056064003815493, guid: ac76c04c7e3db4840bff476049dac38e, type: 3}
       propertyPath: m_Size.x
       value: 1.1324313
@@ -1105,19 +1101,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4458056064003815491, guid: ac76c04c7e3db4840bff476049dac38e, type: 3}
   m_PrefabInstance: {fileID: 202295853}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &202295855
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 202295854}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.1746936, y: 1, z: 0.9999999}
-  m_Center: {x: -0.0019417868, y: 0.000000062088176, z: 0}
 --- !u!114 &202295856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1138,13 +1121,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4547637417360775601, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4547637417360775601, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4547637417360775601, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6176612437403076544, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
       propertyPath: m_Name
       value: boardSnapTesting (1)
       objectReference: {fileID: 0}
     - target: {fileID: 6176612437403076544, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6176612437403076544, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
       propertyPath: m_IsActive
@@ -1217,19 +1212,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6176612437403076544, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
   m_PrefabInstance: {fileID: 275741600}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &275741602
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 275741601}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.1181518, y: 1, z: 1}
-  m_Center: {x: -0.059075937, y: 0, z: 5.5528124e-11}
 --- !u!114 &275741603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1546,13 +1528,25 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4547637417360775601, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4547637417360775601, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4547637417360775601, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6176612437403076544, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
       propertyPath: m_Name
       value: boardSnapTesting
       objectReference: {fileID: 0}
     - target: {fileID: 6176612437403076544, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6176612437403076544, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
       propertyPath: m_IsActive
@@ -3200,19 +3194,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
---- !u!65 &1537249402
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1537249395}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.1494478, y: 1, z: 0.9999999}
-  m_Center: {x: -0.011057282, y: 0, z: 0}
 --- !u!1 &1563019358
 GameObject:
   m_ObjectHideFlags: 0
@@ -3337,7 +3318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6176612437403076544, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6176612437403076544, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
       propertyPath: m_IsActive
@@ -3411,19 +3392,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6176612437403076544, guid: e2dc6a2475806c042b5f5fa46b06c268, type: 3}
   m_PrefabInstance: {fileID: 1681103750}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &1681103752
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1681103751}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.1111487, y: 1, z: 0.9999999}
-  m_Center: {x: -0.022842404, y: 0, z: -9.507933e-12}
 --- !u!114 &1681103753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4963,6 +4931,14 @@ PrefabInstance:
       propertyPath: defaultLineMaterial
       value: 
       objectReference: {fileID: 2100000, guid: d7684c0c207f5a242b3234dea489648f, type: 2}
+    - target: {fileID: 354229427285766010, guid: 5180434c96b4c614f960bddf1d953a9d, type: 3}
+      propertyPath: m_Size.x
+      value: 32.955986
+      objectReference: {fileID: 0}
+    - target: {fileID: 354229427285766010, guid: 5180434c96b4c614f960bddf1d953a9d, type: 3}
+      propertyPath: m_Center.x
+      value: 0.37798172
+      objectReference: {fileID: 0}
     - target: {fileID: 4935772206011339362, guid: 5180434c96b4c614f960bddf1d953a9d, type: 3}
       propertyPath: m_Name
       value: Pen black 1
