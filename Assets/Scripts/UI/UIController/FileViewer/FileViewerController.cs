@@ -33,9 +33,11 @@ namespace UIController {
          #if UNITY_ANDROID && !UNITY_EDITOR
          isAndroid = true;
          path = FileManager.GetDataPath();
-         #endif
-
+         #else
          path = "\\Users\\Tom\\Documents\\VRCSVS";
+         #endif
+         
+
 
          entries = new LinkedList<GameObject>();
          prev = new Stack<MyDirectory>();
