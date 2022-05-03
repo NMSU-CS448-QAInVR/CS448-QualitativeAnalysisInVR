@@ -79,7 +79,7 @@ public class Drawer : MonoBehaviour
             // If we switched from one drawable to another drawable,
             // set the current whiteboard to the new drawable and reset touchedLastFrame
             // so that we don't draw on this frame
-            if (whiteboard.transform.name != touch.transform.name)
+            if (whiteboard.transform.name != touch.transform.name || whiteboard.gameObject != touch.transform.gameObject)
             {
                 // Before switching to the next drawable, ensure that the current drawable's box collider is 
                 // enabled
