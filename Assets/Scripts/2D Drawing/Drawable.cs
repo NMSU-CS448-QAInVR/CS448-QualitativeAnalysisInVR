@@ -17,15 +17,18 @@ public class Drawable : MonoBehaviour
 
     private void Awake()
     {
-        textureSize = new Vector2(width, height);
-        Renderer myRenderer = GetComponent<Renderer>();
+        if (!transform.name.Contains("Clone"))
+        {
+            textureSize = new Vector2(width, height);
+            Renderer myRenderer = GetComponent<Renderer>();
 
-        texture = new Texture2D((int)textureSize.x, (int)textureSize.y);
-        Color[] colors = Enumerable.Repeat(Color.white, width * height).ToArray();
+            texture = new Texture2D((int)textureSize.x, (int)textureSize.y);
+            Color[] colors = Enumerable.Repeat(Color.white, width * height).ToArray();
 
-        texture.SetPixels(0, 0, width, height, colors);
-        texture.Apply(true);
-        myRenderer.material.mainTexture = texture;
+            texture.SetPixels(0, 0, width, height, colors);
+            texture.Apply(true);
+            myRenderer.material.mainTexture = texture;
+        }
     }
 
     public void ClearDrawing() {
