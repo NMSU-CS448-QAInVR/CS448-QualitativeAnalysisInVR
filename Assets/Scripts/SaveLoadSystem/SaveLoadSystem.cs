@@ -9,6 +9,9 @@ using System.Linq;
 public class SaveLoadSystem
 {
     List<Savable> items;
+    // boards are not destroyed
+    List<Savable> boards;
+    List<Savable> drawings;
     public List<GameObject> objects;
     private string session_folder = "sessions/";
     private string current_session_path = "default_save";
@@ -17,6 +20,8 @@ public class SaveLoadSystem
     public SaveLoadSystem() {
         items = new List<Savable>();
         objects = new List<GameObject>();
+        boards = new List<Savable>();
+        drawings = new List<Savable>();
     } // end Awake
 
     public void Initialize() {
@@ -43,9 +48,20 @@ public class SaveLoadSystem
 
     public void Clear() {
         try {
+            // items
             foreach (Savable item in items) {
                 item.DeleteSelf();
             } // end for each
+
+            // drawings
+            foreach (Savable drawing in drawings) {
+                drawing.DeleteSelf();
+            } // end foreach
+
+            // boards
+            foreach (Savable board in boards) {
+                board.DeleteSelf();
+            } // end foreach
         } catch (Exception e) {
             Debug.LogError(e.Message);
             Debug.LogError(e.StackTrace);
@@ -53,19 +69,20 @@ public class SaveLoadSystem
       
         objects.Clear();
         items.Clear();
-        Debug.Log(items.Count);
-        Debug.Log(objects.Count);
+        drawings.Clear();
     } // end Clear
 
     public static string GetSessionName(string sessionPath) {
         return sessionPath;
     } // end GetSessionName
 
-    public void AddExternalStuffs(List<Savable> externalSavable) {
-        IEnumerable<Savable> ie = externalSavable;
-        items.AddRange(ie);
-        objects.AddRange(ie.Select((Savable sav) => sav.gameObject));
+    public void AddDrawings(List<Savable> drawings) {
+        drawings.AddRange(drawings);
     } // end AddExternalSavable
+
+    public void AddBoards(List<Savable> boards) {
+        boards.AddRange(boards);
+    } // end AddBoards
 
     public void SaveOnQuest(string path, bool setCurrentPath=false) {
         string myPath = Path.Combine(session_folder, path);
@@ -82,6 +99,27 @@ public class SaveLoadSystem
             } // end if
             result.Add(fm);
         } // end foreach
+
+        // add boards
+        foreach (Savable board in boards) {
+            SaveFormat fm = board.SaveObject(session_folder).Result;
+            if (fm == null) {
+                Debug.Log("SaveFormat item is null");
+                continue;
+            } // end if
+            result.Add(fm);
+        } // end foreach
+
+        // add drawings
+        foreach (Savable drawing in drawings) {
+            SaveFormat fm = drawing.SaveObject(session_folder).Result;
+            if (fm == null) {
+                Debug.Log("SaveFormat item is null");
+                continue;
+            } // end if
+            result.Add(fm);
+        } // end foreach
+
         FileManager.XmlSerializeList(myPath, result);
     } // end SaveOnQuest
 
@@ -101,6 +139,26 @@ public class SaveLoadSystem
         List<SaveFormat> result = new List<SaveFormat>();
         foreach (Savable item in items) {
             SaveFormat fm = await item.SaveObject(myPath);
+            if (fm == null) {
+                //throw new Exception("SaveFormat item is null");
+                continue;
+            } // end if
+            result.Add(fm);
+        } // end foreach
+
+        // add boards
+        foreach (Savable board in boards) {
+            SaveFormat fm = await board.SaveObject(myPath);
+            if (fm == null) {
+                //throw new Exception("SaveFormat item is null");
+                continue;
+            } // end if
+            result.Add(fm);
+        } // end foreach
+
+         // add drawings
+        foreach (Savable drawing in drawings) {
+            SaveFormat fm = await drawing.SaveObject(myPath);
             if (fm == null) {
                 //throw new Exception("SaveFormat item is null");
                 continue;

@@ -87,6 +87,10 @@ namespace UIController {
          saveLoadSys.Initialize();
 
       } // end Awake
+
+      void Start() {
+         saveLoadSys.AddBoards(boards);
+      } // end Start
       public void GoToMenu(BaseSubMenuController des) {
          if (des == null) {
             Debug.LogError("The next menu is null");
@@ -201,8 +205,7 @@ namespace UIController {
       public void Save() {
          ShowProgress("Saving session...", "Saving is successful", "Saving is not successful", async () => {
             try {
-               saveLoadSys.AddExternalStuffs(Draw3DController.GetLines());
-               saveLoadSys.AddExternalStuffs(boards);
+               saveLoadSys.AddDrawings(Draw3DController.GetLines());
                await saveLoadSys.SaveOnQuestAsync(saveLoadSys.GetCurrentPath());
                return true;
             } catch (Exception ex) {
@@ -222,8 +225,7 @@ namespace UIController {
       private void SaveAs(string path) {
          ShowProgress("Saving session...", "Saving is successful", "Saving is not successful", async () => {
             try {
-               saveLoadSys.AddExternalStuffs(Draw3DController.GetLines());
-               saveLoadSys.AddExternalStuffs(boards);
+               saveLoadSys.AddDrawings(Draw3DController.GetLines());
                await saveLoadSys.SaveOnQuestAsync(path, true);
                return true;
             } catch (Exception ex) {
@@ -279,6 +281,7 @@ namespace UIController {
                      break;
                   } // end if
                } // end foreach
+               addToSaveLoadSys = false;
             } else {
             } // end else
             
@@ -294,8 +297,7 @@ namespace UIController {
       } // end PLoadSession
       
       public void Delete() {
-         saveLoadSys.AddExternalStuffs(Draw3DController.GetLines());
-         saveLoadSys.AddExternalStuffs(boards);
+         saveLoadSys.AddDrawings(Draw3DController.GetLines());
          Draw3DController.ClearAllDrawingsList();
          saveLoadSys.Clear();
       } // end Delete
