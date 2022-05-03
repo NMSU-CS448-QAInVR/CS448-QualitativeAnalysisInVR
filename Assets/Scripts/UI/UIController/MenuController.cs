@@ -297,6 +297,7 @@ namespace UIController {
       } // end PLoadSession
       
       public void Delete() {
+         Debug.Log("Clear is called");
          saveLoadSys.AddDrawings(Draw3DController.GetLines());
          Draw3DController.ClearAllDrawingsList();
          saveLoadSys.Clear();

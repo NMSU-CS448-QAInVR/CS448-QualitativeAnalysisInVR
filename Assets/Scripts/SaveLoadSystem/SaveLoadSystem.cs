@@ -76,12 +76,14 @@ public class SaveLoadSystem
         return sessionPath;
     } // end GetSessionName
 
-    public void AddDrawings(List<Savable> drawings) {
-        drawings.AddRange(drawings);
+    public void AddDrawings(List<Savable> _drawings) {
+        IEnumerable<Savable> ie = _drawings;
+        this.drawings.AddRange(ie);
     } // end AddExternalSavable
 
-    public void AddBoards(List<Savable> boards) {
-        boards.AddRange(boards);
+    public void AddBoards(List<Savable> _boards) {
+        IEnumerable<Savable> ie = _boards;
+        this.boards.AddRange(ie);
     } // end AddBoards
 
     public void SaveOnQuest(string path, bool setCurrentPath=false) {
@@ -156,13 +158,17 @@ public class SaveLoadSystem
             result.Add(fm);
         } // end foreach
 
+        Debug.Log("Before drawing: " + drawings.Count);
          // add drawings
         foreach (Savable drawing in drawings) {
+            Debug.Log("In Drawing");
             SaveFormat fm = await drawing.SaveObject(myPath);
             if (fm == null) {
+                Debug.Log("Drawing is null");
                 //throw new Exception("SaveFormat item is null");
                 continue;
             } // end if
+            Debug.Log("Save drawing");
             result.Add(fm);
         } // end foreach
 

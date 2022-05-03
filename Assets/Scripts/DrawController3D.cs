@@ -87,7 +87,7 @@ public class DrawController3D : MonoBehaviour
         foreach (LineRenderer line in lines) {
             if (line.positionCount <= 0)
                 continue;
-                
+            
             Debug.Log(line.gameObject);
             result.Add(line.gameObject.GetComponent<Savable>());
         } // end foreach
