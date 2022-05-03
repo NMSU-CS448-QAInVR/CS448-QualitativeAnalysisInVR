@@ -36,6 +36,7 @@ namespace UIController {
       [SerializeField]
       private DrawController3D Draw3DController;
       public List<Savable> boards;
+      public GameObject PenSummonLocation;
 
 
       // session
@@ -138,6 +139,10 @@ namespace UIController {
       public void CreateCard(ColorType color) {
          CreateCardInternal(color.GetValue(), SpawnLocation.transform.position, SpawnLocation.transform.rotation);
       } // end CreateCard
+
+      public void SummonPen() {
+         Draw3DController.gameObject.transform.position = PenSummonLocation.transform.position;
+      } // end SummonPen
 
       private GameObject CreateCardInternal(Color color, Vector3 position, Quaternion rotation) {
          if (CardPrefabRenderer == null) {
