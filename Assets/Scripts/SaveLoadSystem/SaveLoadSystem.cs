@@ -42,9 +42,15 @@ public class SaveLoadSystem
     } // end Remove
 
     public void Clear() {
-        foreach (Savable item in items) {
-            item.DeleteSelf();
-        } // end for each
+        try {
+            foreach (Savable item in items) {
+                item.DeleteSelf();
+            } // end for each
+        } catch (Exception e) {
+            Debug.LogError(e.Message);
+            Debug.LogError(e.StackTrace);
+        } // end catch
+      
         objects.Clear();
         items.Clear();
         Debug.Log(items.Count);
