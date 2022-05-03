@@ -50,8 +50,8 @@ public class ImportCSVMod : MonoBehaviour
                             "Quote Number: " + values[1];
             //string cardText = data[i].Replace("\n", "").Replace("\r", "");//remove newline and return from text
             string cardText = values[2];
-            Debug.Log("Generate card number " + i + " from CSV");
-            Debug.Log(cardText);
+            //Debug.Log("Generate card number " + i + " from CSV");
+            //Debug.Log(cardText);
             // create card
             GameObject gObj = createCardWithTextFunc(title, cardText);
             gObj.transform.position = CardLocation.transform.position + new Vector3(0, gObj.transform.localScale.y / 2f, 0);

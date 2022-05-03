@@ -96,7 +96,8 @@ public class SaveLoadSystem
         foreach (Savable item in items) {
             SaveFormat fm = await item.SaveObject(myPath);
             if (fm == null) {
-                throw new Exception("SaveFormat item is null");
+                //throw new Exception("SaveFormat item is null");
+                continue;
             } // end if
             result.Add(fm);
         } // end foreach
