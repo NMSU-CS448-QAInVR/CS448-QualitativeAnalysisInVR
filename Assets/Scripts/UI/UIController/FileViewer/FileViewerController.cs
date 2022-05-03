@@ -45,6 +45,10 @@ namespace UIController {
          GoToFolder(path);
       } // end Awake
 
+      public void Refresh() {
+         GoToFolder(CurrentDir.path);
+      } // end Refresh
+
       private void ShowFilesAndDirectory(MyDirectory directory) {
          // files
          List<MyFile> files = directory.files;

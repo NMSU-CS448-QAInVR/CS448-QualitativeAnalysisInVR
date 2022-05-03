@@ -27,6 +27,14 @@ namespace UIController {
       public void Import() {
          OnImportAction.Invoke(FileViewerController.GetSelectedFilePath(), true);
       } // end Import
+
+      public void OnEnable() {
+         RefreshFilesList();
+      } // end OnEnable
+
+      public void RefreshFilesList() {
+         FileViewerController.Refresh();
+      } // end RefreshList
    }
 
 } // end UIController
