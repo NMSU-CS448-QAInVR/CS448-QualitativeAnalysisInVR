@@ -8,6 +8,7 @@ TagManager:
   - DeleteButton
   - LineCollider
   - Drawable
+  - Pen
   layers:
   - Default
   - TransparentFX

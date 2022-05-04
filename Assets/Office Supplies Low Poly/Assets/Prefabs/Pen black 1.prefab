@@ -281,6 +281,7 @@ GameObject:
   - component: {fileID: 8170211081209878299}
   - component: {fileID: 291212856596748040}
   - component: {fileID: 1475951541709477966}
+  - component: {fileID: 3095367458342224272}
   m_Layer: 9
   m_Name: Pen black 1
   m_TagString: Untagged
@@ -494,7 +495,7 @@ MonoBehaviour:
   gameObjectToTrack: {fileID: 4935772207310149578}
   minDistanceBeforeNewPoint: 0.01
   lineDefaultWidth: 0.02
-  defaultLineMaterial: {fileID: 2100000, guid: 6377d080458c2de45b39a84ea8c0f5b9, type: 2}
+  defaultLineMaterial: {fileID: 2100000, guid: d7684c0c207f5a242b3234dea489648f, type: 2}
 --- !u!114 &1475951541709477966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,6 +512,24 @@ MonoBehaviour:
   drawMode: {fileID: 1716673005982093081, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   tip: {fileID: 592691906549161207}
   penSize: 3
+  lineMat: {fileID: 0}
+--- !u!114 &3095367458342224272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4935772206011339362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95234faa0d2555f47bed678961cf88d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deleteMode: {fileID: -6059904301284996345, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  drawMode: {fileID: 1716673005982093081, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  tip: {fileID: 592691906549161207}
+  penSize: 3
+  lineMat: {fileID: 2100000, guid: 881d1a1e7c0a2114f99e497ba3427f25, type: 2}
 --- !u!1 &4935772207310149578
 GameObject:
   m_ObjectHideFlags: 0

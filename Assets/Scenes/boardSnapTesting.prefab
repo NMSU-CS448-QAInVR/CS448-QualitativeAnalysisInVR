@@ -111,8 +111,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   texture: {fileID: 0}
-  width: 1920
-  height: 1080
+  width: 960
+  height: 540
   textureSize: {x: 0, y: 0}
 --- !u!1 &7692449865794392317
 GameObject:
