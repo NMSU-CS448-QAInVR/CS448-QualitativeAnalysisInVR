@@ -18,6 +18,8 @@ public class MenuToggle : MonoBehaviour
     [SerializeField]
     GameObject ContextualMenuMountPoint;
 
+    private GameObject hoveredNotecard;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -33,8 +35,13 @@ public class MenuToggle : MonoBehaviour
 
     private void Toggle(InputAction.CallbackContext context) {
         Debug.LogError("Toggled");
-        menu.SetActive(!menu.activeSelf);
-        MoveThisToPosition(menu, MenuMointPoint);
+        if (hoveredNotecard == null) {
+            menu.SetActive(!menu.activeSelf);
+            MoveThisToPosition(menu, MenuMointPoint);
+        } else {
+            ShowContextualMenuNotecard(hoveredNotecard);
+        } // end else
+       
     } // end Toggle
 
     private void MoveThisToPosition(GameObject target, GameObject mountPoint) {
@@ -52,5 +59,14 @@ public class MenuToggle : MonoBehaviour
     public void HideContextualMenu() {
         ContextualMenu.SetActive(false);
     } // end OpenMenuMountPoint
+
+    public void SetHoveredNotecard(GameObject obj) {
+        hoveredNotecard = obj;
+    } // end SetHoverNotecard
+
+    public void UnhoverNotecard() {
+        hoveredNotecard = null;
+    } // end UnhoverNotecard
+
 
 }

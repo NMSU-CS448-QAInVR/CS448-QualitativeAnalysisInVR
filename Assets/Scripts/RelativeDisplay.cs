@@ -12,7 +12,7 @@ public class RelativeDisplay : MonoBehaviour
     
     public NotecardTextEdit info;
 
-    public string Title = "Title";
+    public string Title = "";
     public string LongInfo;
 
     float distancex;
