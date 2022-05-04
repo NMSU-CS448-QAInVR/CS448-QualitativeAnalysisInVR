@@ -45,6 +45,7 @@ public class Drawer : MonoBehaviour
     private bool touchedLastFrame;
     private Quaternion lastTouchRot;
 
+    public Material lineMat;
     // Start is called before the first frame update
     void Start()
     {
@@ -66,11 +67,11 @@ public class Drawer : MonoBehaviour
     private void Draw()
     {
 
-        if ((Physics.Raycast(tip.position, transform.right, out touch, tipHeight, LayerMask.GetMask("NoteCard"))
-                || Physics.Raycast(tip.position, transform.right, out touch, tipHeight, LayerMask.GetMask("DrawBoard")))
+        if ((Physics.Raycast(tip.position, transform.right, out touch, Mathf.Infinity, LayerMask.GetMask("NoteCard"))
+                || Physics.Raycast(tip.position, transform.right, out touch, Mathf.Infinity, LayerMask.GetMask("DrawBoard")))
             && touch.transform.CompareTag("Drawable") && GetComponent<DrawController3D>().trigger.action.ReadValue<float>() == 0.0f)
         {
-
+            DrawLine(tip.position, touch.point, Color.blue);
             if (whiteboard == null)
             {
                 whiteboard = touch.transform.GetComponent<Drawable>();
@@ -114,14 +115,6 @@ public class Drawer : MonoBehaviour
                 return;
             }
 
-            // Instantaneous movement makes it so that the Drawer pen ignores physics. So while 
-            // we're drawing, change the movement type to velocity tracking so that the pen accounts
-            // for physics and doesn't clip through the board.
-            xrGrabInteractable.movementType = XRBaseInteractable.MovementType.VelocityTracking;
-            xrGrabInteractable.smoothPosition = true;
-            xrGrabInteractable.smoothPositionAmount = 16f;
-            xrGrabInteractable.smoothRotation = true;
-
             if (touchedLastFrame && (isDeleting || drawMode.action.ReadValue<float>() > 0.0f))
             {
                 whiteboard.SetPixels(x, y, penSize, penSize, colors);
@@ -150,11 +143,6 @@ public class Drawer : MonoBehaviour
             return;
 
         }
-        else
-        {
-            // Ensure that if we're not detecting any drawing being done, 
-            xrGrabInteractable.movementType = XRBaseInteractable.MovementType.Instantaneous;
-        }
 
         // Always ensure that the boxCollider is re-enabled when we're done drawing 
         // (this is for the notecard)
@@ -179,6 +167,23 @@ public class Drawer : MonoBehaviour
         {
             colors = Enumerable.Repeat(Color.red, penSize * penSize).ToArray();
         }
+    }
+
+    void DrawLine(Vector3 start, Vector3 end, Color color, float duration = 0.01f)
+    {
+        GameObject myLine = new GameObject();
+        myLine.transform.position = start;
+        myLine.AddComponent<LineRenderer>();
+        LineRenderer lr = myLine.GetComponent<LineRenderer>();
+        lr.positionCount = 2;
+        lr.material = lineMat;
+        lr.startColor = color;
+        lr.endColor = color;
+        lr.startWidth = 0.01f;
+        lr.endWidth = 0.01f;
+        lr.SetPosition(0, start);
+        lr.SetPosition(1, end);
+        GameObject.Destroy(myLine, duration);
     }
 
 }
