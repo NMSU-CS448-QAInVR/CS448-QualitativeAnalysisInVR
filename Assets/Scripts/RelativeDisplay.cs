@@ -4,27 +4,30 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+//Determines text display based on distance to card from user object
+
+
 public class RelativeDisplay : MonoBehaviour
 {
 
-    public GameObject user;
-    public GameObject card;
+    public GameObject user;  //connection to object to get user position
+    public GameObject card;  //connection to card object
     
     public NotecardTextEdit info;
 
-    public string Title = "";
-    public string LongInfo;
+    public string Title = "";   //default far display 
+    public string LongInfo;    //close display (not used)
 
     float distancex;
     float distancey;
     float distancez; 
-    Vector3 rangeOfView = new Vector3(2f,2f,2f);
+    Vector3 rangeOfView = new Vector3(2f,2f,2f);  //sets view change boundary
 
 
     // Start is called before the first frame update
     void Start()
     {
-        //distance = card.transform.position - user.transform.position;
+        
     }
 
     // Update is called once per frame
@@ -37,13 +40,13 @@ public class RelativeDisplay : MonoBehaviour
         string result = Title + "\n"  + LongInfo;
 
         //Debug.Log(distance);
-         
-         if(distancex > rangeOfView.x || distancey > rangeOfView.y || distancez > rangeOfView.z){
+         //check user distance from card
+         if(distancex > rangeOfView.x || distancey > rangeOfView.y || distancez > rangeOfView.z){  //if greater than boundary
              //Debug.Log("Far");
             info.ChangeText(Title);
          }
 
-         else{
+         else{  //if close
             info.ChangeText(result);
          }
 

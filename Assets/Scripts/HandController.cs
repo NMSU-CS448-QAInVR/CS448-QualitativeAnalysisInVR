@@ -12,12 +12,14 @@ public class HandController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //set up
         controller = GetComponent<ActionBasedController>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //call setGrip and setTrigger and pass float values from buttons
         hand.SetGrip(controller.selectAction.action.ReadValue<float>());
         hand.SetTrigger(controller.activateAction.action.ReadValue<float>());
     }
