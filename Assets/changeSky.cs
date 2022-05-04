@@ -4,9 +4,12 @@ using System;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
+//swithces between sky when object is selected
+//add this script to selectable objects
+
 public class changeSky : MonoBehaviour
 {
-
+    //inspector connections for skybox objects
     public Material box1;
     public Material box2;
     public Material box3;
