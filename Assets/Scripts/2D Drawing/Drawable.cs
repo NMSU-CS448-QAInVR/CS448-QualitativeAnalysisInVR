@@ -73,12 +73,7 @@ public class Drawable : MonoBehaviour
             } // end if
         } // end if 
        
-        
-        Texture2D myTexture = new Texture2D((int)textureSize.x, (int)textureSize.y);
-        Renderer myRenderer = GetComponent<Renderer>();
-        ImageConversion.LoadImage(myTexture, data);  
-        myRenderer.material.mainTexture = myTexture;
-        texture = myTexture;
+        ImageConversion.LoadImage(texture, data);  
         SetModified();
     } // end UpdateTexture
 
