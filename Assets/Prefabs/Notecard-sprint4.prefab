@@ -502,10 +502,10 @@ MonoBehaviour:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MenuToggle, Assembly-CSharp
         m_MethodName: SetHoveredNotecard
-        m_Mode: 2
+        m_Mode: 0
         m_Arguments:
-          m_ObjectArgument: {fileID: 5079874600087058494}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -517,7 +517,7 @@ MonoBehaviour:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MenuToggle, Assembly-CSharp
         m_MethodName: UnhoverNotecard
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -713,7 +713,7 @@ MonoBehaviour:
   user: {fileID: 100054, guid: d0c255d07fd68f14b94e55d388e7e6bb, type: 3}
   card: {fileID: 5079874600087058494}
   info: {fileID: 4113771564491047581}
-  Title: Title
+  Title: 
   LongInfo: 
 --- !u!114 &5678887351101882486
 MonoBehaviour:

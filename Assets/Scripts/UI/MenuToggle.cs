@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UIController;
+using UnityEngine.XR.Interaction.Toolkit;
 
 // based on https://www.youtube.com/watch?v=jOn0YWoNFVY
 public class MenuToggle : MonoBehaviour
@@ -60,12 +61,18 @@ public class MenuToggle : MonoBehaviour
         ContextualMenu.SetActive(false);
     } // end OpenMenuMountPoint
 
-    public void SetHoveredNotecard(GameObject obj) {
-        hoveredNotecard = obj;
+    public void SetHoveredNotecard(HoverEnterEventArgs ev) {
+        string name = ev.interactorObject.transform.name.ToLower();
+        if (name.Contains("lefthand")) {
+            hoveredNotecard = ev.interactableObject.transform.gameObject;
+        } // end if
     } // end SetHoverNotecard
 
-    public void UnhoverNotecard() {
-        hoveredNotecard = null;
+    public void UnhoverNotecard(HoverExitEventArgs ev) {
+        string name = ev.interactorObject.transform.name.ToLower();
+        if (name.Contains("lefthand")) {
+             hoveredNotecard = null;
+        } // end if
     } // end UnhoverNotecard
 
 
