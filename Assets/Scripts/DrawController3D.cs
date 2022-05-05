@@ -85,8 +85,14 @@ public class DrawController3D : MonoBehaviour
     public List<Savable> GetLines() {
         List<Savable> result = new List<Savable>();
         foreach (LineRenderer line in lines) {
-            if (line.positionCount <= 0)
+            try {
+                if (line.positionCount <= 0)
+                    continue;
+            } catch(Exception e) {
+                Debug.LogError(e.Message);
+                Debug.LogError(e.StackTrace);
                 continue;
+            } // end catch
             
             Debug.Log(line.gameObject);
             result.Add(line.gameObject.GetComponent<Savable>());
@@ -96,8 +102,14 @@ public class DrawController3D : MonoBehaviour
 
     public void ClearAllDrawingsList() {
         foreach (LineRenderer line in lines) {
-            GameObject obj = line.gameObject;
-            Destroy(obj);
+            try {
+                GameObject obj = line.gameObject;
+                Destroy(obj);
+            } catch (Exception e) {
+                Debug.LogError(e.Message);
+                Debug.LogError(e.StackTrace);
+                continue;
+            }
         } // end foreach
         this.lines.Clear();
         Called = 0;
