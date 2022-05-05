@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1489161714}
-  m_IndirectSpecularColor: {r: 0.38188022, g: 0.4685309, b: 0.6137586, a: 1}
+  m_IndirectSpecularColor: {r: 0.3818804, g: 0.46853095, b: 0.61375695, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1715,6 +1715,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ace7916537cc6e449725597cbc34728, type: 3}
+--- !u!1 &398879457 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7ace7916537cc6e449725597cbc34728, type: 3}
+  m_PrefabInstance: {fileID: 398879456}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &398879458
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398879457}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7.536636, y: 0.39711437, z: 7.542956}
+  m_Center: {x: 0, y: 0.19855721, z: 0.0000009536743}
 --- !u!1 &438084098
 GameObject:
   m_ObjectHideFlags: 0
@@ -3690,9 +3708,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e988983f96fe1dd48800bcdfc82f23e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LineWidth: 0.02
+  m_LineWidth: 0.008
   m_OverrideInteractorLineLength: 1
-  m_LineLength: 10
+  m_LineLength: 7
   m_WidthCurve:
     serializedVersion: 2
     m_Curve:
@@ -3719,8 +3737,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   m_ValidColorGradient:
     serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 1}
-    key1: {r: 1, g: 1, b: 1, a: 1}
+    key0: {r: 0.503916, g: 0.7169812, b: 0.54265517, a: 1}
+    key1: {r: 0.36044857, g: 0.5660378, b: 0.4037305, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -3748,8 +3766,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   m_InvalidColorGradient:
     serializedVersion: 2
-    key0: {r: 1, g: 0, b: 0, a: 1}
-    key1: {r: 1, g: 0, b: 0, a: 1}
+    key0: {r: 1, g: 0.7684327, b: 0, a: 1}
+    key1: {r: 1, g: 0.5203068, b: 0, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -3775,7 +3793,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  m_SmoothMovement: 0
+  m_SmoothMovement: 1
   m_FollowTightness: 10
   m_SnapThresholdDistance: 10
   m_Reticle: {fileID: 0}

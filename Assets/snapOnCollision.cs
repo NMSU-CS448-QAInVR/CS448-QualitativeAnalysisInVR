@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//THIS SCRIPT IS NOT USED AND DOES NOT WORK
+
+
 public class snapOnCollision : MonoBehaviour
 {
 
