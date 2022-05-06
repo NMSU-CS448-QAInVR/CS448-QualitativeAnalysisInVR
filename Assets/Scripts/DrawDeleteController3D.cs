@@ -1,3 +1,11 @@
+/*
+ * DrawDeleteController3D.cs
+ * Written by Fidel Soto
+ * 
+ * This script takes care of deleting 3D drawings when the user holds the 
+ * pen up to a 3D drawing while pressing A on the oculus controller.
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +13,8 @@ using UnityEngine;
 public class DrawDeleteController3D : MonoBehaviour
 {
 
+    // info from the parent pen is necessary to determine if the
+    // pen is grabbed and if the user is pressing A
     public GameObject parentPen = null;
     private DrawController3D parentDrawController;
 
@@ -26,6 +36,8 @@ public class DrawDeleteController3D : MonoBehaviour
     {
         // Debug.Log($"OnCollisionEnter Entered. parentDrawController.isGrabbed is {parentDrawController.isGrabbed}. " +
         //     $"parentDrawController.isErasing is {parentDrawController.isErasing}");
+        
+        // When a sphere collider of a 3D drawing is detected delte the draw parent
         if (collision.gameObject.tag == "LineCollider" && 
             parentDrawController.isGrabbed && 
             parentDrawController.isErasing)

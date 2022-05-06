@@ -1,3 +1,11 @@
+/*
+ * DrawController3D.cs
+ * Written by Fidel Soto and Long Tran
+ * 
+ * This script takes care of creating 3d drawings when the pen is being held
+ * and the trigger of the oculus controller is pressed. 
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,31 +18,34 @@ public class DrawController3D : MonoBehaviour
     public bool isErasing = false;
     public bool isGrabbed = false;
     private GameObject go;
+
     // Action reference to trigger the 3d draw functionality
     // (set in the editor). Should be a trigger press.
     public InputActionReference trigger = null;
 
+    // Action reference to delete a drawing. Should be the A button
     public InputActionReference deleteMode = null;
 
     // Object whose position will be tracked when drawing. 
-    // This should be the tip of a brush or pen or something. 
-    // Testing to see if tracking an empty object at the end of a pen
-    // would work.
+    // This should be the tip of a brush or pen. 
     public GameObject gameObjectToTrack;
 
+    // the minimum distance before creating a new point. 
+    // this is to prevent the creation of a bunch of new
+    // points, taxing performance
     [SerializeField, Range(0, 1.0f)]
     private float minDistanceBeforeNewPoint = 0.01f;
 
     private int positionCount = 0;
 
-    // Store lines in a list. Could be useful when loading/saving
-    // a session.
+    // Store lines in a list. Used for load/save system
     private List<LineRenderer> lines = new List<LineRenderer>();
     private LineRenderer currentLineRender;
 
     [SerializeField, Range(0, 1.0f)]
     private float lineDefaultWidth = 0.02f;
 
+    // Material set in the inspector for the lines that are drawn
     [SerializeField]
     private Material defaultLineMaterial;
 
@@ -53,6 +64,8 @@ public class DrawController3D : MonoBehaviour
         //Debug.Log("Drew " + this.Called + " drawing lines");
     }
 
+    // When the script starts, add a new 
+    // game object and line renderer to draw lines
     void Awake()
     {
         AddNewLineRenderer();
@@ -128,6 +141,7 @@ public class DrawController3D : MonoBehaviour
         } // end finally
     } // end LoadLines
 
+    // Check if the trigger is being pressed in order to draw
     void CheckTriggerState()
     {
         bool isTriggerPressing = trigger.action.ReadValue<float>() > 0.1f;
@@ -147,6 +161,8 @@ public class DrawController3D : MonoBehaviour
 
     }
 
+    // Check if the A button is being pressed to delete. 
+    // Deletion is taken care of in DrawDeleteController3D.cs
     void CheckDeleteState()
     {
         bool isPrimaryButtonPressed = deleteMode.action.ReadValue<float>() > 0.0f;
@@ -162,6 +178,8 @@ public class DrawController3D : MonoBehaviour
 
     }
 
+    // Update line. Only add new points if the pen has moved enough distance
+    // from the previous point. 
     void UpdateLine()
     {
         if (prevPointDistance == null)
@@ -177,6 +195,8 @@ public class DrawController3D : MonoBehaviour
 
     }
 
+    // Add points to the line renderer drawing. Additionally, 
+    // add a sphere collider to each point for when the time to delete them comes.
     void AddPoint(Vector3 position)
     {
         currentLineRender.SetPosition(positionCount, position);

@@ -1,3 +1,18 @@
+/*
+ * Drawable.cs
+ * 
+ * Written by Fidel Soto and Long Tran
+ * Implementation borrowed from and extended upon https://www.youtube.com/watch?v=sHE5ubsP-E8
+ * 
+ * This script takes care of holding the texture of the board or notecard that it is attached to.
+ * There used to be issues with color and shading looking off compared to the boards and notecards. 
+ * So when the script starts, a preemptive color is applied to the board so that it matches with the 
+ * colors applied by the pen better. 
+ * 
+ * When a data coding session is stored, the texture of the boards and notecards are stored as pngs. 
+ * 
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -21,6 +36,9 @@ public class Drawable : MonoBehaviour
 
     private void Awake()
     {
+        // Only apply textures to boards when this script awakes. 
+        // This is to save on the performance cost of having to create
+        // new textures every time we create a card. 
         if (!transform.name.Contains("Clone"))
         {
             int layer = transform.gameObject.layer;
@@ -34,6 +52,8 @@ public class Drawable : MonoBehaviour
         }
     }
 
+    // Clear drawing when we load a new session.
+    // This is called in the save load system
     public void ClearDrawing() {
         Color[] colors = null;
         int layer = transform.gameObject.layer;
@@ -47,6 +67,7 @@ public class Drawable : MonoBehaviour
         texture.Apply(true);
     } // end ClearDrawing
 
+    // Assign the new texture here
     public void AssignNewTexture() {
         Color[] colors = null;
         int layer = transform.gameObject.layer;
@@ -64,6 +85,7 @@ public class Drawable : MonoBehaviour
         texture.Apply(true);
         myRenderer.material.mainTexture = texture;
     } // end AssignNewTexture
+
 
     public void UpdateTexture(byte[] data) {
         int layer = transform.gameObject.layer;
