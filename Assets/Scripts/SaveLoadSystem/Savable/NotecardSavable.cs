@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using System;
 using UnityEngine;
 
-
+/*
+    Check Savable to learn more.
+*/
 public class NotecardSavable : Savable
 {
     public override async Task<SaveFormat> SaveObject(string save_des_folder) {

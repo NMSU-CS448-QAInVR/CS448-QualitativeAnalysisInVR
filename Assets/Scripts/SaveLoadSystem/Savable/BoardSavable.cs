@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using System;
 using UnityEngine;
 
-
+/*
+    Check Savable to learn more.
+*/
 public class BoardSavable : Savable
 {
     public int id;

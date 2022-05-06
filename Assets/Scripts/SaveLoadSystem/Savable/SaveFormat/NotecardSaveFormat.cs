@@ -5,6 +5,13 @@ using UnityEngine;
 using System.Threading.Tasks;
 using System;
 
+/*
+    Check SaveFormat for more info.
+
+    The savings of 2D drawings of a notecard will be stored externally as a PNG file. The name of the file is texture_file_name, the folder where the file is saved_folder. The saved_folder is currently the name of the folder of the session where this will be stored. 
+    The name will be "notecard" + index i from the static variable notecard_no. notecard_no will increment after each notecard returns a NotecardSaveFormat. 
+    This notecard_no should be reset in every load using the function ResetNotecardNo. 
+*/
 [Serializable]
 public class NotecardSaveFormat : SaveFormat
 {

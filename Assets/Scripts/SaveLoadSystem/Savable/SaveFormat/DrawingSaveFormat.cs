@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 using UnityEngine;
 using System;
 
+/*
+    Check SaveFormat for more info.
+*/
 [Serializable]
 public class DrawingSaveFormat : SaveFormat
 {
