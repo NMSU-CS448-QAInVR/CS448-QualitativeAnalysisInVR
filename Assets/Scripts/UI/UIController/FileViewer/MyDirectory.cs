@@ -21,7 +21,7 @@ public class MyDirectory : MyFileOrDirectory {
         }
     } // end root
 
-    public MyDirectory(string path) : this(FileManager.GetFilesAndDirsAt(path)){
+    public MyDirectory(string path) : this(FileManager.GetFilesAndDirsAt(path, false)){
     } // end root
     
 }
