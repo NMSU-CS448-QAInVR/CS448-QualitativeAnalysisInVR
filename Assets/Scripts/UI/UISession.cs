@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UIController;
 
+/*
+    A UI session that will keep track of the history of submenus moving.
+*/
 public class UISession
 {
     Stack<BaseSubMenuController> prev;
@@ -15,6 +18,11 @@ public class UISession
         current = intial;
     } // end UISession
 
+    /*
+        Move to a new sub menu. 
+        Input: the new menu to add to.
+        Output: the input sub menu.
+    */
     public BaseSubMenuController MoveToNewMenu(BaseSubMenuController menu) {
         if (menu == null) {
             Debug.LogError("Cannot add null menu");
@@ -26,6 +34,10 @@ public class UISession
         return current;
     } // end PushMenu
 
+    /*
+        Move to the forward menu.
+        Output: the destination sub menu.
+    */
     public BaseSubMenuController MoveToForwardMenu() {
         BaseSubMenuController temp = forward.Dequeue();
         if (temp == null)
@@ -36,6 +48,10 @@ public class UISession
         return current;
     } // end GetForward
 
+    /*
+        Move to the previous menu.
+        Output: the destination sub menu.
+    */
     public BaseSubMenuController MoveToPrevMenu() {
         BaseSubMenuController temp = prev.Pop();
         if (temp == null)
@@ -46,6 +62,10 @@ public class UISession
         return current;
     } // GetPrev
 
+    /*
+        Get the current menu.
+        Output: the current sub menu.
+    */
     public BaseSubMenuController GetCurrent() {
         return current;
     } // GetCurrent

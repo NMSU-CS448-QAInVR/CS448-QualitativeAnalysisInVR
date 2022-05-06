@@ -8,10 +8,16 @@ using UIController;
 
 
 namespace UIController {
+    /*
+        Controller for the load menu.
+    */
     public class LoadMenuController: BaseSubMenuController
     {  
+        // the list containing the session
         [SerializeField]
         private GameObject ListViewContentObject;
+
+        // the template for each session entry in the list.
         [SerializeField]
         private GameObject ListViewButtonTemplate;
 
@@ -20,6 +26,14 @@ namespace UIController {
         { 
 
         }
+
+        /*
+            Populate the session list with a list of sessions, the load action, and the delete action.
+            Input:
+            + sessions: The list of session to populate from.
+            + loadAction: the action to do when a session entry is clicked.
+            + deleteAction: the action to do when the delete button of a session entry is clicked.
+        */
         public void PopulateSessionList(List<string> sessions, UnityAction<string> loadAction, UnityAction<string, UnityAction> deleteAction) {
             Transform[] children = ListViewContentObject.GetComponentsInChildren<Transform>();
             // remove existing buttons
@@ -50,7 +64,6 @@ namespace UIController {
             ListViewButtonTemplate.SetActive(false);
         } // end PopulateSessionList
            
-        
     } // end LoadMenuController
 } // end UIController
 

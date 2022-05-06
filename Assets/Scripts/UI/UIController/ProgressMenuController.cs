@@ -8,6 +8,9 @@ using UnityEngine.UI;
 using TMPro;
 
 namespace UIController {
+    /*
+        The controller for the progress menu.
+    */
     public class ProgressMenuController : BaseSubMenuController
     {  
         private TextMeshProUGUI promptField;
@@ -23,6 +26,9 @@ namespace UIController {
             doneButton.gameObject.SetActive(false);
         }
 
+        /*
+            Set the prompt of the menu.
+        */
         public void SetPrompt(string prompt) {
             if (promptField == null)
                 return;
@@ -34,6 +40,10 @@ namespace UIController {
 
         } // end SetDoneAction
 
+        /*
+            Action when the task in in progress
+            Output: return the output of actionToDo().
+        */
         public async Task<bool> ShowOnProgress(Func<Task<bool>> actionToDo) {
             // show cancel button
             cancelButton.gameObject.SetActive(true);
@@ -54,6 +64,9 @@ namespace UIController {
             return task;
         } // end ShowOnProgress
 
+        /*
+            Action when the task is done.
+        */
         public void ShowDone(UnityAction onDoneAction) {
             // show done button
             doneButton.gameObject.SetActive(true);

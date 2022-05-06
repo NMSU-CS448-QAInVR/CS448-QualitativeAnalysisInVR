@@ -6,6 +6,7 @@ using System;
 
 /*
     Check SaveFormat for more info.
+    Drawing SaveFormat will save the positions and scales of the LineRenderer and the (x, y, z) coordinates of each point in the LineRenderer
 */
 [Serializable]
 public class DrawingSaveFormat : SaveFormat

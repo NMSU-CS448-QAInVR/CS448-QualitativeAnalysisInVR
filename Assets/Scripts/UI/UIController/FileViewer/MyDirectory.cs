@@ -1,6 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
 
+/*
+    A class to encapsulate the DirectoryInfo class of .NET. 
+    It will only contain a list of files and directories. 
+    See MyFileOrDirectory for more info.
+*/
 public class MyDirectory : MyFileOrDirectory {
     public List<MyFile> files;
     public List<MyDirectory> directories;

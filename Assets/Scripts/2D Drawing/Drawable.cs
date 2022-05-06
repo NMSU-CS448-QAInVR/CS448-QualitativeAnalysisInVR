@@ -9,7 +9,9 @@
  * So when the script starts, a preemptive color is applied to the board so that it matches with the 
  * colors applied by the pen better. 
  * 
- * When a data coding session is stored, the texture of the boards and notecards are stored as pngs. 
+ * When a data coding session is stored, the texture of the boards and notecards are stored as pngs files. 
+
+    Initially, notecard will share the same texture object with the prefab object (prefab in the scene) in order to optimize performance and memory. A notecard will only be assigned a new texture when it is modified (either with drawing or png update).
  * 
  */
 
@@ -34,6 +36,7 @@ public class Drawable : MonoBehaviour
     private static Color[] notecards_colors = null;
     private static Color[] board_colors = null;
 
+    // at the start, we store as static variables, the initial colors of the boards and cards, so we don't need to recreate the original colros each time, to boost performance. 
     private void Awake()
     {
         // Only apply textures to boards when this script awakes. 
@@ -67,7 +70,9 @@ public class Drawable : MonoBehaviour
         texture.Apply(true);
     } // end ClearDrawing
 
-    // Assign the new texture here
+    /*
+        Give this object a new texture.
+    */
     public void AssignNewTexture() {
         Color[] colors = null;
         int layer = transform.gameObject.layer;
@@ -86,7 +91,11 @@ public class Drawable : MonoBehaviour
         myRenderer.material.mainTexture = texture;
     } // end AssignNewTexture
 
-
+    /*
+        Update the texture of the drawing with an array of bytes of an image.
+        Input:
+        + data: the bytes to update hte texture with.
+    */
     public void UpdateTexture(byte[] data) {
         int layer = transform.gameObject.layer;
         if (layer == LayerMask.NameToLayer("NoteCard")) {
@@ -99,12 +108,26 @@ public class Drawable : MonoBehaviour
         SetModified();
     } // end UpdateTexture
 
+    /*
+        Get the current texture of the drawing as an array of bytes.
+        Output: An array of bytes representing a PNG file. 
+    */
     public byte[] GetTextureColor() {
         byte[] result = new byte[0];
         result = texture.EncodeToPNG();
         return result;
     } // end GetTexture
 
+    /*
+        Set pixels of the texture with colors. A new texture will be assigned if this texture has not been modified. 
+
+        Input: See Texture2D.SetPixels() for more information about these inputs. 
+        + x: 
+        + y:
+        + blockWidth
+        + blockHeight
+        + colors: The colors to set the pixels with.
+    */
     public void SetPixels(int x, int y, int blockWidth, int blockHeight, Color[] colors) {
         if (!isModified()) {
             AssignNewTexture();
@@ -114,13 +137,18 @@ public class Drawable : MonoBehaviour
         SetModified();
     } // end SetPixels
 
+    /*
+        Set that the object is modified
+    */
     public void SetModified() {
         modified = true;
     } // end SetModified
 
+    /*
+        Check if the object is modified.
+        Output: True if the object is modified, else false. 
+    */
     public bool isModified() {
         return modified;
     } // end isModified
-
-
 }

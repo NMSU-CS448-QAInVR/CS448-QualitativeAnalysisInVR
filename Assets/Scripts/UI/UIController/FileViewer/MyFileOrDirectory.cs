@@ -1,3 +1,6 @@
+/*
+    A class to represent a generic entry in the file viewing menu that is either a file or a directory. 
+*/
 public class MyFileOrDirectory {
     public string name;
     public string path;
