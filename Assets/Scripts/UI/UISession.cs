@@ -1,20 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UIController;
 
+/*
+    A UI session that will keep track of the history of submenus moving.
+*/
 public class UISession
 {
-    Stack<GameObject> prev;
-    Queue<GameObject> forward;
-    GameObject current;
+    Stack<BaseSubMenuController> prev;
+    Queue<BaseSubMenuController> forward;
+    BaseSubMenuController current;
 
-    public UISession(GameObject intial) {
-        prev = new Stack<GameObject>();
-        forward = new Queue<GameObject>();  
+    public UISession(BaseSubMenuController intial) {
+        prev = new Stack<BaseSubMenuController>();
+        forward = new Queue<BaseSubMenuController>();  
         current = intial;
     } // end UISession
 
-    public GameObject MoveToNewMenu(GameObject menu) {
+    /*
+        Move to a new sub menu. 
+        Input: the new menu to add to.
+        Output: the input sub menu.
+    */
+    public BaseSubMenuController MoveToNewMenu(BaseSubMenuController menu) {
         if (menu == null) {
             Debug.LogError("Cannot add null menu");
             return null;
@@ -25,8 +34,12 @@ public class UISession
         return current;
     } // end PushMenu
 
-    public GameObject MoveToForwardMenu() {
-        GameObject temp = forward.Dequeue();
+    /*
+        Move to the forward menu.
+        Output: the destination sub menu.
+    */
+    public BaseSubMenuController MoveToForwardMenu() {
+        BaseSubMenuController temp = forward.Dequeue();
         if (temp == null)
             return temp;
 
@@ -35,8 +48,12 @@ public class UISession
         return current;
     } // end GetForward
 
-    public GameObject MoveToPrevMenu() {
-        GameObject temp = prev.Pop();
+    /*
+        Move to the previous menu.
+        Output: the destination sub menu.
+    */
+    public BaseSubMenuController MoveToPrevMenu() {
+        BaseSubMenuController temp = prev.Pop();
         if (temp == null)
             return temp;
             
@@ -45,7 +62,11 @@ public class UISession
         return current;
     } // GetPrev
 
-    public GameObject GetCurrent() {
+    /*
+        Get the current menu.
+        Output: the current sub menu.
+    */
+    public BaseSubMenuController GetCurrent() {
         return current;
     } // GetCurrent
 

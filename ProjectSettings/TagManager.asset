@@ -6,6 +6,9 @@ TagManager:
   tags:
   - LoadButton
   - DeleteButton
+  - LineCollider
+  - Drawable
+  - Pen
   layers:
   - Default
   - TransparentFX
@@ -13,11 +16,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - NoteCard
+  - Board
+  - DrawBoard
+  - Pen
+  - TrashCan
   - 
   - 
   - 
